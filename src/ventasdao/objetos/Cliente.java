@@ -21,6 +21,8 @@ public class Cliente {
     
     private Integer documento;
     
+    private TipoCliente tipocliente;  //esta es la clave foranea que relaciona la tabla cliente con tipocliente
+    
     
     
 

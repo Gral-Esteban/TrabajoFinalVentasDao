@@ -12,7 +12,9 @@ import java.util.logging.Logger;
 
 import java.util.ArrayList;
 import ventasdao.controladores.ClienteControlador;
+
 import ventasdao.objetos.Cliente;
+
 
 import ventasdao.ui.grilla.GrillaCliente;
 
@@ -121,6 +123,11 @@ public class AbmCliente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtListadoClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtListadoClientesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jtListadoClientes);
 
         jbAltaCliente.setText("Agregar");
@@ -187,8 +194,8 @@ public class AbmCliente extends javax.swing.JInternalFrame {
                                 .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(55, 55, 55)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(151, 151, 151))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
             .addGroup(layout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addComponent(jbAltaCliente)
@@ -212,12 +219,12 @@ public class AbmCliente extends javax.swing.JInternalFrame {
                             .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfApellido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfDocumento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -229,7 +236,7 @@ public class AbmCliente extends javax.swing.JInternalFrame {
                     .addComponent(jbAltaCliente)
                     .addComponent(jbModificarCliente)
                     .addComponent(jbBajaCliente))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
@@ -237,10 +244,47 @@ public class AbmCliente extends javax.swing.JInternalFrame {
 
     private void jbBajaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBajaClienteActionPerformed
         // TODO add your handling code here:
+         cliente = new Cliente();
+        cliente.setId(Integer.parseInt(jtfId.getText()));
+        
+        try {
+            clienteControlador.eliminar(cliente);
+        } catch (Exception ex) {
+            Logger.getLogger(AbmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            jtListadoClientes.setModel(new GrillaCliente(clienteControlador.listar()));
+        } catch (Exception ex) {
+            Logger.getLogger(AbmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }//GEN-LAST:event_jbBajaClienteActionPerformed
 
     private void jbModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarClienteActionPerformed
         // TODO add your handling code here:
+        try {
+            
+            cliente = new Cliente();
+            
+            cliente.setId( Integer.parseInt( jtfId.getText() ) );
+            cliente.setNombre( jtfNombre.getText() );
+            cliente.setApellido( jtfApellido.getText() );
+            cliente.setDocumento( Integer.parseInt( jtfDocumento.getText() ) );
+            cliente.setTipoCliente( Integer.parseInt( jtfTipoCliente.getText() ) );
+            
+            
+            clienteControlador.modificar(cliente);
+        } 
+        catch (Exception ex) {
+            Logger.getLogger(AbmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            jtListadoClientes.setModel( new GrillaCliente( clienteControlador.listar() ));
+        } 
+        catch (Exception ex) {
+            Logger.getLogger(AbmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbModificarClienteActionPerformed
 
     private void jbAltaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAltaClienteActionPerformed
@@ -265,6 +309,17 @@ public class AbmCliente extends javax.swing.JInternalFrame {
             Logger.getLogger(AbmCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbAltaClienteActionPerformed
+
+    private void jtListadoClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListadoClientesMouseClicked
+        // TODO add your handling code here:
+        Cliente cliente = grillaCliente.getClienteFromRow(jtListadoClientes.getSelectedRow());
+       
+       jtfId.setText( cliente.getId().toString() );
+        jtfNombre.setText(cliente.getNombre());
+       jtfApellido.setText(cliente.getApellido());
+       jtfDocumento.setText( cliente.getDocumento().toString() );
+       jtfTipoCliente.setText( cliente.getTipoCliente().toString() );
+    }//GEN-LAST:event_jtListadoClientesMouseClicked
 
     /**
      * @param args the command line arguments

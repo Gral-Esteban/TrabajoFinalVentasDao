@@ -95,7 +95,7 @@ public class ClienteControlador implements ICrud<Cliente>{
     public boolean modificar(Cliente entidad) throws SQLException, Exception {
         
        connection = Conexion.obtenerConexion ();
-       this.sql = "UPDATE cliente SET nombre=?, apellido=? , tipo_cliente_id=?, documento=?, WHERE id=?";
+       this.sql = "UPDATE cliente SET nombre=?, apellido=? , tipo_cliente_id=?, documento=? WHERE id=?";
         
        ps = connection.prepareStatement(sql);
        ps.setString(1,entidad.getNombre() );
