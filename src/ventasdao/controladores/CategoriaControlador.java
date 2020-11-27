@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 import ventasdao.dominio.Conexion;
 import ventasdao.objetos.Categoria;
 
+
+
 /**
  *
  * @author Hugo Chanampe
@@ -67,6 +69,7 @@ public class CategoriaControlador implements ICrud<Categoria>{
             //System.out.println(cont);
             //connection.close();
             return categorias;
+            
         } catch(SQLException ex){
             ex.printStackTrace();
         }
@@ -114,22 +117,77 @@ public class CategoriaControlador implements ICrud<Categoria>{
         return true;
     }
 
+    
+    
+    
+    /*
     @Override
     public Categoria extraer(int id) throws SQLException, Exception{
       connection = Conexion.obtenerConexion();
+      
+      try{
       this.sql= "SELECT * FROM categorias WHERE id = ?";
       this.ps= connection.prepareStatement(sql);
-      ps.setInt(1,id);
+      this.ps.setInt(1,id);
       this.rs= stmt.executeQuery(sql);
       connection.close();
+      
       Categoria categoria = new Categoria();
       categoria.setId(id);
       categoria.setDenominacion(rs.getString("denominacion"));
       categoria.setDescripcion(rs.getString("descripcion"));
       return categoria;
+      
+    }  catch(SQLException ex){
+            ex.printStackTrace();
     }
+      return null;
+    }
+    */
     
     
+    @Override
+    public ArrayList<Categoria> extraer() throws SQLException, Exception{
+    
+    
+     connection = Conexion.obtenerConexion ();
+        try{
+            
+            this.stmt = connection.createStatement();
+            this.sql = "SELECT * FROM categorias";
+            this.rs   = stmt.executeQuery(sql);
+            connection.close();
+            
+            ArrayList<Categoria> categorias = new ArrayList();
+            
+            
+            while(rs.next()){
+                
+                Categoria categoria = new Categoria();
+                
+                categoria.setDenominacion(rs.getString("denominacion"));
+                categoria.setDescripcion(rs.getString("descripcion"));
+                categoria.setId(rs.getInt("id"));
+                
+                        //System.out.println(cliente);
+                
+                
+                categorias.add(categoria);
+                
+            }
+            //System.out.println(cont);
+            //connection.close();
+            return categorias;
+            
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return null;
+    
+
+    
+    
+    }
     
     
 
@@ -147,5 +205,10 @@ public class CategoriaControlador implements ICrud<Categoria>{
        connection.close();
        return true;
     }
+    
+    
+ 
+    
+    
     
 }

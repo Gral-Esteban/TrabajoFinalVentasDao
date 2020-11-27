@@ -16,8 +16,25 @@ public class Producto {
 
     private Float precio;
     
+    private Integer stock;
+    
     private Date fechaCreacion;
 
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    
+    
+    
+    
+    
+    
+    // Getter and Setter
     public Integer getId() {
         return id;
     }

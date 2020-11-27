@@ -6,32 +6,50 @@
 package ventasdao.ui.abm;
 
 //import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 //import javax.swing.table.DefaultTableModel;
 
 import java.util.ArrayList;
+import java.sql.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import ventasdao.controladores.ClienteControlador;
+import ventasdao.controladores.FacturaControlador;
 
 import ventasdao.objetos.Cliente;
+//import ventasdao.objetos.AbmFactura;
 
 
 import ventasdao.ui.grilla.GrillaCliente;
+
+import ventasdao.ui.abm.AbmFactura;
 
 /**
  *
  * @author Esteban DAlbano
  */
-public class AbmCliente extends javax.swing.JInternalFrame {
+public class FacturaGetCliente extends javax.swing.JInternalFrame {
     
     
     private Cliente cliente;
     private GrillaCliente grillaCliente;
     private ClienteControlador clienteControlador = new ClienteControlador();
     
+    private AbmFactura factura;
+    private FacturaControlador facturaclientecontrolador = new FacturaControlador();
     
     
-    public AbmCliente() {
+    
+    //DefaultTableModel modelo = new DefaultTableModel();
+    
+    
+    
+    
+    
+    public FacturaGetCliente() {
         
         initComponents();
         
@@ -68,6 +86,7 @@ public class AbmCliente extends javax.swing.JInternalFrame {
      */
   
 
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,8 +101,6 @@ public class AbmCliente extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jtListadoClientes = new javax.swing.JTable();
         jbAltaCliente = new javax.swing.JButton();
-        jbModificarCliente = new javax.swing.JButton();
-        jbBajaCliente = new javax.swing.JButton();
         jtfId = new javax.swing.JTextField();
         jtfNombre = new javax.swing.JTextField();
         jtfApellido = new javax.swing.JTextField();
@@ -110,7 +127,7 @@ public class AbmCliente extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Clientes");
+        setTitle("Seleccionar Cliente");
         setToolTipText("");
 
         jtListadoClientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -135,20 +152,6 @@ public class AbmCliente extends javax.swing.JInternalFrame {
         jbAltaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAltaClienteActionPerformed(evt);
-            }
-        });
-
-        jbModificarCliente.setText("Modificar");
-        jbModificarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbModificarClienteActionPerformed(evt);
-            }
-        });
-
-        jbBajaCliente.setText("Eliminar");
-        jbBajaCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBajaClienteActionPerformed(evt);
             }
         });
 
@@ -198,14 +201,10 @@ public class AbmCliente extends javax.swing.JInternalFrame {
                                         .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(55, 55, 55))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jbAltaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbModificarCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbBajaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbAltaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
@@ -214,6 +213,7 @@ public class AbmCliente extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,124 +234,55 @@ public class AbmCliente extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbAltaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbModificarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbBajaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(72, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addGap(90, 90, 90)
+                        .addComponent(jbAltaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(58, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbBajaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBajaClienteActionPerformed
-        // TODO add your handling code here:
-         cliente = new Cliente();
-        cliente.setId(Integer.parseInt(jtfId.getText()));
-        
-        try {
-            clienteControlador.eliminar(cliente);
-        } catch (Exception ex) {
-            Logger.getLogger(AbmCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            jtListadoClientes.setModel(new GrillaCliente(clienteControlador.listar()));
-        } catch (Exception ex) {
-            Logger.getLogger(AbmCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        
-        
-        //Este refresca la grilla una vez que se hizo una modificacion de lo contrario pierde referencia la grilla con los textfield
-        clienteControlador = new ClienteControlador();
-        ArrayList<Cliente> clientes = new ArrayList<>();
-
-        try {
-            clientes = clienteControlador.listar();
-        } catch (Exception e) {
-            e.printStackTrace ();
-        }
-
-        grillaCliente = new GrillaCliente(clientes);
-        jtListadoClientes.setModel(grillaCliente);
-        
-        
-        //Esto limpia campos
-        jtfNombre.setText("");
-        jtfApellido.setText("");
-       
-        jtfDocumento.setText("");
-        jtfTipoCliente.setText("");
-        
-    }//GEN-LAST:event_jbBajaClienteActionPerformed
-
-    private void jbModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarClienteActionPerformed
-        // TODO add your handling code here:
-        try {
-            
-            cliente = new Cliente();
-            
-            cliente.setId( Integer.parseInt( jtfId.getText() ) );
-            cliente.setNombre( jtfNombre.getText() );
-            cliente.setApellido( jtfApellido.getText() );
-            cliente.setDocumento( Integer.parseInt( jtfDocumento.getText() ) );
-            cliente.setTipoCliente( Integer.parseInt( jtfTipoCliente.getText() ) );
-            
-            
-            clienteControlador.modificar(cliente);
-        } 
-        catch (Exception ex) {
-            Logger.getLogger(AbmCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            jtListadoClientes.setModel( new GrillaCliente( clienteControlador.listar() ));
-        } 
-        catch (Exception ex) {
-            Logger.getLogger(AbmCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        //Este refresca la grilla una vez que se hizo una modificacion de lo contrario pierde referencia la grilla con los textfield
-        clienteControlador = new ClienteControlador();
-        ArrayList<Cliente> clientes = new ArrayList<>();
-
-        try {
-            clientes = clienteControlador.listar();
-        } catch (Exception e) {
-            e.printStackTrace ();
-        }
-
-        grillaCliente = new GrillaCliente(clientes);
-        jtListadoClientes.setModel(grillaCliente);
-        
-        
-        //Esto limpia campos
-        jtfNombre.setText("");
-        jtfApellido.setText("");
-       
-        jtfDocumento.setText("");
-        jtfTipoCliente.setText("");
-        
-    }//GEN-LAST:event_jbModificarClienteActionPerformed
-
     private void jbAltaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAltaClienteActionPerformed
         // TODO add your handling code here:
-        cliente = new Cliente();
-
-        cliente.setNombre(jtfNombre.getText());
-        cliente.setApellido(jtfApellido.getText());
-        cliente.setDocumento(Integer.parseInt(jtfDocumento.getText()));
-        cliente.setTipoCliente(Integer.parseInt(jtfTipoCliente.getText()));
+       
+       
+     AbmFactura.jtfNombreF.setText(jtfNombre.getText());
+     AbmFactura.jtfApellidoF.setText(jtfApellido.getText());
+      AbmFactura.jtfClienteIF.setText(jtfId.getText());
+       
+       
+     dispose();
+       
+       
+       
+       
+        
+       /*
+        
+        factura = new AbmFactura();
+       
+       factura.setCliente_asociado(jtfNombre.getText());
+        
+        factura.setFecha_facturacion(jdcFecha.getDate());
+        
+      
+        
+        
+        //cliente.setTipoCliente(Integer.parseInt(jtfTipoCliente.getText()));
+      JOptionPane.showMessageDialog(null,"llega aqui valor de fecha"+ factura.getFecha_facturacion());
+    
         
         try {
-            clienteControlador.crear(cliente);
+            facturaclientecontrolador.crear(factura);
             
         } catch (Exception ex) {
-            Logger.getLogger(AbmCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FacturaGetCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        
+        
+        
 
         //Este refresca la grilla una vez que se hizo una modificacion de lo contrario pierde referencia la grilla con los textfield
         clienteControlador = new ClienteControlador();
@@ -373,6 +304,9 @@ public class AbmCliente extends javax.swing.JInternalFrame {
        
         jtfDocumento.setText("");
         jtfTipoCliente.setText("");
+        
+        */
+        
         
     }//GEN-LAST:event_jbAltaClienteActionPerformed
 
@@ -402,8 +336,6 @@ public class AbmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbAltaCliente;
-    private javax.swing.JButton jbBajaCliente;
-    private javax.swing.JButton jbModificarCliente;
     private javax.swing.JTable jtListadoClientes;
     private javax.swing.JTextField jtfApellido;
     private javax.swing.JTextField jtfDocumento;
