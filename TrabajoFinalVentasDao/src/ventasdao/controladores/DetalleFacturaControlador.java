@@ -62,21 +62,15 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
      
         
         
-        //JOptionPane.showMessageDialog(null,"llega aqui C");
+        
         
       
         
         
         int tamaño= detallefacturas.size();
         
-        JOptionPane.showMessageDialog(null,"el tamaño del Arraylist es:"+tamaño);
-        
-        
-        
-        
-            //detallefactura = detallefacturas.get(i);
-            
-            //JOptionPane.showMessageDialog(null,"el valor de i:"+i);
+       
+  
             
               connection = Conexion.obtenerConexion ();
         
@@ -85,7 +79,7 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
      
           //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
         
-        JOptionPane.showMessageDialog(null,"los valores producto_id,cantidad,factura_id son:"+detallefactura.getProducto_id()+detallefactura.getCantidad()+detallefactura.getFactura_id());
+        
         
         
         for(DetalleFactura detallefactura:detallefacturas)  {
@@ -105,7 +99,7 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
                  
            
             
-            JOptionPane.showMessageDialog(null,"llega aqui 66666666");
+         
             
 
         } catch (SQLException ex) {
@@ -167,7 +161,10 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
 
    
     
-
+public int funcione (int valor){
+    
+    return valor;
+}
     
     
     

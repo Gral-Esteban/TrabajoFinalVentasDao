@@ -154,6 +154,12 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        jcbCategorias.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbCategoriasItemStateChanged(evt);
+            }
+        });
+
         jdcFechaCreacion.setEnabled(false);
 
         jLabel1.setText("Nombre");
@@ -162,7 +168,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Precio");
 
-        jLabel4.setText("Categoria");
+        jLabel4.setText("Filtrar por categoria");
 
         jLabel5.setText("Fecha Creacion");
 
@@ -266,7 +272,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
                         .addGap(82, 82, 82)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -496,6 +502,40 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
          dispose(); 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jcbCategoriasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbCategoriasItemStateChanged
+       try {                                               
+           // TODO add your handling code here:
+           Categoria categoria = new Categoria();
+           
+           String cat_name = jcbCategorias.getSelectedItem().toString();
+           
+           categoria = facturaProductoControlador.extraer(cat_name);
+           
+           
+           
+           ArrayList<Producto> productos = new ArrayList<>();
+           
+           facturaProductoControlador = new FacturaProductoControlador();
+           categoriaControlador = new CategoriaControlador();
+           
+           
+           try {
+               productos = (ArrayList<Producto>) facturaProductoControlador.listar(categoria.getId());
+               grillaProducto = new GrillaProducto(productos);
+               jtListadoProductos.setModel(grillaProducto);
+               
+           } catch (Exception ex) {
+               Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           
+           
+       } catch (Exception ex) {
+           Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        
+        
+    }//GEN-LAST:event_jcbCategoriasItemStateChanged
 
     
     

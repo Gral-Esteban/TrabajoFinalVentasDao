@@ -14,12 +14,14 @@ import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import ventasdao.objetos.Categoria;
 //import ventasdao.objetos.Categoria;
 import ventasdao.objetos.DetalleFactura;
+import ventasdao.objetos.Producto;
 
 
 
-public class FacturaProductoControlador implements ICrud<DetalleFactura> {
+public class FacturaProductoControlador implements ICrud<Producto> {
 
     private Connection connection;
 
@@ -41,13 +43,13 @@ public class FacturaProductoControlador implements ICrud<DetalleFactura> {
 
     
     @Override
-    public boolean crear(DetalleFactura entidad) throws SQLException, Exception{
+    public boolean crear(Producto entidad) throws SQLException, Exception{
         
     //JOptionPane.showMessageDialog(null,"llega aqui B");
 
         connection = Conexion.obtenerConexion ();
         
-          
+       /*   
         //Obtengo el Id de la tabla factura correspondiente
         try{
             
@@ -68,7 +70,7 @@ public class FacturaProductoControlador implements ICrud<DetalleFactura> {
         }
         
         
-        
+       */ 
         
         
         connection = Conexion.obtenerConexion ();
@@ -83,8 +85,8 @@ public class FacturaProductoControlador implements ICrud<DetalleFactura> {
             ps.setString(1, entidad.getNombre());
             ps.setString(2, entidad.getDescripcion());
             ps.setFloat(3, entidad.getPrecio());
-            ps.setInt(4,entidad.getCantidad());
-            ps.setInt(5, entidad.getFactura_id());
+            //ps.setInt(4,entidad.getCantidad());
+            //ps.setInt(5, entidad.getFactura_id());
           
             
             
@@ -106,7 +108,7 @@ public class FacturaProductoControlador implements ICrud<DetalleFactura> {
     
     
     @Override
-    public boolean modificar(DetalleFactura entidad) throws SQLException, Exception {
+    public boolean modificar(Producto entidad) throws SQLException, Exception {
         
        connection = Conexion.obtenerConexion ();
        this.sql = "UPDATE detalle_factura SET nombre=?, descripcion=? , precio=?,cantidad=?, factura_id=? WHERE id=?";
@@ -117,8 +119,8 @@ public class FacturaProductoControlador implements ICrud<DetalleFactura> {
        ps.setString(1,entidad.getNombre() );
        ps.setString(2,entidad.getDescripcion());
        ps.setFloat(3,entidad.getPrecio());
-       ps.setInt(4,entidad.getCantidad());
-       ps.setInt(5,entidad.getFactura_id() );
+       //ps.setInt(4,entidad.getCantidad());
+       //ps.setInt(5,entidad.getFactura_id() );
        
        ps.setInt(6, entidad.getId());
        
@@ -131,11 +133,11 @@ public class FacturaProductoControlador implements ICrud<DetalleFactura> {
     
     
     @Override
-    public boolean eliminar(DetalleFactura entidad) throws SQLException, ClassNotFoundException {
+    public boolean eliminar(Producto entidad) throws SQLException, ClassNotFoundException {
         
           connection = Conexion.obtenerConexion();
         
-        String sql = "DELETE FROM detalle_factura WHERE id = ?";
+        String sql = "DELETE FROM producto WHERE id = ?";
         try {
             ps=connection.prepareStatement(sql);
             ps.setInt(1, entidad.getId());
@@ -153,47 +155,79 @@ public class FacturaProductoControlador implements ICrud<DetalleFactura> {
     
 
     
-    public DetalleFactura extraer(int id) {
+    public Categoria extraer(String denominacion) throws SQLException,Exception{
+        
+          Categoria categoria = new Categoria();
+        
+        
+         connection = Conexion.obtenerConexion ();
+        
+            
+        try {
+            this.stmt = connection.createStatement();
+            this.sql = " select id from categorias where denominacion ='"+denominacion+"'";
+   
+            this.rs   = stmt.executeQuery(sql);
+            connection.close();
+            
+            
+            
+            while(rs.next()){
+               
+            categoria.setId(rs.getInt("id"));
+            
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FacturaProductoControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        
+        
         
        
-        return null;
+        return categoria;
     }
 
    
 
-    public ArrayList<DetalleFactura> listar() throws SQLException,Exception{
+    public ArrayList<Producto> listar(int Categ_id) throws SQLException,Exception{
         
-     connection = Conexion.obtenerConexion ();
+     
+        connection = Conexion.obtenerConexion ();
         try{
-            
+            String cadena= String.valueOf(Categ_id);
             this.stmt = connection.createStatement();
-            this.sql = " SELECT * from detalle_factura where factura_id = (SELECT MAX(factura_id) AS id FROM detalle_factura)";
+            this.sql = " SELECT * from producto where categoria_id = '"+cadena+"' ORDER BY id";
+            
             this.rs   = stmt.executeQuery(sql);
             connection.close();
             
-            ArrayList<DetalleFactura> detallefacturas = new ArrayList();
+            ArrayList<Producto> productos = new ArrayList<>();
             
             while(rs.next()){
                 
-                DetalleFactura detalleFactura = new DetalleFactura();
+                Producto producto = new Producto();
                 
-                detalleFactura.setId(rs.getInt("id"));
-                detalleFactura.setNombre(rs.getString("nombre"));
-                detalleFactura.setDescripcion(rs.getString("descripcion") );
-                detalleFactura.setPrecio (rs.getFloat("precio"));
-                detalleFactura.setCantidad (rs.getInt("cantidad"));
-                detalleFactura.setFactura_id(rs.getInt("factura_id"));
+                 producto.setId(rs.getInt("id"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setDescripcion(rs.getString("descripcion") );
+                producto.setPrecio (rs.getFloat("precio"));
+                 producto.setStock (rs.getInt("stock"));
+                producto.setFechaCreacion(rs.getDate("fecha_creacion"));
+                
+                producto.setCategoria_id(rs.getInt("categoria_id"));
                 
                // producto.setCategoria_id(rs.getInt("categoria_id"));
                 //producto.setCategoria(getCategoria(rs.getInt("producto_id")));
                         //System.out.println(producto);
                 
                 
-                detallefacturas.add(detalleFactura);
+                productos.add(producto);
                 
             }
             //System.out.println(cont);
-            return detallefacturas;
+            return productos;
             
         } catch(SQLException ex){
         }
@@ -201,7 +235,14 @@ public class FacturaProductoControlador implements ICrud<DetalleFactura> {
     
 
     }
+        
+      
    
+    
+    
+    
+    
+    
     
     /*private Categoria getCategoria (Integer id) throws Exception{
     
@@ -213,7 +254,7 @@ public class FacturaProductoControlador implements ICrud<DetalleFactura> {
     }*/
 
     @Override
-    public List<DetalleFactura> extraer() throws SQLException, Exception {
+    public List<Producto> extraer() throws SQLException, Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -253,6 +294,11 @@ public Integer ObtenerTotal()  throws SQLException, Exception{
   }
 
     */
+
+    @Override
+    public List<Producto> listar() throws SQLException, Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     
