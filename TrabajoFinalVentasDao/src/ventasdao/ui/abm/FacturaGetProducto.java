@@ -172,7 +172,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Fecha Creacion");
 
-        jbRegistrarProducto.setText("Registrar");
+        jbRegistrarProducto.setText("Agregar a factura");
         jbRegistrarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRegistrarProductoActionPerformed(evt);
@@ -381,61 +381,6 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         AbmFactura.jtfTotal.setText(totalcadena);
         
 
-        
-        
-        
-        
-        /*
-        detallefactura = new DetalleFactura();
-        
-       detallefactura.setId(Integer.parseInt(jtfId.getText()));
-        detallefactura.setNombre(jtfNombre.getText());
-        detallefactura.setDescripcion(jtfDescripcion.getText());
-        detallefactura.setPrecio(Float.parseFloat(jtfPrecio.getText()));
-        detallefactura.setCantidad(Integer.parseInt(jtfCantidad.getText()));
-        
-       
-       try {
-           //JOptionPane.showMessageDialog(null,"llega aquiA ");
-          facturaProductoControlador.crear(detallefactura);
-         
-           //facturaProductoControlador.eliminar(detallefactura);
-          
-       } catch (Exception ex) {
-           
-           //JOptionPane.showMessageDialog(null,"cantidad: "+ detallefactura.getCantidad()+" facturaId: "+detallefactura.getFactura_id());
-           Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
-       }
-       
-        
-      
-        //Este refresca la grilla una vez que se hizo una modificacion de lo contrario pierde referencia la grilla con los textfield
-        facturaProductoControlador = new FacturaProductoControlador();
-        ArrayList<DetalleFactura> detallefacturas = new ArrayList<>();
-
-        try {
-            
-            AbmFactura vari = new AbmFactura();
-            
-         
-            
-            vari.refreshgrillafactura();
-            
-            detallefacturas = facturaProductoControlador.listar();
-            
-            grillaDetalleFactura = new GrillaDetalleFactura(detallefacturas);
-            vari.jtListadoFacturacion.setModel(grillaDetalleFactura);
-             
-            //JOptionPane.showMessageDialog(null,"llega aqui D");
-            
-        } catch (Exception e) {
-            e.printStackTrace ();
-        }
-
-        */
-        
-        
-        
         //Esto limpia campos
         jtfId.setText("");
         jtfNombre.setText("");
@@ -469,32 +414,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
        jdcFechaCreacion.setDate(producto.getFechaCreacion());
        jtfCategoriaId.setText(producto.getCategoria_id().toString());
        
-       
-      /* 
-       try {
-           //Integer aux = Integer.parseInt(jtfCategoriaId.getText());
-           ArrayList<Categoria> categorias = new ArrayList();
-           Categoria categoria = new Categoria();
-           
-           categorias = categoriaControlador.extraer();
-           int dim = categorias.size();
-           int ids = Integer.parseInt(jtfCategoriaId.getText());
-           
-           for(int i=0;i<=dim;i++){
-               
-               categoria = categorias.get(i);
-               if(categoria.getId()==ids)
-               jtfCategoriaNombre.setText(categoria.getDenominacion());
-           }
-           
       
-           
-       } catch (Exception ex) {
-           Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
-       }
-       
-       
-       */
        
     }//GEN-LAST:event_jtListadoProductosMouseClicked
 
@@ -538,20 +458,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbCategoriasItemStateChanged
 
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  
     
     
     
@@ -584,11 +491,5 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfStock;
     // End of variables declaration//GEN-END:variables
 
-    private void limpiarCampos() {
-        
-        jtfDescripcion.setText("");
-        jtfNombre.setText("");
-        jtfPrecio.setText("");
-        
-    }
+   
 }

@@ -144,14 +144,13 @@ public class ProductoControlador implements ICrud<Producto> {
                 producto.setFechaCreacion(rs.getDate("fecha_creacion"));
                 
                 producto.setCategoria_id(rs.getInt("categoria_id"));
-                //producto.setCategoria(getCategoria(rs.getInt("producto_id")));
-                        //System.out.println(producto);
+               
                 
                 
                 productos.add(producto);
                 
             }
-            //System.out.println(cont);
+           
             return productos;
         } catch(SQLException ex){
         }
@@ -161,14 +160,7 @@ public class ProductoControlador implements ICrud<Producto> {
     }
    
     
-    /*private Categoria getCategoria (Integer id) throws Exception{
-    
-        this.categoriaControlador = new CategoriaControlador();
-        
-        Categoria categoria = categoriaControlador.extraer(id);
-        
-        return categoria;
-    }*/
+  
 
     @Override
     public List<Producto> extraer() throws SQLException, Exception {

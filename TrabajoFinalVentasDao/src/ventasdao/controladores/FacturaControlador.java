@@ -49,16 +49,14 @@ public class FacturaControlador implements ICrud<Factura>{
     
     DetalleFactura detallefactura = new DetalleFactura();
 
-    //public void modificarCategoria(Categoria c);
-    //public Categoria obtenerCategoria(Integer id);
-    //public void eliminarCategoria(Categoria c);
+  
     
     
     @Override
     public boolean crear(Factura entidad) throws SQLException, Exception{
 
      
-        //JOptionPane.showMessageDialog(null,"llega aqui C");
+     
         
         connection = Conexion.obtenerConexion ();
         String sql = "INSERT INTO factura (cliente_id,monto_total,forma_pago_id,observaciones) VALUES (?,?,?,?)";
@@ -80,8 +78,7 @@ public class FacturaControlador implements ICrud<Factura>{
             ps.executeUpdate();
             connection.close();
             
-            //JOptionPane.showMessageDialog(null,"llega aqui 345555");
-            //return true;
+           
 
         } catch (SQLException ex) {
             Logger.getLogger(FacturaControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,11 +102,11 @@ public class FacturaControlador implements ICrud<Factura>{
             connection.close();
             
           while(rs.next()){
-              //JOptionPane.showMessageDialog(null,"llega aqui C");
+            
               
                  detallefactura.setFactura_id(rs.getInt("id"));
                  
-                 //JOptionPane.showMessageDialog(null,"llega aqui C"+ detallefactura.getFactura_id());
+                
                 
           } 
             
@@ -139,11 +136,11 @@ public class FacturaControlador implements ICrud<Factura>{
             connection.close();
             
           while(rs.next()){
-              //JOptionPane.showMessageDialog(null,"llega aqui C");
+             
               
                  AbmFactura.jtfFecha.setText(rs.getDate("fecha_facturacion").toString());
                  
-                 //JOptionPane.showMessageDialog(null,"llega aqui C"+ detallefactura.getFactura_id());
+               
                 
           } 
             
@@ -152,16 +149,7 @@ public class FacturaControlador implements ICrud<Factura>{
         }
         
            
-       
-       
-        
-        
-        
-        
-        
-        
-        
-        
+
         
         return false;
         
@@ -196,15 +184,6 @@ public class FacturaControlador implements ICrud<Factura>{
    
    
     
-    
 
-   
-    
-
-   
-    
-
-    
-    
     
 }

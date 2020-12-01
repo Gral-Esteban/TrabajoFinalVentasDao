@@ -57,14 +57,13 @@ public class FormaPagoControlador implements ICrud<FormaPago>{
                 
                 formapago.setId(rs.getInt("id"));
                 
-                        //System.out.println(cliente);
+                   
                 
                 
                 formapagos.add(formapago);
                 
             }
-            //System.out.println(cont);
-            //connection.close();
+           
             return formapagos;
             
         } catch(SQLException ex){

@@ -1,9 +1,9 @@
 package ventasdao.controladores;
 
-//import ventasdao.objetos.Producto;
+
 
 import java.sql.Connection;
-//import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import ventasdao.objetos.Categoria;
-//import ventasdao.objetos.Categoria;
+
 import ventasdao.objetos.DetalleFactura;
 import ventasdao.objetos.Producto;
 
@@ -35,43 +35,14 @@ public class FacturaProductoControlador implements ICrud<Producto> {
     
     private String sql1;
     
-    //private CategoriaControlador categoriaControlador;
+   
 
-  
-   
-   
 
     
     @Override
     public boolean crear(Producto entidad) throws SQLException, Exception{
         
-    //JOptionPane.showMessageDialog(null,"llega aqui B");
-
-        connection = Conexion.obtenerConexion ();
-        
-       /*   
-        //Obtengo el Id de la tabla factura correspondiente
-        try{
-            
-            this.stmt = connection.createStatement();
-            this.sql1 = "SELECT * from factura where id = (SELECT MAX(id) AS id FROM factura)";
-            this.rs   = stmt.executeQuery(sql1);
-            connection.close();
-            
-          while(rs.next()){
-              
-                 entidad.setFactura_id(rs.getInt("id"));
-                 
-                 //JOptionPane.showMessageDialog(null,"llega aqui C"+ entidad.getFactura_id());
-                
-          } 
-            
-                 } catch(SQLException ex){
-        }
-        
-        
-       */ 
-        
+    
         
         connection = Conexion.obtenerConexion ();
         
@@ -218,15 +189,11 @@ public class FacturaProductoControlador implements ICrud<Producto> {
                 
                 producto.setCategoria_id(rs.getInt("categoria_id"));
                 
-               // producto.setCategoria_id(rs.getInt("categoria_id"));
-                //producto.setCategoria(getCategoria(rs.getInt("producto_id")));
-                        //System.out.println(producto);
-                
-                
+              
                 productos.add(producto);
                 
             }
-            //System.out.println(cont);
+            
             return productos;
             
         } catch(SQLException ex){
@@ -236,64 +203,15 @@ public class FacturaProductoControlador implements ICrud<Producto> {
 
     }
         
-      
-   
-    
-    
-    
-    
-    
-    
-    /*private Categoria getCategoria (Integer id) throws Exception{
-    
-        this.categoriaControlador = new CategoriaControlador();
-        
-        Categoria categoria = categoriaControlador.extraer(id);
-        
-        return categoria;
-    }*/
+ 
+  
 
     @Override
     public List<Producto> extraer() throws SQLException, Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
-  /*
-public Integer ObtenerTotal()  throws SQLException, Exception{
-        
-    //JOptionPane.showMessageDialog(null,"llega aqui B");
-
-        connection = Conexion.obtenerConexion ();
-        
-          
-        //Obtengo el Id de la tabla factura correspondiente
-        try{
-            
-            this.stmt = connection.createStatement();
-            this.sql1 = "SELECT SUM(precio) FROM detalle_factura  WHERE factura_id = (SELECT MAX(factura_id) AS id FROM detalle_factura)";
-            this.rs   = stmt.executeQuery(sql1);
-            connection.close();
-            
-            Integer var;
-            
-            
-          while(rs.next()){
-              
-                 
-                 
-                 //JOptionPane.showMessageDialog(null,"llega aqui C"+ entidad.getFactura_id());
-                
-          } 
-            
-                 } catch(SQLException ex){
-        }
-        
-        return 
-        
-  }
-
-    */
+ 
 
     @Override
     public List<Producto> listar() throws SQLException, Exception {

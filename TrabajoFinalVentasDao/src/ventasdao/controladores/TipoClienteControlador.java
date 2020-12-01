@@ -125,13 +125,11 @@ public class TipoClienteControlador implements ICrud<TipoCliente>{
                 tipoCliente.setId(rs.getInt("id"));
                 
                
-                        //System.out.println(cliente);
-                
                 
                 tipoClientes.add(tipoCliente);
                 
             }
-            //System.out.println(cont);
+           
             return tipoClientes;
             
         } catch(SQLException ex){

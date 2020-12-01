@@ -61,18 +61,10 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
 
      
         
-        
-        
-        
-      
-        
-        
         int tamaño= detallefacturas.size();
         
        
-  
-            
-              connection = Conexion.obtenerConexion ();
+        connection = Conexion.obtenerConexion ();
         
         
         String sql = "INSERT INTO detalle_factura (producto_id,cantidad,factura_id) VALUES (?,?,?)";
@@ -94,13 +86,9 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
             ps.setInt(3, detallefactura.getFactura_id());
           
             
-           
             ps.executeUpdate();
                  
            
-            
-         
-            
 
         } catch (SQLException ex) {
             Logger.getLogger(DetalleFacturaControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,7 +96,7 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
             
         }
         
-        //detallefacturas.iterator();
+       
         
         } //cierra el for
        
@@ -153,19 +141,5 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
 
    
    
-    
-    
-
-   
-    
-
-   
-    
-public int funcione (int valor){
-    
-    return valor;
-}
-    
-    
     
 }
