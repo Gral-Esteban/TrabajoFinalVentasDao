@@ -11,6 +11,8 @@ package ventasdao.ui.abm;
  *
  * @author Esteban DAlbano
  */
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,6 +37,8 @@ import ventasdao.objetos.DetalleFactura;
 import ventasdao.ui.grilla.GrillaDetalleFactura;
 import ventasdao.ui.abm.AbmFactura;
 import java.util.*;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
 
 
 
@@ -66,6 +70,11 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
    
     private DetalleFactura detallefactura;
     private FacturaProductoControlador facturaProductoControlador = new FacturaProductoControlador(); 
+    
+    
+    TableRowSorter trs;
+   
+   
    
    
     
@@ -133,6 +142,8 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         jtfStock = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jtfFiltradoNombre = new javax.swing.JTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -181,13 +192,10 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
 
         jtListadoProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Id", "Cat_Id", "Nombre", "Descripcion", "Precio", "Stock", "Fecha_Creacion"
+
             }
         ));
         jtListadoProductos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -198,15 +206,6 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jtListadoProductos);
-        if (jtListadoProductos.getColumnModel().getColumnCount() > 0) {
-            jtListadoProductos.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jtListadoProductos.getColumnModel().getColumn(1).setPreferredWidth(50);
-            jtListadoProductos.getColumnModel().getColumn(2).setPreferredWidth(150);
-            jtListadoProductos.getColumnModel().getColumn(3).setPreferredWidth(200);
-            jtListadoProductos.getColumnModel().getColumn(4).setPreferredWidth(50);
-            jtListadoProductos.getColumnModel().getColumn(5).setPreferredWidth(50);
-            jtListadoProductos.getColumnModel().getColumn(6).setPreferredWidth(150);
-        }
 
         jtfId.setEditable(false);
         jtfId.setEnabled(false);
@@ -231,6 +230,14 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel9.setText("Filtrar por nombre");
+
+        jtfFiltradoNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfFiltradoNombreKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -241,16 +248,17 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)))
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -264,7 +272,8 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
                                             .addComponent(jtfCategoriaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jtfId)
                                         .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jtfStock, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jtfStock, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfFiltradoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(42, 42, 42)
                                 .addComponent(jbRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -315,6 +324,10 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jtfFiltradoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -390,7 +403,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         jtfPrecio.setText("");
         jtfStock.setText("");
         jdcFechaCreacion.setDate(null);
-       // jtfCantidad.setText("");
+        
        
         
         
@@ -423,14 +436,80 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
          dispose(); 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+      
+    
     private void jcbCategoriasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbCategoriasItemStateChanged
-       try {                                               
+      
+        
+        
+          
+        
+            
+           
+            
            // TODO add your handling code here:
+           
+           //tendria que agregar aqui las condiciones del inicio para que no rompa la tabla al usar el filtro por nombre
+          
+     
+            //JOptionPane.showMessageDialog(null,"entro al JCB!!!");
+            
+          /*  if(jtfFiltradoNombre.getText().length()!=0){
+            jtfFiltradoNombre.setText(jtfFiltradoNombre.getText().substring(0, jtfFiltradoNombre.getText().length()-1));
+        }*/
+           
+            jtfFiltradoNombre.setText(null);
+             /*jtfFiltradoNombre.invalidate();
+             jtfFiltradoNombre.repaint();
+             jtfFiltradoNombre.removeAll();
+             jtfFiltradoNombre.resetKeyboardActions();*/
+            
            Categoria categoria = new Categoria();
            
            String cat_name = jcbCategorias.getSelectedItem().toString();
            
-           categoria = facturaProductoControlador.extraer(cat_name);
+           if(cat_name.equals("Todos")){
+               
+               
+              
+               
+               
+               ArrayList<Producto> productos;
+        
+       controladorProducto = new ProductoControlador();
+       categoriaControlador = new CategoriaControlador();
+       
+       
+       try {
+           productos = controladorProducto.listar();
+           grillaProducto = new GrillaProducto(productos);
+           jtListadoProductos.setModel(grillaProducto);
+           
+         ///// Estas dos lineas me solucionaron el problema que tenia al filtrar por nombre no me mostraba despues todas las filas al seleccionar una catgoria
+            trs = new TableRowSorter(jtListadoProductos.getModel());
+            jtListadoProductos.setRowSorter(trs);  /////
+           
+       } catch (Exception ex) {
+           Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       
+       
+        
+               
+           
+                //JOptionPane.showMessageDialog(null,"se muestra todos los productos!!!");
+                
+                
+               
+            }
+           
+           else{
+           
+               try {
+                   categoria = facturaProductoControlador.extraer(cat_name);
+               } catch (Exception ex) {
+                   Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
+               }
            
            
            
@@ -439,23 +518,57 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
            facturaProductoControlador = new FacturaProductoControlador();
            categoriaControlador = new CategoriaControlador();
            
+         
            
            try {
                productos = (ArrayList<Producto>) facturaProductoControlador.listar(categoria.getId());
                grillaProducto = new GrillaProducto(productos);
                jtListadoProductos.setModel(grillaProducto);
                
+              ///// Estas dos lineas me solucionaron el problema que tenia al filtrar por nombre no me mostraba despues todas las filas al seleccionar una catgoria 
+               trs = new TableRowSorter(jtListadoProductos.getModel()); 
+            jtListadoProductos.setRowSorter(trs);  /////
+               
            } catch (Exception ex) {
                Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
            }
            
            
-       } catch (Exception ex) {
-           Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
-       }
+           }
+           
+           
+      
         
         
+      
     }//GEN-LAST:event_jcbCategoriasItemStateChanged
+
+    private void jtfFiltradoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfFiltradoNombreKeyTyped
+        // TODO add your handling code here:
+        
+         //DefaultTableModel dtm = new DefaultTableModel();
+        
+       jtfFiltradoNombre.addKeyListener(new KeyAdapter() {
+           @Override
+           public void keyReleased(KeyEvent e) 
+            
+            {
+               
+               trs.setRowFilter(RowFilter.regexFilter(jtfFiltradoNombre.getText(), 2));
+           }
+        
+       });
+       
+       trs = new TableRowSorter(jtListadoProductos.getModel());
+       
+      
+       jtListadoProductos.setRowSorter(trs);
+       
+       //JOptionPane.showMessageDialog(null,"que pasa aqui?");
+       
+       
+       
+    }//GEN-LAST:event_jtfFiltradoNombreKeyTyped
 
     
   
@@ -477,6 +590,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbRegistrarProducto;
     private javax.swing.JComboBox<String> jcbCategorias;
@@ -485,6 +599,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfCategoriaId;
     private javax.swing.JTextField jtfCategoriaNombre;
     private javax.swing.JTextField jtfDescripcion;
+    private javax.swing.JTextField jtfFiltradoNombre;
     private javax.swing.JTextField jtfId;
     private javax.swing.JTextField jtfNombre;
     private javax.swing.JTextField jtfPrecio;

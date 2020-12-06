@@ -164,7 +164,7 @@ public class FacturaProductoControlador implements ICrud<Producto> {
 
     public ArrayList<Producto> listar(int Categ_id) throws SQLException,Exception{
         
-     
+        
         connection = Conexion.obtenerConexion ();
         try{
             String cadena= String.valueOf(Categ_id);
