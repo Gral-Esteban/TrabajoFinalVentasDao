@@ -448,6 +448,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
             producto.setPrecio( Float.parseFloat( jtfPrecio.getText() ) );
             producto.setFechaCreacion( ( jdcFechaCreacion.getDate()) );
             producto.setCategoria_id(Integer.parseInt(jtfCategoriaId.getText()));
+            producto.setStock(Integer.parseInt(jtfStock.getText()));
             
             controladorProducto.modificar(producto);
         } 

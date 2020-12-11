@@ -19,6 +19,22 @@ public class Producto {
     private Integer stock;
     
     private Date fechaCreacion;
+    
+    private String fechaAlta;
+    
+    
+    
+    
+    public String getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(String fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+    
+    
+    
 
     public Integer getStock() {
         return stock;

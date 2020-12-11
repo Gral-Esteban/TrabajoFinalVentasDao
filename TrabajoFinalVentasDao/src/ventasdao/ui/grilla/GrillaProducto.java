@@ -46,8 +46,12 @@ public class GrillaProducto extends AbstractTableModel{
               case 3: return producto.getDescripcion();
               case 4: return producto.getPrecio();
               case 5: return producto.getStock();
-              case 6: return producto.getFechaCreacion();
-              
+              case 6: if(producto.getFechaCreacion()!=null){  // hago esto porque al querer pasar de string a date no respeta el formato y me vi obligado a crear otro campo del objeto producto fechaAlta de tipo string
+                      return producto.getFechaCreacion();}
+                     else{
+                          return producto.getFechaAlta();
+                         }
+                      
               default: return "";
           }
         
