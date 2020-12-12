@@ -18,10 +18,12 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import ventasdao.controladores.DetalleFacturaControlador;
 import ventasdao.controladores.FacturaControlador;
 import ventasdao.controladores.FacturaProductoControlador;
 import ventasdao.controladores.FormaPagoControlador;
+import ventasdao.controladores.UpdateStockControlador;
 import ventasdao.dominio.Conexion;
 import ventasdao.objetos.FormaPago;
 import ventasdao.objetos.Cliente;
@@ -29,6 +31,9 @@ import ventasdao.objetos.DetalleFactura;
 import ventasdao.ui.grilla.GrillaCliente;
 import ventasdao.ui.grilla.GrillaDetalleFactura;
 import ventasdao.objetos.Factura;
+import ventasdao.objetos.Producto;
+import static ventasdao.ui.abm.FacturaGetProducto.jtListadoProductos;
+import ventasdao.ui.grilla.GrillaProducto;
 /**
  *
  * @author Esteban DAlbano
@@ -59,6 +64,14 @@ public class AbmFactura extends javax.swing.JInternalFrame {
     private String cantidad = null; 
     
     List<DetalleFactura> detallefacturas = new ArrayList<>();
+    
+    private GrillaProducto grillaProducto;
+    
+     TableRowSorter trs;
+     
+     private UpdateStockControlador updateStockControlador = new UpdateStockControlador();
+     
+     
         
             
     
@@ -374,14 +387,23 @@ public class AbmFactura extends javax.swing.JInternalFrame {
         facturaGetCliente.setVisible(true);
     }//GEN-LAST:event_jbAgregarClienteActionPerformed
 
+    
+    
+    
+    
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
         
-         
+        
        
         modelo = (DefaultTableModel) jtListadoFacturacion.getModel();
         
         int filasele = jtListadoFacturacion.getSelectedRow();
+        
+        
+        int factPID = Integer.parseInt(jtListadoFacturacion.getValueAt(filasele, 4).toString()); //Guardo este dato
+        int factPST = Integer.parseInt(jtListadoFacturacion.getValueAt(filasele, 3).toString()); // Guardo este dato
+        
         
         descontar = jtListadoFacturacion.getValueAt(filasele, 2).toString();
         
@@ -396,12 +418,68 @@ public class AbmFactura extends javax.swing.JInternalFrame {
          jtfTotal.setText(newtotalcadena);
         
           modelo.removeRow(filasele);
+          
+          
+          //Validamos que exista una tabla activa del otro lado
+          int cantfilasFGP = FacturaGetProducto.jtListadoProductos.getRowCount();
+          
+          if(cantfilasFGP>0) {
+              
+              String var = FacturaGetProducto.jcbCategorias.getSelectedItem().toString();
+              
+            //  if(var.equals("Todos")) {
+                  
+              
+      //En esta parte cargo toda la tabla en un arraylist para modificar el stock y volver a poner todo en la grilla
+        
+        ArrayList<Producto> aOproductos = new ArrayList<>();
         
         
         
+       
+        
+        for(int i=0;i<cantfilasFGP;i++){
+            
+        Producto Oproducto = new Producto();
+        
+        
+        Oproducto.setId(Integer.parseInt(jtListadoProductos.getValueAt(i, 0).toString()));
+        Oproducto.setCategoria_id(Integer.parseInt(jtListadoProductos.getValueAt(i, 1).toString()));
+        Oproducto.setNombre((jtListadoProductos.getValueAt(i, 2).toString()));
+        Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setPrecio(Float.parseFloat(jtListadoProductos.getValueAt(i, 4).toString()));
+        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 5).toString()));
+        Oproducto.setFechaAlta((jtListadoProductos.getValueAt(i, 6).toString()));
         
         
         
+       
+         if(Oproducto.getId()==factPID)
+           Oproducto.setStock(Oproducto.getStock()+factPST); 
+       
+        
+            
+        aOproductos.add(Oproducto);
+        
+        }
+        
+        
+        grillaProducto = new GrillaProducto(aOproductos);
+        jtListadoProductos.setModel(grillaProducto);
+        
+        ///// Estas dos lineas me solucionaron el problema que tenia al filtrar por nombre no me mostraba despues todas las filas al seleccionar una catgoria
+            trs = new TableRowSorter(jtListadoProductos.getModel());
+            jtListadoProductos.setRowSorter(trs);  /////
+               
+       
+                  
+                  
+             // }
+              
+           
+              
+            
+          }
         
         
         
@@ -503,6 +581,19 @@ public class AbmFactura extends javax.swing.JInternalFrame {
        } catch (Exception ex) {
            Logger.getLogger(AbmFactura.class.getName()).log(Level.SEVERE, null, ex);
        }
+        
+        
+        
+       //En esta parte actualizo el stock en la base de datos un avez que se confirmo la factura
+       try {
+           updateStockControlador.modificar(detallefacturas);
+           //limpiarCampos();
+       } catch (Exception ex) {
+           Logger.getLogger(AbmFactura.class.getName()).log(Level.SEVERE, null, ex);
+       } 
+        
+        
+        
         
         
         JOptionPane.showMessageDialog(null,"La factura se creo Exitosamente!!!");

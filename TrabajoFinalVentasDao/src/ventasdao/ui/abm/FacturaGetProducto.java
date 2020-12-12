@@ -985,7 +985,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbRegistrarProducto;
-    private javax.swing.JComboBox<String> jcbCategorias;
+    public static javax.swing.JComboBox<String> jcbCategorias;
     private com.toedter.calendar.JDateChooser jdcFechaCreacion;
     public static javax.swing.JTable jtListadoProductos;
     private javax.swing.JTextField jtfCategoriaId;
