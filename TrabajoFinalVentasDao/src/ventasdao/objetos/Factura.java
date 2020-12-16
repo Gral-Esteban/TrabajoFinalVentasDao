@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Esteban DAlbano
  */
-public class Factura {
+public class Factura  extends Cliente{
     
     private Integer id;
     private Integer numero_factura;

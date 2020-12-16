@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
@@ -23,7 +24,10 @@ import javax.swing.JOptionPane;
 import ventasdao.dominio.Conexion;
 import ventasdao.objetos.DetalleFactura;
 import ventasdao.objetos.Factura;
+import ventasdao.objetos.ObjetoFacturaAnulacion;
+import ventasdao.objetos.Producto;
 import ventasdao.ui.abm.AbmFactura;
+
 //import ventasdao.ui.abm.Factura;
 
 
@@ -48,6 +52,8 @@ public class FacturaControlador implements ICrud<Factura>{
     
     
     DetalleFactura detallefactura = new DetalleFactura();
+    Factura factura = new Factura();
+    ObjetoFacturaAnulacion objetoFacturaAnulacion = new ObjetoFacturaAnulacion();
 
   
     
@@ -106,6 +112,7 @@ public class FacturaControlador implements ICrud<Factura>{
               
                  detallefactura.setFactura_id(rs.getInt("id"));
                  
+                 factura.setFecha_facturacion(rs.getDate("fecha_facturacion"));
                 
                 
           } 
@@ -114,40 +121,13 @@ public class FacturaControlador implements ICrud<Factura>{
                      ex.printStackTrace();
         }
         
-           
+         //Seteo el numero de factura y la fecha en el formulario  
         AbmFactura.jtfNumeroFactura.setText(detallefactura.getFactura_id().toString());
+        AbmFactura.jtfFecha.setText(factura.getFecha_facturacion().toString());
         
         
         
-        
-       //Aqui obtengo la fecha de la base de datos y la seteo en la grilla
-       
-       
-        
-         connection = Conexion.obtenerConexion();
-        
-          
-       
-        try{
-            
-            this.stmt = connection.createStatement();
-            this.sql1 = "SELECT * from factura where id = (SELECT MAX(id) AS id FROM factura)";
-            this.rs   = stmt.executeQuery(sql1);
-            connection.close();
-            
-          while(rs.next()){
-             
-              
-                 AbmFactura.jtfFecha.setText(rs.getDate("fecha_facturacion").toString());
-                 
-               
-                
-          } 
-            
-                 } catch(SQLException ex){
-                     ex.printStackTrace();
-        }
-        
+      
            
 
         
@@ -157,6 +137,86 @@ public class FacturaControlador implements ICrud<Factura>{
 
     
     
+    
+    
+    
+    
+    
+   
+    public ArrayList<ObjetoFacturaAnulacion> listar2() throws SQLException,Exception{
+        
+        
+        connection = Conexion.obtenerConexion ();
+        
+        try{
+            
+            this.stmt = connection.createStatement();
+            
+            //JOptionPane.showMessageDialog(null, "Entra a listar2");
+            
+            this.sql = "SELECT numero_factura, cliente_id, c.nombre, c.apellido, monto_total,  fp.denominacion, fecha_facturacion, observaciones FROM factura INNER JOIN cliente c ON cliente_id = c.id INNER JOIN forma_pago fp ON forma_pago_id = fp.id";
+          
+            this.rs   = stmt.executeQuery(sql);
+            connection.close();
+            
+            ArrayList<ObjetoFacturaAnulacion> objetoFacturaAnulaciones = new ArrayList<>();
+            
+            while(rs.next()){
+                
+           objetoFacturaAnulacion = new ObjetoFacturaAnulacion();
+                
+                 objetoFacturaAnulacion.setNumero_factura(rs.getInt("numero_factura"));
+                 objetoFacturaAnulacion.setCliente_id(rs.getInt("cliente_id"));
+                 objetoFacturaAnulacion.setNombre(rs.getString("nombre") );
+                 objetoFacturaAnulacion.setApellido(rs.getString("apellido") );
+                 objetoFacturaAnulacion.setMonto_total(rs.getFloat("monto_total"));
+                 objetoFacturaAnulacion.setDenominacion(rs.getString("denominacion") );
+                 objetoFacturaAnulacion.setFecha_facturacion(rs.getDate("fecha_facturacion"));
+                 objetoFacturaAnulacion.setObservaciones(rs.getString("observaciones") );
+               
+                
+              
+                objetoFacturaAnulaciones.add(objetoFacturaAnulacion);
+                
+            }
+            
+            return objetoFacturaAnulaciones;
+            
+        } catch(SQLException ex){
+        }
+        
+      
+        
+        
+        return null;
+    
+
+        
+        
+    }
+    
+    
+    
+    public boolean eliminar(int id) throws SQLException, Exception {
+        
+         connection = Conexion.obtenerConexion();
+        
+        String sql = "DELETE FROM factura WHERE id = ?";
+        try {
+            ps=connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            connection.close();
+            
+            
+        } catch (SQLException e) {
+             Logger.getLogger(ProductoControlador.class.getName()).log(Level.SEVERE, null, e);
+             return false;
+        }
+        return true;
+        
+        
+    }
     
     
     

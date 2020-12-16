@@ -167,7 +167,7 @@ public class FacturaProductoControlador implements ICrud<Producto> {
         
         connection = Conexion.obtenerConexion ();
         try{
-            String cadena= String.valueOf(Categ_id);
+            String cadena= String.valueOf(Categ_id); //Esto lo hice porque para hacer una consulta no me funcionaba el signo ?
             this.stmt = connection.createStatement();
             this.sql = " SELECT * from producto where categoria_id = '"+cadena+"' ORDER BY id";
             

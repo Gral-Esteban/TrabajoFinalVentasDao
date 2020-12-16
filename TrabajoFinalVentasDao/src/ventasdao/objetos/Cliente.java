@@ -9,7 +9,7 @@ package ventasdao.objetos;
  *
  * @author Hugo Chanampe
  */
-public class Cliente {
+public class Cliente extends FormaPago{
     
     private Integer id;
     

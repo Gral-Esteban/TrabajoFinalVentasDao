@@ -19,6 +19,19 @@ public class DetalleFactura {
    private Integer producto_id;
     private Factura factura;
     private Integer factura_id;
+    
+    
+    
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public void setFactura(Factura factura) {
+        
+        this.factura = factura;
+        
+    }
 
     
     

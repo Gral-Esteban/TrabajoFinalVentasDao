@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 
 import ventasdao.dominio.Conexion;
 import ventasdao.objetos.DetalleFactura;
+import ventasdao.objetos.DetalleFacturaAnulacion;
 import ventasdao.objetos.Factura;
 import ventasdao.ui.abm.AbmFactura;
 //import ventasdao.ui.abm.Factura;
@@ -51,6 +52,11 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
     DetalleFactura detallefactura = new DetalleFactura();
     
     ArrayList<DetalleFactura> detallefacturas = new ArrayList<>();
+    
+    DetalleFacturaAnulacion detalleFacturaAnulacion = new DetalleFacturaAnulacion();
+    
+    ArrayList<DetalleFacturaAnulacion> detalleFacturaAnulaciones = new ArrayList <> ();
+    
 
     //public void modificarCategoria(Categoria c);
     //public Categoria obtenerCategoria(Integer id);
@@ -112,6 +118,74 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
     
     
     
+     public ArrayList<DetalleFacturaAnulacion> listar(int num_fact) throws SQLException,Exception{
+        
+        
+        connection = Conexion.obtenerConexion ();
+        try{
+            String cadena= String.valueOf(num_fact); //Esto lo hice porque para hacer una consulta no me funcionaba el signo ?
+            this.stmt = connection.createStatement();
+            this.sql = " SELECT p.nombre, p.descripcion, p.precio, cantidad FROM detalle_factura INNER JOIN producto p ON producto_id = p.id WHERE factura_id = '"+cadena+"'";
+            
+            this.rs   = stmt.executeQuery(sql);
+            connection.close();
+            
+            //ArrayList<DetalleFactura> detalleFacturas = new ArrayList<>();
+            
+            while(rs.next()){
+                
+                detalleFacturaAnulacion = new DetalleFacturaAnulacion();
+                
+                 detalleFacturaAnulacion.setNombre(rs.getString("nombre"));
+                 detalleFacturaAnulacion.setDescripcion(rs.getString("descripcion"));
+                detalleFacturaAnulacion.setPrecio(rs.getFloat("precio"));
+                detalleFacturaAnulacion.setCantidad(rs.getInt("cantidad") );
+               
+                
+              
+                detalleFacturaAnulaciones.add(detalleFacturaAnulacion);
+                
+            }
+            
+            return detalleFacturaAnulaciones;
+            
+        } catch(SQLException ex){
+        }
+        
+        
+        
+        
+        return null;
+    
+
+        
+        
+    }
+    
+    
+    public boolean eliminar (int id)throws SQLException, Exception {
+        
+         connection = Conexion.obtenerConexion();
+        
+        String sql = "DELETE FROM detalle_factura WHERE factura_id = ?";
+        try {
+            ps=connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            connection.close();
+            
+            
+        } catch (SQLException e) {
+             Logger.getLogger(ProductoControlador.class.getName()).log(Level.SEVERE, null, e);
+             return false;
+        }
+        return true;
+    }
+    
+    
+    
+    
+    
     
     
     @Override
@@ -143,3 +217,20 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
    
     
 }
+
+
+
+
+
+
+/*select * from producto
+select * from detalle_factura
+select * from factura
+
+
+
+update producto set stock=stock+24 where id = 4
+
+select p.nombre, p.descripcion, p.precio, cantidad
+from detalle_factura
+inner join producto p on producto_id = p.id*/
