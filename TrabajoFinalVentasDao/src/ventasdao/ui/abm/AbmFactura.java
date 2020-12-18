@@ -586,7 +586,7 @@ public class AbmFactura extends javax.swing.JInternalFrame {
         
        //En esta parte actualizo el stock en la base de datos un avez que se confirmo la factura
        try {
-           updateStockControlador.modificar(detallefacturas);
+           updateStockControlador.decrementar(detallefacturas);
            //limpiarCampos();
        } catch (Exception ex) {
            Logger.getLogger(AbmFactura.class.getName()).log(Level.SEVERE, null, ex);

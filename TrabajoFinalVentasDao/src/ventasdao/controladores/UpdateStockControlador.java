@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 
 import ventasdao.dominio.Conexion;
 import ventasdao.objetos.DetalleFactura;
+import ventasdao.objetos.DetalleFacturaAnulacion;
 import ventasdao.objetos.Factura;
 import ventasdao.ui.abm.AbmFactura;
 //import ventasdao.ui.abm.Factura;
@@ -44,7 +45,7 @@ public class UpdateStockControlador implements ICrud<Factura>{
     
     private String sql;
     
-    
+    private String sql2;
     
     
     
@@ -57,7 +58,7 @@ public class UpdateStockControlador implements ICrud<Factura>{
     //public void eliminarCategoria(Categoria c);
     
     
-    public boolean modificar(List<DetalleFactura> detallefacturas) throws SQLException, Exception{
+    public boolean decrementar(List<DetalleFactura> detallefacturas) throws SQLException, Exception{
 
      
         
@@ -95,7 +96,7 @@ public class UpdateStockControlador implements ICrud<Factura>{
         } catch (SQLException ex) {
             Logger.getLogger(UpdateStockControlador.class.getName()).log(Level.SEVERE, null, ex);
             
-            
+            //return false;
         }
         
        
@@ -106,10 +107,67 @@ public class UpdateStockControlador implements ICrud<Factura>{
         
         
         
-        return false;
+        return true;
         
     }
 
+    
+    
+    
+    
+    
+    public boolean incrementar(ArrayList<DetalleFactura> detalleFacturas) throws SQLException, Exception{
+
+     
+        
+        //int tamaño= detallefacturas.size();
+        
+       
+        connection = Conexion.obtenerConexion ();
+        
+        
+        String sql2 = "UPDATE producto SET stock=stock + ? WHERE id = ?";
+     
+          //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
+        
+        
+        
+        
+        for(DetalleFactura detalleFactura:detalleFacturas)  {
+            
+              
+        try {
+            ps = connection.prepareStatement(sql2);
+            
+            ps.setInt(1, detalleFactura.getCantidad());
+            ps.setInt(2, detalleFactura.getProducto_id());
+            //ps.setDate(2, (java.sql.Date) entidad.getFecha_facturacion());
+            //ps.setDate(2, fecha);
+           
+            //ps.setInt(3, detallefactura.getFactura_id());
+          
+            
+            ps.executeUpdate();
+                 
+           
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateStockControlador.class.getName()).log(Level.SEVERE, null, ex);
+            
+            //return false;
+        }
+        
+       
+        
+        } //cierra el for
+       
+         connection.close();
+        
+        
+        
+        return true;
+        
+    }
     
     
     

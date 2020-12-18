@@ -11,8 +11,11 @@ import java.util.logging.Logger;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import ventasdao.controladores.DetalleFacturaControlador;
 import ventasdao.controladores.FacturaControlador;
+import ventasdao.controladores.UpdateStockControlador;
+import ventasdao.objetos.DetalleFactura;
 import ventasdao.objetos.DetalleFacturaAnulacion;
 import ventasdao.objetos.Factura;
 import ventasdao.objetos.ObjetoFacturaAnulacion;
@@ -30,6 +33,8 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
     
     private DetalleFacturaControlador detalleFacturaControlador;
     
+    private UpdateStockControlador updateSC;
+    
     ObjetoFacturaAnulacion objetoFacturaAnulacion;
     
     GrillaFacturaAnulacion grillaFacturaAnulacion;
@@ -39,6 +44,8 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
     ArrayList<ObjetoFacturaAnulacion> objetoFacturaAnulaciones;
     
     ArrayList <DetalleFacturaAnulacion> objetoDetalleFacturaAnulaciones;
+    
+    ArrayList <DetalleFactura> detalleFacturas;
        
              
     
@@ -246,6 +253,23 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         String fact_id_S = jtFacturas.getValueAt(filasele, 0).toString();
         
         int fact_id_I = Integer.parseInt(fact_id_S);
+        
+        
+        // Cargo el ArrayList con el listado del detalle_factura a eliminar
+        try {
+            detalleFacturas = detalleFacturaControlador.listar2(fact_id_I);
+        } catch (Exception ex) {
+            Logger.getLogger(FacturaAnulacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // Actualizo el Stock en la base de datos antes de eliminar los registros
+        updateSC = new UpdateStockControlador();
+        
+        try {
+            updateSC.incrementar(detalleFacturas);
+        } catch (Exception ex) {
+            Logger.getLogger(FacturaAnulacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
         try {

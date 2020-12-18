@@ -117,7 +117,7 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
     
     
     
-    
+    //Aqui me devuleve un ArrayList personalizado
      public ArrayList<DetalleFacturaAnulacion> listar(int num_fact) throws SQLException,Exception{
         
         
@@ -161,6 +161,65 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
         
         
     }
+     
+     
+     
+     
+     
+     
+     //Aqui me devuleve un ArrayList de detalle_factura para el numero de factura especificado
+     
+     public ArrayList<DetalleFactura> listar2(int num_fact) throws SQLException,Exception{
+        
+        
+        connection = Conexion.obtenerConexion ();
+        try{
+            String cadena= String.valueOf(num_fact); //Esto lo hice porque para hacer una consulta no me funcionaba el signo ?
+            this.stmt = connection.createStatement();
+            this.sql = " SELECT * FROM detalle_factura WHERE factura_id = '"+cadena+"'";
+            
+            this.rs   = stmt.executeQuery(sql);
+            connection.close();
+            
+            //ArrayList<DetalleFactura> detalleFacturas = new ArrayList<>();
+            
+            while(rs.next()){
+                
+                detallefactura = new DetalleFactura();
+                
+                 detallefactura.setId(rs.getInt("id"));
+                 detallefactura.setCantidad(rs.getInt("cantidad"));
+                detallefactura.setFactura_id(rs.getInt("factura_id"));
+                detallefactura.setProducto_id(rs.getInt("producto_id") );
+               
+                
+              
+                detallefacturas.add(detallefactura);
+                
+            }
+            
+            return detallefacturas;
+            
+        } catch(SQLException ex){
+        }
+        
+        
+        
+        
+        return null;
+    
+
+        
+        
+    }
+     
+     
+     
+     
+     
+     
+     
+     
     
     
     public boolean eliminar (int id)throws SQLException, Exception {
