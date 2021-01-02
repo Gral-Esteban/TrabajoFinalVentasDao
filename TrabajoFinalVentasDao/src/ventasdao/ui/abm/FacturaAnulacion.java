@@ -136,6 +136,9 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         jbAnular = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtDetalleFacturas = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jtfNumFactura = new javax.swing.JTextField();
+        jtfArticuloId = new javax.swing.JTextField();
 
         setClosable(true);
         setResizable(true);
@@ -159,7 +162,7 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jtFacturas);
 
-        jbAnular.setText("Anular");
+        jbAnular.setText("Anular factura");
         jbAnular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAnularActionPerformed(evt);
@@ -168,16 +171,29 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
 
         jtDetalleFacturas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "", "", "", ""
+
             }
         ));
+        jtDetalleFacturas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtDetalleFacturasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jtDetalleFacturas);
+
+        jButton1.setText("Quitar articulo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jtfNumFactura.setEditable(false);
+
+        jtfArticuloId.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,14 +201,20 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(24, 24, 24)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(341, 341, 341)
-                        .addComponent(jbAnular)))
+                        .addGap(124, 124, 124)
+                        .addComponent(jbAnular)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtfNumFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(143, 143, 143)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtfArticuloId, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -201,7 +223,11 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jbAnular)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbAnular)
+                    .addComponent(jButton1)
+                    .addComponent(jtfNumFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfArticuloId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -218,6 +244,8 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         String fact_id_S = jtFacturas.getValueAt(filasele, 0).toString();
         
         int fact_id_I = Integer.parseInt(fact_id_S);
+        
+        jtfNumFactura.setText(fact_id_S);
         
         if(filasele !=-1){
             
@@ -293,12 +321,99 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jbAnularActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here: lo que necesito hacer es traer el id del articulo a la tabla
+        
+        int filaSele1 = jtFacturas.getSelectedRow();
+        String factIdS= jtFacturas.getValueAt(filaSele1, 1).toString();
+        Integer fact_Id= Integer.parseInt(factIdS);
+        
+        
+        int filaSele2= jtDetalleFacturas.getSelectedRow();
+        
+        if(filaSele2!=-1) {
+            
+            String id_S= jtDetalleFacturas.getValueAt(filaSele2, 0).toString();
+            int id= Integer.parseInt(id_S);
+            String precio_S=jtDetalleFacturas.getValueAt(filaSele2, 3).toString();
+            float precio= Float.parseFloat(precio_S);
+            String cantidad_S=jtDetalleFacturas.getValueAt(filaSele2, 4).toString();
+            int cantidad= Integer.parseInt(cantidad_S);
+            
+            float decStock= precio * cantidad;
+            
+            
+            /* Elimino el articulo seleccionado de la factura*/
+            try {
+                detalleFacturaControlador.eliminar2(id);
+            } catch (Exception ex) {
+                Logger.getLogger(FacturaAnulacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+            /* Modifico el monto total en la factura luego de eliminar un articulo*/
+            try {
+                facturaControlador.modificar_Monto(decStock, fact_Id);
+            } catch (Exception ex) {
+                Logger.getLogger(FacturaAnulacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            cargarTablaFactAnu ();
+            
+            
+            objetoDetalleFacturaAnulaciones = new ArrayList <> ();
+       
+            detalleFacturaControlador = new DetalleFacturaControlador();
+            
+            try {
+               objetoDetalleFacturaAnulaciones = detalleFacturaControlador.listar(fact_Id);
+           grillaDetalleFacturaAnulacion = new GrillaDetalleFacturaAnulacion(objetoDetalleFacturaAnulaciones);
+            jtDetalleFacturas.setModel(grillaDetalleFacturaAnulacion);
+               
+             /*
+               ///// Estas dos lineas me solucionaron el problema que tenia al filtrar por nombre no me mostraba despues todas las filas al seleccionar una catgoria 
+               trs = new TableRowSorter(jtListadoProductos.getModel()); 
+            jtListadoProductos.setRowSorter(trs);  /////
+             */
+               
+           } catch (Exception ex) {
+               Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            
+            
+            
+            
+            
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jtDetalleFacturasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtDetalleFacturasMouseClicked
+        // TODO add your handling code here:
+        int filaSele8= jtDetalleFacturas.getSelectedRow();
+        
+        String id= jtDetalleFacturas.getValueAt(filaSele8, 0).toString();
+        
+        jtfArticuloId.setText(id);
+        
+        
+         
+       
+    
+        
+    }//GEN-LAST:event_jtDetalleFacturasMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbAnular;
     private javax.swing.JTable jtDetalleFacturas;
     private javax.swing.JTable jtFacturas;
+    private javax.swing.JTextField jtfArticuloId;
+    private javax.swing.JTextField jtfNumFactura;
     // End of variables declaration//GEN-END:variables
 }

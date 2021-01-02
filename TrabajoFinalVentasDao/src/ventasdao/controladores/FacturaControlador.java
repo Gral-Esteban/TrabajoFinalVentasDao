@@ -220,6 +220,25 @@ public class FacturaControlador implements ICrud<Factura>{
     
     
     
+    public boolean modificar_Monto(float decStock,int fact_Id) throws SQLException, Exception {
+        
+       connection = Conexion.obtenerConexion ();
+       this.sql = "UPDATE factura SET monto_total=monto_total-?  WHERE numero_factura=?";
+       
+       
+       
+       ps = connection.prepareStatement(sql);
+       ps.setFloat(1,decStock );
+       ps.setInt(2,fact_Id );
+       
+       ps.executeUpdate();
+       connection.close();
+       return true;
+    }
+    
+    
+    
+    
     
     @Override
     public boolean eliminar(Factura entidad) throws SQLException, Exception {

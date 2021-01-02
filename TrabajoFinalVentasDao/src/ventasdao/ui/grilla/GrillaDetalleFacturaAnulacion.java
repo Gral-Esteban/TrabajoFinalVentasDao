@@ -32,17 +32,18 @@ public class GrillaDetalleFacturaAnulacion extends AbstractTableModel {
     }
 
     public int getColumnCount() {
-         return 4;
+         return 5;
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
         DetalleFacturaAnulacion detallefactura = detalleFacturaAnulaciones.get(rowIndex);
         switch(columnIndex){
               
-              case 0: return detallefactura.getNombre();
-              case 1: return detallefactura.getDescripcion();
-              case 2: return detallefactura.getPrecio();
-              case 3: return detallefactura.getCantidad();
+              case 0: return detallefactura.getId();
+              case 1: return detallefactura.getNombre();
+              case 2: return detallefactura.getDescripcion();
+              case 3: return detallefactura.getPrecio();
+              case 4: return detallefactura.getCantidad();
               
               default: return "";
           }
@@ -52,10 +53,11 @@ public class GrillaDetalleFacturaAnulacion extends AbstractTableModel {
     public String getColumnName(int column) {
         switch(column){
             
-            case 0: return "NOMBRE";
-            case 1: return "DESCRIPCION";
-            case 2: return "PRECIO";
-            case 3: return "CANTIDAD";
+            case 0: return "ID";
+            case 1: return "NOMBRE";
+            case 2: return "DESCRIPCION";
+            case 3: return "PRECIO";
+            case 4: return "CANTIDAD";
             default: return "";
         
         

@@ -125,7 +125,7 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
         try{
             String cadena= String.valueOf(num_fact); //Esto lo hice porque para hacer una consulta no me funcionaba el signo ?
             this.stmt = connection.createStatement();
-            this.sql = " SELECT p.nombre, p.descripcion, p.precio, cantidad FROM detalle_factura INNER JOIN producto p ON producto_id = p.id WHERE factura_id = '"+cadena+"'";
+            this.sql = " SELECT df.id, p.nombre, p.descripcion, p.precio, df.cantidad FROM detalle_factura df INNER JOIN producto p ON producto_id = p.id WHERE factura_id = '"+cadena+"'";
             
             this.rs   = stmt.executeQuery(sql);
             connection.close();
@@ -136,8 +136,9 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
                 
                 detalleFacturaAnulacion = new DetalleFacturaAnulacion();
                 
-                 detalleFacturaAnulacion.setNombre(rs.getString("nombre"));
-                 detalleFacturaAnulacion.setDescripcion(rs.getString("descripcion"));
+                detalleFacturaAnulacion.setId(rs.getInt("id"));
+                detalleFacturaAnulacion.setNombre(rs.getString("nombre"));
+                detalleFacturaAnulacion.setDescripcion(rs.getString("descripcion"));
                 detalleFacturaAnulacion.setPrecio(rs.getFloat("precio"));
                 detalleFacturaAnulacion.setCantidad(rs.getInt("cantidad") );
                
@@ -242,6 +243,27 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
     }
     
     
+    
+    
+    
+    public boolean eliminar2 (int id)throws SQLException, Exception {
+        
+         connection = Conexion.obtenerConexion();
+        
+        String sql = "DELETE FROM detalle_factura WHERE id = ?";
+        try {
+            ps=connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            connection.close();
+            
+            
+        } catch (SQLException e) {
+             Logger.getLogger(ProductoControlador.class.getName()).log(Level.SEVERE, null, e);
+             return false;
+        }
+        return true;
+    }
     
     
     
