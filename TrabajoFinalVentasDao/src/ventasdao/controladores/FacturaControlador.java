@@ -154,7 +154,7 @@ public class FacturaControlador implements ICrud<Factura>{
             
             //JOptionPane.showMessageDialog(null, "Entra a listar2");
             
-            this.sql = "SELECT numero_factura, cliente_id, c.nombre, c.apellido, monto_total,  fp.denominacion, fecha_facturacion, observaciones FROM factura INNER JOIN cliente c ON cliente_id = c.id INNER JOIN forma_pago fp ON forma_pago_id = fp.id";
+            this.sql = "SELECT numero_factura, cliente_id, c.nombre, c.apellido, monto_total,  fp.denominacion, fecha_facturacion, observaciones FROM factura INNER JOIN cliente c ON cliente_id = c.id INNER JOIN forma_pago fp ON forma_pago_id = fp.id ORDER BY numero_factura";
           
             this.rs   = stmt.executeQuery(sql);
             connection.close();

@@ -125,7 +125,7 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
         try{
             String cadena= String.valueOf(num_fact); //Esto lo hice porque para hacer una consulta no me funcionaba el signo ?
             this.stmt = connection.createStatement();
-            this.sql = " SELECT df.id, p.nombre, p.descripcion, p.precio, df.cantidad FROM detalle_factura df INNER JOIN producto p ON producto_id = p.id WHERE factura_id = '"+cadena+"'";
+            this.sql = " SELECT df.id, p.nombre, p.descripcion, p.precio, df.cantidad FROM detalle_factura df INNER JOIN producto p ON producto_id = p.id WHERE factura_id = '"+cadena+"' ORDER BY df.id";
             
             this.rs   = stmt.executeQuery(sql);
             connection.close();

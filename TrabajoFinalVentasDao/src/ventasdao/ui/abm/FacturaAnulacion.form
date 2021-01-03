@@ -39,7 +39,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jtfNumFactura" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbQuitarArticulo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jtfArticuloId" min="-2" pref="53" max="-2" attributes="0"/>
                   </Group>
@@ -56,7 +56,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbAnular" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbQuitarArticulo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jtfNumFactura" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jtfArticuloId" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -125,12 +125,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="jbQuitarArticulo">
       <Properties>
         <Property name="text" type="java.lang.String" value="Quitar articulo"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbQuitarArticuloActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jtfNumFactura">

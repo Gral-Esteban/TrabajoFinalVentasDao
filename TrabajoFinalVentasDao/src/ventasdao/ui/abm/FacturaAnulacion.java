@@ -136,7 +136,7 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         jbAnular = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtDetalleFacturas = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jbQuitarArticulo = new javax.swing.JButton();
         jtfNumFactura = new javax.swing.JTextField();
         jtfArticuloId = new javax.swing.JTextField();
 
@@ -184,10 +184,10 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jtDetalleFacturas);
 
-        jButton1.setText("Quitar articulo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbQuitarArticulo.setText("Quitar articulo");
+        jbQuitarArticulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbQuitarArticuloActionPerformed(evt);
             }
         });
 
@@ -212,7 +212,7 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jtfNumFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(143, 143, 143)
-                        .addComponent(jButton1)
+                        .addComponent(jbQuitarArticulo)
                         .addGap(18, 18, 18)
                         .addComponent(jtfArticuloId, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -225,7 +225,7 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAnular)
-                    .addComponent(jButton1)
+                    .addComponent(jbQuitarArticulo)
                     .addComponent(jtfNumFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfArticuloId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
@@ -321,11 +321,11 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jbAnularActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbQuitarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbQuitarArticuloActionPerformed
         // TODO add your handling code here: lo que necesito hacer es traer el id del articulo a la tabla
         
         int filaSele1 = jtFacturas.getSelectedRow();
-        String factIdS= jtFacturas.getValueAt(filaSele1, 1).toString();
+        String factIdS= jtFacturas.getValueAt(filaSele1, 0).toString();
         Integer fact_Id= Integer.parseInt(factIdS);
         
         
@@ -357,7 +357,7 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
                 Logger.getLogger(FacturaAnulacion.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            cargarTablaFactAnu ();
+            cargarTablaFactAnu();
             
             
             objetoDetalleFacturaAnulaciones = new ArrayList <> ();
@@ -388,7 +388,7 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         
         
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbQuitarArticuloActionPerformed
 
     private void jtDetalleFacturasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtDetalleFacturasMouseClicked
         // TODO add your handling code here:
@@ -407,10 +407,10 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbAnular;
+    private javax.swing.JButton jbQuitarArticulo;
     private javax.swing.JTable jtDetalleFacturas;
     private javax.swing.JTable jtFacturas;
     private javax.swing.JTextField jtfArticuloId;
