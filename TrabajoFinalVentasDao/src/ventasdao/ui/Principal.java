@@ -42,7 +42,7 @@ public class Principal extends javax.swing.JFrame {
         jmiProducto = new javax.swing.JMenuItem();
         jmiTipoCliente = new javax.swing.JMenuItem();
         jmiFactura = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmiAnularFactura = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,13 +101,13 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu1.add(jmiFactura);
 
-        jMenuItem1.setText("AnularFactura");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmiAnularFactura.setText("AnularFactura");
+        jmiAnularFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmiAnularFacturaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jmiAnularFactura);
 
         jMenuBar1.add(jMenu1);
 
@@ -170,12 +170,12 @@ public class Principal extends javax.swing.JFrame {
          abmFacturar.setVisible(true);
     }//GEN-LAST:event_jmiFacturaActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jmiAnularFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAnularFacturaActionPerformed
         // TODO add your handling code here:
         FacturaAnulacion facturaAnulacion = new FacturaAnulacion();
         jdpContenedorPrincipal.add(facturaAnulacion);
         facturaAnulacion.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jmiAnularFacturaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,8 +215,8 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     public static javax.swing.JDesktopPane jdpContenedorPrincipal;
+    private javax.swing.JMenuItem jmiAnularFactura;
     private javax.swing.JMenuItem jmiCategoria;
     private javax.swing.JMenuItem jmiCliente;
     private javax.swing.JMenuItem jmiFactura;

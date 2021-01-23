@@ -324,8 +324,8 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
     private void jbQuitarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbQuitarArticuloActionPerformed
         // TODO add your handling code here: lo que necesito hacer es traer el id del articulo a la tabla
         
-        int filaSele1 = jtFacturas.getSelectedRow();
-        String factIdS= jtFacturas.getValueAt(filaSele1, 0).toString();
+        
+        String factIdS=jtfNumFactura.getText();
         Integer fact_Id= Integer.parseInt(factIdS);
         
         
