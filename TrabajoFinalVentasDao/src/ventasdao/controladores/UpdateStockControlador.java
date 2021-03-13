@@ -171,6 +171,49 @@ public class UpdateStockControlador implements ICrud<Factura>{
     
     
     
+    public boolean incrementar2(DetalleFactura articuloEliminado) throws SQLException, Exception{
+
+     
+        //int tamaño= detallefacturas.size();
+        
+       
+        connection = Conexion.obtenerConexion ();
+        
+        
+        String sql2 = "UPDATE producto SET stock=stock + ? WHERE id = ?";
+     
+          //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
+        
+
+              
+        try {
+            ps = connection.prepareStatement(sql2);
+            
+            ps.setInt(1, articuloEliminado.getCantidad());
+            ps.setInt(2, articuloEliminado.getProducto_id());
+            //ps.setDate(2, (java.sql.Date) entidad.getFecha_facturacion());
+            //ps.setDate(2, fecha);
+           
+            //ps.setInt(3, detallefactura.getFactura_id());
+          
+            
+            ps.executeUpdate();
+                 
+           
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateStockControlador.class.getName()).log(Level.SEVERE, null, ex);
+            
+            //return false;
+        }
+ 
+         connection.close();
+        
+ 
+        return true;
+        
+    }
+    
     
     
     

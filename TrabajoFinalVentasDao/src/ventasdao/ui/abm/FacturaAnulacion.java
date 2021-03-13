@@ -328,10 +328,10 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         String factIdS=jtfNumFactura.getText();
         Integer fact_Id= Integer.parseInt(factIdS);
         
+        /*Si niguna fila esta seleccionada el valor capturado sera -1 */
+        int filaSele2= jtDetalleFacturas.getSelectedRow(); 
         
-        int filaSele2= jtDetalleFacturas.getSelectedRow();
-        
-        if(filaSele2!=-1) {
+        if(filaSele2!=-1) {  
             
             String id_S= jtDetalleFacturas.getValueAt(filaSele2, 0).toString();
             int id= Integer.parseInt(id_S);
@@ -339,8 +339,11 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
             float precio= Float.parseFloat(precio_S);
             String cantidad_S=jtDetalleFacturas.getValueAt(filaSele2, 4).toString();
             int cantidad= Integer.parseInt(cantidad_S);
+            String productoId_S=jtDetalleFacturas.getValueAt(filaSele2, 5).toString();
+            int productoId= Integer.parseInt(productoId_S);
             
-            float decStock= precio * cantidad;
+            float decMontoTot= precio * cantidad;
+            
             
             
             /* Elimino el articulo seleccionado de la factura*/
@@ -352,7 +355,7 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
            
             /* Modifico el monto total en la factura luego de eliminar un articulo*/
             try {
-                facturaControlador.modificar_Monto(decStock, fact_Id);
+                facturaControlador.modificar_Monto(decMontoTot, fact_Id);
             } catch (Exception ex) {
                 Logger.getLogger(FacturaAnulacion.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -379,17 +382,68 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
                Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
            }
             
-            
+            // Actualizo el Stock en la base de datos antes de eliminar los registros
+        updateSC = new UpdateStockControlador();
+        
+        /*Creo un objeto del tipo detallefactura para almacenar valores capturados de la tabla jtdetallefacturas
+        los cuales son necesarios para impactar el incremento en la BD */
+        DetalleFactura incStock = new DetalleFactura(); 
+        incStock.setCantidad(cantidad);
+        incStock.setProducto_id(productoId);
+      
+        
+        
+        
+        
+        try {
+            updateSC.incrementar2(incStock);
+        } catch (Exception ex) {
+            Logger.getLogger(FacturaAnulacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
             
             
             
         }
         
+        /*Aqui el codigo para eliminar automaticamente la factura si se elimina el ultimo articulo de la factura*/
+        //jtfZiseTable.setText(String.valueOf(jtListadoProductos.getRowCount()));
+        int zisejtfacturas = jtFacturas.getRowCount();
+        int facturaId = Integer.parseInt(jtfNumFactura.getText());
+       
+        for(int i=0;i<=zisejtfacturas;i++) {
+            
+            int facturaIdCap =Integer.parseInt(jtFacturas.getValueAt(i, 0).toString());
+            
+            
+            if(facturaIdCap==facturaId){
+        String montoTot_S=jtFacturas.getValueAt(i, 4).toString();
+            float montoTot= Float.parseFloat(montoTot_S);
+            
+            if(montoTot==0.0) {
+            
+                try {
+            facturaControlador.eliminar(Integer.parseInt(jtfNumFactura.getText()));
+        } catch (Exception ex) {
+            Logger.getLogger(FacturaAnulacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        cargarTablaFactAnu ();
         
+        LimpiarDetalleFacturas(Integer.parseInt(jtfNumFactura.getText()));
+            
+            }
+            
+            }
+            
+            
+        }
+        
+            
         
     }//GEN-LAST:event_jbQuitarArticuloActionPerformed
 
+    
+    
     private void jtDetalleFacturasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtDetalleFacturasMouseClicked
         // TODO add your handling code here:
         int filaSele8= jtDetalleFacturas.getSelectedRow();
