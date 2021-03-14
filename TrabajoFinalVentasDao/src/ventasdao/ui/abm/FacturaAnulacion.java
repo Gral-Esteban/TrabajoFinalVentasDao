@@ -410,7 +410,7 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         int zisejtfacturas = jtFacturas.getRowCount();
         int facturaId = Integer.parseInt(jtfNumFactura.getText());
        
-        for(int i=0;i<=zisejtfacturas;i++) {
+        for(int i=0;i<zisejtfacturas;i++) {
             
             int facturaIdCap =Integer.parseInt(jtFacturas.getValueAt(i, 0).toString());
             
