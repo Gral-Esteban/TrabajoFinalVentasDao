@@ -5,9 +5,14 @@
  */
 package ventasdao.ui;
 
+import java.awt.Dimension;
+
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+
 import ventasdao.controladores.LoginUserControlador;
 import ventasdao.objetos.Usuario;
 import ventasdao.ui.abm.AbmCategoria;
@@ -33,7 +38,7 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
-        menuVisibleOff();
+        //menuVisibleOff();
     }
 
     /**
@@ -53,6 +58,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jbLogin = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiCategoria = new javax.swing.JMenuItem();
@@ -65,7 +71,9 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jdpContenedorPrincipal.setPreferredSize(new java.awt.Dimension(1600, 900));
+        jdpContenedorPrincipal.setOpaque(false);
+        jdpContenedorPrincipal.setPreferredSize(new java.awt.Dimension(1500, 695));
+        jdpContenedorPrincipal.setVerifyInputWhenFocusTarget(false);
 
         jtfUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,17 +94,12 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("         Control de Stock, Facturacion y Reportes");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jtfPassword)
-                    .addComponent(jtfUser)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
-                .addContainerGap(50, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,24 +111,38 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(142, 142, 142))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(111, 111, 111))))
+                        .addGap(115, 115, 115))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtfPassword)
+                            .addComponent(jtfUser)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addGap(47, 47, 47)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jtfUser, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jtfUser, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addComponent(jtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jbLogin)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
         jdpContenedorPrincipal.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -137,14 +154,14 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jdpContenedorPrincipalLayout.createSequentialGroup()
                 .addGap(532, 532, 532)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(732, Short.MAX_VALUE))
+                .addContainerGap(632, Short.MAX_VALUE))
         );
         jdpContenedorPrincipalLayout.setVerticalGroup(
             jdpContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jdpContenedorPrincipalLayout.createSequentialGroup()
                 .addGap(231, 231, 231)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(396, Short.MAX_VALUE))
+                .addContainerGap(209, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Menu");
@@ -298,6 +315,15 @@ public class Principal extends javax.swing.JFrame {
          AbmFactura abmFacturar = new AbmFactura();
          jdpContenedorPrincipal.add(abmFacturar);
          abmFacturar.setVisible(true);
+         
+        //Centrar ventana
+        Dimension desktopSize = jdpContenedorPrincipal.getSize();
+        Dimension FrameSize = abmFacturar.getSize();
+        abmFacturar.setLocation((desktopSize.width - FrameSize.width - 150)/2, (desktopSize.height- FrameSize.height)/2);
+        abmFacturar.show();
+        
+        
+         
     }//GEN-LAST:event_jmiFacturaActionPerformed
 
     private void jmiAnularFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAnularFacturaActionPerformed
@@ -349,6 +375,10 @@ public class Principal extends javax.swing.JFrame {
                     
                 default:
             }
+            
+         
+                
+                
             
             /*  if(entidad.getTipo().equals("administrador")){
             JOptionPane.showMessageDialog(null, "El login fue exitoso tipo de usuario:"+entidad.getTipo());
@@ -426,6 +456,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;

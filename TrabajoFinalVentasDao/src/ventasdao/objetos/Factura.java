@@ -22,13 +22,23 @@ public class Factura  extends Cliente{
     private Float monto_total;
     private FormaPago formapago;
     private String observaciones;
+    private String expedidor;
+
     
+
     
     private ArrayList<DetalleFactura> detallefactura;
     
     
     
-    
+    public String getExpedidor() {
+        return expedidor;
+    }
+
+    public void setExpedidor(String expedidor) {
+        this.expedidor = expedidor;
+    }
+     
     
 
     public FormaPago getFormapago() {

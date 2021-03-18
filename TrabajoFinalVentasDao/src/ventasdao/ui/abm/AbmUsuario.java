@@ -65,7 +65,7 @@ public class AbmUsuario extends javax.swing.JInternalFrame {
         jtfNombre.setText("");
         jtfClave.setText("");
         jtfTipo.setText("");
-        jtfMac.setText("");
+        
           
     }
 
@@ -336,7 +336,7 @@ public class AbmUsuario extends javax.swing.JInternalFrame {
        
         jtfTipo.setText("");
         jtfEstado.setText("");
-        jtfMac.setText("");
+       
         
     }//GEN-LAST:event_jbBajaUsuarioActionPerformed
 
@@ -386,7 +386,7 @@ public class AbmUsuario extends javax.swing.JInternalFrame {
        
         jtfTipo.setText("");
         jtfEstado.setText("");
-        jtfMac.setText("");
+        
         
     }//GEN-LAST:event_jbModificarUsuarioActionPerformed
 
@@ -428,7 +428,7 @@ public class AbmUsuario extends javax.swing.JInternalFrame {
         jtfClave.setText("");
         jtfTipo.setText("");
         jtfEstado.setText("");
-         jtfMac.setText("");
+         //La mac no se limpia porque es la misma siempre y debe estar fija en el jtfMac para capturarla con cada alta
         
     }//GEN-LAST:event_jbAltaUsuarioActionPerformed
 

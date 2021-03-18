@@ -65,7 +65,7 @@ public class FacturaControlador implements ICrud<Factura>{
      
         
         connection = Conexion.obtenerConexion ();
-        String sql = "INSERT INTO factura (cliente_id,monto_total,forma_pago_id,observaciones) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO factura (cliente_id,monto_total,forma_pago_id,observaciones,expedidor) VALUES (?,?,?,?,?)";
         
        
           //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
@@ -79,7 +79,7 @@ public class FacturaControlador implements ICrud<Factura>{
             ps.setFloat(2, entidad.getMonto_total());
             ps.setInt(3, entidad.getFormapago().getId());
             ps.setString(4, entidad.getObservaciones());
-            
+            ps.setString(5, entidad.getExpedidor());
            
             ps.executeUpdate();
             connection.close();
@@ -93,7 +93,7 @@ public class FacturaControlador implements ICrud<Factura>{
         }
         
         
-        // aqui traer el numero de factura y setar en el form de factura
+        // aqui traer el numero de factura y setear en el form de factura
         
         
          connection = Conexion.obtenerConexion();
@@ -154,7 +154,7 @@ public class FacturaControlador implements ICrud<Factura>{
             
             //JOptionPane.showMessageDialog(null, "Entra a listar2");
             
-            this.sql = "SELECT numero_factura, cliente_id, c.nombre, c.apellido, monto_total,  fp.denominacion, fecha_facturacion, observaciones FROM factura INNER JOIN cliente c ON cliente_id = c.id INNER JOIN forma_pago fp ON forma_pago_id = fp.id ORDER BY numero_factura";
+            this.sql = "SELECT numero_factura, cliente_id, c.nombre, c.apellido, monto_total,  fp.denominacion, fecha_facturacion, observaciones, expedidor FROM factura INNER JOIN cliente c ON cliente_id = c.id INNER JOIN forma_pago fp ON forma_pago_id = fp.id ORDER BY numero_factura";
           
             this.rs   = stmt.executeQuery(sql);
             connection.close();
@@ -173,7 +173,7 @@ public class FacturaControlador implements ICrud<Factura>{
                  objetoFacturaAnulacion.setDenominacion(rs.getString("denominacion") );
                  objetoFacturaAnulacion.setFecha_facturacion(rs.getDate("fecha_facturacion"));
                  objetoFacturaAnulacion.setObservaciones(rs.getString("observaciones") );
-               
+                 objetoFacturaAnulacion.setExpedidor(rs.getString("expedidor") );
                 
               
                 objetoFacturaAnulaciones.add(objetoFacturaAnulacion);

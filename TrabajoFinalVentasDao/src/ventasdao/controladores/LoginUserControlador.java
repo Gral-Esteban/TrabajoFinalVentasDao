@@ -298,5 +298,73 @@ public class LoginUserControlador implements ICrud<Usuario>{
 
 
     
+  
+    public Usuario consultar_user_activo() throws SQLException,Exception{
+        
+        
+     connection = Conexion.obtenerConexion ();
+        try{
+            
+            this.stmt = connection.createStatement();
+            this.sql = "SELECT * FROM usuario WHERE estado='conectado'";
+            this.rs   = stmt.executeQuery(sql);
+            connection.close();
+            
+            ArrayList<Usuario> usuarios = new ArrayList();
+            
+            while(rs.next()){
+                
+                Usuario usuario = new Usuario(); //Instanciamos un objeto del tipo Usuario
+                
+                usuario.setId(rs.getInt("id"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setClave(rs.getString("clave"));
+                usuario.setTipo (rs.getString("tipo"));
+                usuario.setEstado (rs.getString("estado"));
+                usuario.setPc_mac(rs.getString("pc_mac"));
+                
+                        //System.out.println(cliente);
+                
+                
+                usuarios.add(usuario);
+                
+            }
+           
+           Usuario entidad =new Usuario();
+            
+            mac p= new mac();
+            
+            for(Usuario usuario:usuarios){
+                
+                /*Verifico que el usuario este conectado y que a su vez pertenezca al mac de este pc
+                para diferenciar de otros usuarios conectados en otras pc  */
+                if(usuario.getEstado().equals("conectado") && usuario.getPc_mac().equals(p.conseguirMAC()) ) {
+                    
+                    entidad.setNombre(usuario.getNombre());
+                    
+
+                    break;
+                }
+                
+            }
+            
+            
+            //System.out.println(cont);
+            return entidad;
+            
+        } catch(SQLException ex){
+            return null;
+        }
+        
+    
+
+    }
+    
+    
+    
+    
+    
+    
+    
     
 }

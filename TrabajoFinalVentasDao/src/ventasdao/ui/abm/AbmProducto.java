@@ -301,7 +301,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         producto.setPrecio(Float.parseFloat(jtfPrecio.getText()));
         producto.setFechaCreacion(jdcFechaCreacion.getDate());
         producto.setStock(Integer.parseInt(jtfStock.getText()));
-        producto.setCategoria((Categoria) jcbCategorias.getSelectedItem());   //Esto creo que no esta haciendo nada
+        producto.setCategoria((Categoria) jcbCategorias.getSelectedItem());   //Se esta casteando que el resultado de jcbCategorias.getSelectedItem() sea del tipo Categoria
         
         
        try {
