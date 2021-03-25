@@ -419,7 +419,7 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
             
             
             if(facturaIdCap==facturaId){
-        String montoTot_S=jtFacturas.getValueAt(i, 4).toString();
+        String montoTot_S=jtFacturas.getValueAt(i, 5).toString(); //Mucho cuidado si agrego una columna en la tabla verificar esto
             float montoTot= Float.parseFloat(montoTot_S);
             
             if(montoTot==0.0) {

@@ -8,6 +8,7 @@ package ventasdao.ui.abm;
 
 import java.awt.*;
 import java.awt.print.*;
+import java.nio.charset.StandardCharsets;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -399,13 +400,13 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
         jPanelFactura.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 371, -1, 110));
 
         jtfClienteIF.setEditable(false);
-        jPanelFactura.add(jtfClienteIF, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 321, 46, -1));
+        jPanelFactura.add(jtfClienteIF, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 46, -1));
 
         jLabel9.setText("Id");
         jPanelFactura.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 324, -1, -1));
 
         jLabel2.setText("Cliente");
-        jPanelFactura.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 324, 57, -1));
+        jPanelFactura.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 60, 20));
 
         jtfNombreF.setEditable(false);
         jPanelFactura.add(jtfNombreF, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 174, 28));
@@ -797,6 +798,20 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
 
     private void jtfPagaConKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPagaConKeyTyped
         // TODO add your handling code here:
+            char validar = evt.getKeyChar();     //|| 
+        
+        String s = String.valueOf(validar);
+        
+         byte[] bytes =s.getBytes(StandardCharsets.US_ASCII);
+         
+         //JOptionPane.showMessageDialog(rootPane, "El numerico ASCII de:"+s +" es:"+bytes[0]);
+        
+        if( (bytes[0]<48 || bytes[0]>57) && bytes[0]!=8 && bytes[0]!=127){
+            getToolkit().beep();
+            evt.consume();
+            
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        }
     }//GEN-LAST:event_jtfPagaConKeyTyped
 
     private void jtfPagaConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPagaConActionPerformed

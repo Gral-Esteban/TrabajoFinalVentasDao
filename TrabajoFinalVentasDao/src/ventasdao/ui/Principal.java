@@ -22,6 +22,7 @@ import ventasdao.ui.abm.AbmTipoCliente;
 import ventasdao.ui.abm.AbmFactura;
 import ventasdao.ui.abm.AbmUsuario;
 import ventasdao.ui.abm.FacturaAnulacion;
+import ventasdao.ui.abm.Reporte;
 
 /**
  *
@@ -68,6 +69,7 @@ public class Principal extends javax.swing.JFrame {
         jmiFactura = new javax.swing.JMenuItem();
         jmiAnularFactura = new javax.swing.JMenuItem();
         jmiUsuario = new javax.swing.JMenuItem();
+        jmiReporte = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -222,6 +224,14 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu1.add(jmiUsuario);
 
+        jmiReporte.setText("Reporte");
+        jmiReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiReporteActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiReporte);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -253,6 +263,8 @@ public class Principal extends javax.swing.JFrame {
         jmiFactura.setVisible(false);
         jmiAnularFactura.setVisible(false);
         jmiUsuario.setVisible(false);
+        jmiReporte.setVisible(false);
+        
     }
     
     private void menuVisibleOn(){
@@ -264,6 +276,7 @@ public class Principal extends javax.swing.JFrame {
         jmiFactura.setVisible(true);
         jmiAnularFactura.setVisible(true);
         jmiUsuario.setVisible(true);
+        jmiReporte.setVisible(true);
     }
     
     private void menuVendedorVisibleOn(){
@@ -275,7 +288,7 @@ public class Principal extends javax.swing.JFrame {
         jmiFactura.setVisible(true);
         jmiAnularFactura.setVisible(false);
         jmiUsuario.setVisible(false);
-
+        jmiReporte.setVisible(true);
     }
     
     private void jmiClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClienteActionPerformed
@@ -283,6 +296,12 @@ public class Principal extends javax.swing.JFrame {
         AbmCliente abmCliente = new AbmCliente();
         jdpContenedorPrincipal.add(abmCliente);
         abmCliente.setVisible(true);
+        
+        //Centrar ventana
+        Dimension desktopSize = jdpContenedorPrincipal.getSize();
+        Dimension FrameSize = abmCliente.getSize();
+        abmCliente.setLocation((desktopSize.width - FrameSize.width - 150)/2, (desktopSize.height- FrameSize.height)/2);
+        abmCliente.show();
 
     }//GEN-LAST:event_jmiClienteActionPerformed
 
@@ -292,6 +311,12 @@ public class Principal extends javax.swing.JFrame {
         AbmCategoria abmCategoria = new AbmCategoria();
         jdpContenedorPrincipal.add(abmCategoria);
         abmCategoria.setVisible(true);
+        
+        //Centrar ventana
+        Dimension desktopSize = jdpContenedorPrincipal.getSize();
+        Dimension FrameSize = abmCategoria.getSize();
+        abmCategoria.setLocation((desktopSize.width - FrameSize.width - 150)/2, (desktopSize.height- FrameSize.height)/2);
+        abmCategoria.show();
     }//GEN-LAST:event_jmiCategoriaActionPerformed
 
     private void jmiProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProductoActionPerformed
@@ -301,6 +326,14 @@ public class Principal extends javax.swing.JFrame {
         abmProducto.setVisible(true);
         abmProducto.toFront();
         
+        //Centrar ventana
+        Dimension desktopSize = jdpContenedorPrincipal.getSize();
+        Dimension FrameSize = abmProducto.getSize();
+        abmProducto.setLocation((desktopSize.width - FrameSize.width - 150)/2, (desktopSize.height- FrameSize.height)/2);
+        abmProducto.show();
+        
+        
+        
     }//GEN-LAST:event_jmiProductoActionPerformed
 
     private void jmiTipoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTipoClienteActionPerformed
@@ -308,6 +341,12 @@ public class Principal extends javax.swing.JFrame {
         AbmTipoCliente abmtipoCliente = new AbmTipoCliente();
          jdpContenedorPrincipal.add(abmtipoCliente);
          abmtipoCliente.setVisible(true);
+         
+          //Centrar ventana
+        Dimension desktopSize = jdpContenedorPrincipal.getSize();
+        Dimension FrameSize = abmtipoCliente.getSize();
+        abmtipoCliente.setLocation((desktopSize.width - FrameSize.width - 150)/2, (desktopSize.height- FrameSize.height)/2);
+        abmtipoCliente.show();
     }//GEN-LAST:event_jmiTipoClienteActionPerformed
 
     private void jmiFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFacturaActionPerformed
@@ -331,6 +370,12 @@ public class Principal extends javax.swing.JFrame {
         FacturaAnulacion facturaAnulacion = new FacturaAnulacion();
         jdpContenedorPrincipal.add(facturaAnulacion);
         facturaAnulacion.setVisible(true);
+        
+         //Centrar ventana
+        Dimension desktopSize = jdpContenedorPrincipal.getSize();
+        Dimension FrameSize = facturaAnulacion.getSize();
+        facturaAnulacion.setLocation((desktopSize.width - FrameSize.width - 150)/2, (desktopSize.height- FrameSize.height)/2);
+        facturaAnulacion.show();
     }//GEN-LAST:event_jmiAnularFacturaActionPerformed
 
                                     
@@ -414,8 +459,29 @@ public class Principal extends javax.swing.JFrame {
         AbmUsuario abmUsuario = new AbmUsuario();
          jdpContenedorPrincipal.add(abmUsuario);
          abmUsuario.setVisible(true);
+         
+          //Centrar ventana
+        Dimension desktopSize = jdpContenedorPrincipal.getSize();
+        Dimension FrameSize = abmUsuario.getSize();
+        abmUsuario.setLocation((desktopSize.width - FrameSize.width - 150)/2, (desktopSize.height- FrameSize.height)/2);
+        abmUsuario.show();
               
     }//GEN-LAST:event_jmiUsuarioActionPerformed
+
+    private void jmiReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteActionPerformed
+        // TODO add your handling code here:
+        
+         Reporte reporte = new Reporte();
+         jdpContenedorPrincipal.add(reporte);
+         reporte.setVisible(true);
+         
+          //Centrar ventana
+        Dimension desktopSize = jdpContenedorPrincipal.getSize();
+        Dimension FrameSize = reporte.getSize();
+        reporte.setLocation((desktopSize.width - FrameSize.width - 150)/2, (desktopSize.height- FrameSize.height)/2);
+        reporte.show();
+        
+    }//GEN-LAST:event_jmiReporteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -467,6 +533,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiCliente;
     private javax.swing.JMenuItem jmiFactura;
     private javax.swing.JMenuItem jmiProducto;
+    private javax.swing.JMenuItem jmiReporte;
     private javax.swing.JMenuItem jmiTipoCliente;
     private javax.swing.JMenuItem jmiUsuario;
     private javax.swing.JTextField jtfPassword;
