@@ -8,14 +8,20 @@ package ventasdao.ui.abm;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.net.URI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import ventasdao.controladores.ImportarArchivoControlador;
 
 /**
  *
  * @author Esteban DAlbano
  */
 public class Reporte extends javax.swing.JInternalFrame {
+    
+    
+    ImportarArchivoControlador importar = new ImportarArchivoControlador();
 
     /**
      * Creates new form Reporte
@@ -402,7 +408,7 @@ public class Reporte extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
-        String absolutePath;
+        String absolutePath = null;
         
         chooser.setPreferredSize(new Dimension(600, 400));
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -416,7 +422,17 @@ public class Reporte extends javax.swing.JInternalFrame {
         }
         
         
-        //ImportarArchivoControlador(absolutePath);
+        try {
+            importar.importarExcel(absolutePath);
+            JOptionPane.showMessageDialog(rootPane, "Se importo la lista con exito");
+        } 
+        catch (Exception ex) {
+            Logger.getLogger(Reporte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

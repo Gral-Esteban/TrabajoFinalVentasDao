@@ -35,11 +35,12 @@ public class ImportarArchivoControlador {
     public boolean importarExcel(String absolutePath)throws SQLException, Exception{
         
         connection = Conexion.obtenerConexion();
-               sql = "CEATE TABLE PUBLIC";
-        String sql = "DELETE FROM producto WHERE id = ?";
+        
+             String  sql = "COPY PUBLIC.productosfar2 FROM '"+absolutePath+"' DELIMITER ';' CSV HEADER";  //El signo de pregunta ? se reemplazo por '"+absolutePath+"' y el error se fue
+       
         try {
             ps=connection.prepareStatement(sql);
-            //ps.setInt(1, entidad.getId());
+            //ps.setString(1, absolutePath);    Esto lo comente porque no funcionaba ya que va complementado con un signo de pregunta  ? en el Sring sql y dababa error
             ps.executeUpdate();
             connection.close();
             
