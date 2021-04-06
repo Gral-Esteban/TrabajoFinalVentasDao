@@ -1,0 +1,101 @@
+[33mcommit f67582ae3ed5db7e81024cc41cb834892e7b9ca9[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Thu Mar 25 08:12:18 2021 -0300
+
+    Agregando funcionalidad de reportes y cargar a la base de datos desde un archivo excel
+
+[33mcommit 86edfac1d996aaf7e9b32fbc97799d02cb73e519[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Wed Mar 17 23:13:37 2021 -0300
+
+    Se agrego la funcionalidad de Imprimir la factura, centrar la ventana de factura al seleccionarla del menu, se coloco un JPanel para permitir quitar bordes al imprimir la factura, se agrego iconos a los botones de facturacion, se configuro el Layouten Absolute Layout para que no se muevan los controles y se hizo validaciones antes de confirmar factura a los campos del cliente (cliente_Id>0) y productos ingresados (Monto_total>0).
+
+[33mcommit 69839d0e28d1fbe8ffbf51e9c5f503194ff23fb4[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Sun Mar 14 15:42:27 2021 -0300
+
+    Se agrego la funcionalidad de gestion de usuarios del sistema con sus atributos nombre, clave, tipo (administrador o vendedor), estado (conectado o desconectado) y pc_mac para distinguirlo en una red y asociarlo a la emision de una factura.
+
+[33mcommit 068e0bae1e47d4e28041940089af6d1721c2429f[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Sat Mar 13 13:55:28 2021 -0300
+
+    Se agrego la actualizacion de stock al eliminar un articulo y eliminar la factura al elminar el ultimo articulo
+
+[33mcommit 2eabd546dec7da8cd809387cf8075b4b261e35d4[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Fri Jan 22 22:37:36 2021 -0300
+
+    Correccion cuando se eliminaba un articulo se perdia numero de referencia de factura
+
+[33mcommit 19120ab8b8a87803928e56c1742fd702fd90cded[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Sat Jan 2 22:02:20 2021 -0300
+
+    Correciones a la funcionalidad de eliminar un articulo y mostrar ordenado los listados
+
+[33mcommit 977364fc2daa20524e7258d48577c37b32b710c0[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Sat Jan 2 10:51:58 2021 -0300
+
+    Se agrego la funcionalidad de quitar un articulo de la factura y actualizar el monto total de dicha factura
+
+[33mcommit 0163a9da6f98ee5b644115318f94cbe78a5a6f46[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Fri Dec 18 19:24:58 2020 -0300
+
+    Se agrego el incremento del stock en la base de datos respectivos a los items de la factura anulada
+
+[33mcommit 2ade072a634b97bd34aa0718e5f40fea6e918612[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Wed Dec 16 15:37:03 2020 -0300
+
+    Se agrego la funcionalidad de anulacion de factura, quedando pendiente reintegrar el stock en la Base de Datos (DB)
+
+[33mcommit f7cca5b5ecb0eed3398d1c63f37014255e628997[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Sat Dec 12 12:06:08 2020 -0300
+
+    Se agrego actualizacion de stock al confirmar factura y el detalle al eliminar un item de la factura actualizando la grilla de jtListadoProductos, quedando pendiente la anulacion de factura y el impacto en stock
+
+[33mcommit e5e47bf8c67e7d5cd4d15a5a0d72f19a1dc3ab14[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Fri Dec 11 00:47:49 2020 -0300
+
+    Se agrego correcciones para los filtrados y gran parte del manejo del stock, faltando terminar cuando se elimina un articulo de la factura y el impacto en la base de datos al confirmar la venta
+
+[33mcommit 5b654fde355bc4c15aad3a271c12648675f53121[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Sun Dec 6 12:17:41 2020 -0300
+
+    Anterior a este commit se habia agregado el filtrado por nombrey ahora se soluciono errores que tenia
+
+[33mcommit 391b5d2ffb4d4d2fd75817c00baa63d6fd103ac1[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Tue Dec 1 16:52:27 2020 -0300
+
+    limpieza de codigo
+
+[33mcommit b98ea4a657872609b302c8ec28983f391847011e[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Tue Dec 1 16:08:07 2020 -0300
+
+    intentando solucionar problema con git
+
+[33mcommit f817a1dd866bae5c82b0117b9c1d22ff2a27cb36[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Thu Nov 26 21:16:00 2020 -0300
+
+    ultimos cambios
+
+[33mcommit 04e2e9faeb5a685eab4348c671231d3a7d50fdac[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Thu Nov 19 01:03:36 2020 -0300
+
+    se agrego el controladorProducto, GrillaProducto, AbmProducto
+
+[33mcommit 66c01f26bea698998a6c500c6df982b179c2734c[m
+Author: Esteban D'Albano <egm5700@gmail.com>
+Date:   Sun Nov 15 23:08:14 2020 -0300
+
+    Se hizo correcciones en la base de datos, el controlador cliente, objeto cliente y la grilla cliente
