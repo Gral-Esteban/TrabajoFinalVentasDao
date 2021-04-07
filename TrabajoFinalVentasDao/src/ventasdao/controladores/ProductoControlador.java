@@ -67,6 +67,7 @@ public class ProductoControlador implements ICrud<Producto> {
             return false;
         }
     
+    }
     
     
     
@@ -74,18 +75,25 @@ public class ProductoControlador implements ICrud<Producto> {
     public boolean modificar(Producto entidad) throws SQLException, Exception {
         
        connection = Conexion.obtenerConexion ();
-       this.sql = "UPDATE producto SET nombre=?, descripcion=? , precio=?,stock=?, fecha_creacion=? , categoria_id=?  WHERE id=?";
+       this.sql = "UPDATE producto SET codigo=?, descripcion=? , p_dolar=?,stock=?, fecha_creacion=? , categoria_id=?  WHERE id=?";
        
-       Date fecha = new Date (entidad.getFechaCreacion().getTime());
+       Date fecha = new Date (entidad.getFechaIngreso().getTime());
        
        ps = connection.prepareStatement(sql);
-       ps.setString(1,entidad.getNombre() );
-       ps.setString(2,entidad.getDescripcion());
-       ps.setFloat(3,entidad.getPrecio());
-       ps.setInt(4,entidad.getStock());
-       ps.setDate(5,fecha );
-       ps.setInt(6, entidad.getCategoria_id());
-       ps.setInt(7, entidad.getId());
+       
+           
+            ps.setString(1, entidad.getCodigo());
+            ps.setString(2, entidad.getDescripcion());
+            ps.setFloat(3, entidad.getP_dolar());
+            ps.setFloat(3, entidad.getP_costo());
+            ps.setFloat(3, entidad.getP_venta());
+            ps.setString(1, entidad.getOrigen());
+            ps.setString(1, entidad.getProveedor());
+            ps.setInt(4,entidad.getStock());
+            ps.setString(1, entidad.getCategoria());
+            ps.setString(1, entidad.getImagen());
+
+            ps.setDate(5, fecha);
        
        ps.executeUpdate();
        connection.close();
