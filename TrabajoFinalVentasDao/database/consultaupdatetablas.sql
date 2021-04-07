@@ -4,7 +4,7 @@ select codigo,descripcion,p_dolar,p_venta,origen,proveedor from productos2 order
 select codigo,descripcion,p_dolar,p_venta,origen,proveedor from productos1 order by codigo
 
 select * from productos2 order by codigo
-select * from productos1 order by codigo
+select * from producto order by codigo
 
 do $$
 begin
@@ -150,6 +150,8 @@ create table public.productos1 (
 	proveedor character varying (100) not null,
 	stock integer,
 	categoria character varying (100),
+	imagen character varying (200),
+	fecha_ingreso date;
 	primary key (id)
 )
 

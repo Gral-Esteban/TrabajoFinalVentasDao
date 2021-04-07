@@ -26,7 +26,7 @@ public class Producto {
     
     private String categoria;
     
-    private Date fechaCreacion;
+    private Date fechaIngreso;
     
     private String fechaAlta;
     
@@ -36,6 +36,22 @@ public class Producto {
     
 
     // Getter and Setter
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 
     public Integer getId() {
         return id;
@@ -117,12 +133,12 @@ public class Producto {
         this.categoria = categoria;
     }
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
+    public Date getFechaIngreso() {
+        return fechaIngreso;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setFechaIngreso(Date fechaCreacion) {
+        this.fechaIngreso = fechaCreacion;
     }
 
     public String getFechaAlta() {

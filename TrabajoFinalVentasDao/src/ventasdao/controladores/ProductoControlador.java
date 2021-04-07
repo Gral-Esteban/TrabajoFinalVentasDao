@@ -36,9 +36,9 @@ public class ProductoControlador implements ICrud<Producto> {
     public boolean crear(Producto entidad) throws SQLException, Exception{
 
         connection = Conexion.obtenerConexion ();
-        String sql = "INSERT INTO productos1 (codigo,descripcion,p_dolar,p_costo,p_venta,origen,proveedor,stock,categoria,imagen,link_prove) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO productos1 (codigo,descripcion,p_dolar,p_costo,p_venta,origen,proveedor,stock,categoria,imagen,fecha_ingreso) VALUES (?,?,?,?,?,?,?,?,?,?)";
         
-        Date fecha = new Date (entidad.getFechaCreacion().getTime()); 
+        Date fecha = new Date (entidad.getFechaIngreso().getTime()); 
         
         try {
             ps = connection.prepareStatement(sql);
@@ -50,11 +50,13 @@ public class ProductoControlador implements ICrud<Producto> {
             ps.setFloat(3, entidad.getP_venta());
             ps.setString(1, entidad.getOrigen());
             ps.setString(1, entidad.getProveedor());
-            
-            
             ps.setInt(4,entidad.getStock());
+            ps.setString(1, entidad.getCategoria());
+            ps.setString(1, entidad.getImagen());
+
             ps.setDate(5, fecha);
             //ps.setInt(6, entidad.getCategoria().getId());
+            
             ps.executeUpdate();
             connection.close();
             return true;
