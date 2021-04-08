@@ -38,28 +38,27 @@ public class CategoriaControlador implements ICrud<Categoria>{
     
   
     
-    public ArrayList<Categoria> listar() throws SQLException, Exception{
+    
+    public ArrayList<String> listar2() throws SQLException, Exception{
     
     
      connection = Conexion.obtenerConexion ();
         try{
             
             this.stmt = connection.createStatement();
-            this.sql = "SELECT * FROM categorias";
+            this.sql = "SELECT categoria FROM productos1 GROUP BY categoria";
             this.rs   = stmt.executeQuery(sql);
             connection.close();
             
-            ArrayList<Categoria> categorias = new ArrayList();
+            ArrayList<String> categorias = new ArrayList();
             
             
             while(rs.next()){
                 
-                Categoria categoria = new Categoria();
+             String categoria;
                 
-                categoria.setDenominacion(rs.getString("denominacion"));
-                categoria.setDescripcion(rs.getString("descripcion"));
-                categoria.setId(rs.getInt("id"));
-                
+                categoria=rs.getString("categoria");
+               
                         //System.out.println(cliente);
                 
                 
