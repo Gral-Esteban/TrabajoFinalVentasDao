@@ -503,7 +503,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         //Valido que tenga stock antes que todo
         if(stockI>0) {
         
-        //Valido todo el codigo del boton
+        //Valido todo el codigo del boton (si ninguna fila esta seleccionada filasele= -1 )
         if(filasele>=0){
         
         
@@ -535,13 +535,13 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         registro [4] = jtListadoProductos.getValueAt(filasele, 0).toString();
     
         
-        cantidad = Double.parseDouble(entradaUsuario);
+        cantidad = Double.parseDouble(entradaUsuario); // Esto lo hago para poder mas abajo multiplicar en #C1 (si no da error Integer * Double)
         
        totalAnsS = AbmFactura.jtfTotal.getText();
         
         totalS= jtListadoProductos.getValueAt(filasele, 4).toString();
         
-        totalD= Double.parseDouble(totalAnsS) + Double.parseDouble(totalS) * cantidad;
+        totalD= Double.parseDouble(totalAnsS) + Double.parseDouble(totalS) * cantidad; //#C1
         
        
         
@@ -714,13 +714,15 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         }  
         
         
-        else
-        {
+             else
+            {
             JOptionPane.showMessageDialog(null, "Por favor seleccione un producto");
-        }
+            }
         
         
         }
+        
+        
         
         else {
             

@@ -134,7 +134,8 @@ CREATE TABLE IF NOT EXISTS  public.productos1 (
 
 /*################## END CREATE TABLE IF NOT EXISTS ##########################*/
 
-
+ALTER TABLE tabla1 ADD UNIQUE (codigo, proveedor); /*Ësto crea una restriccion unica para que no existan mas de un registro con el mismo codigo y proveedor simultaneamente*/
+CREATE UNIQUE INDEX ON tabla2 (codigo, proveedor);
 
 /*################# DELETE AND CREATE TABLE ##########################*/
 
@@ -151,8 +152,10 @@ create table public.productos1 (
 	stock integer,
 	categoria character varying (100),
 	imagen character varying (200),
-	fecha_ingreso date;
+	fecha_ingreso date,
+	UNIQUE (codigo, proveedor),
 	primary key (id)
+	
 )
 
 /*################## END DELETE AND CREATE TABLE ##########################*/
@@ -161,6 +164,9 @@ select count(codigo) from tabla2 where codigo not in (select tabla1.codigo from 
 
 select * from productos1 order by id
 select * from productos2 order by id
+
+select * from tabla1
+select * from tabla2
 
 
 /*##################### UPDATE TABLE ##############################*/
