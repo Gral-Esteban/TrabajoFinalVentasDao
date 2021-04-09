@@ -96,7 +96,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
        
 
       //Carga los productos desde la base de datos     
-        ArrayList<Producto> productos;
+       ArrayList<Producto> productos;
         
        controladorProducto = new ProductoControlador();
        categoriaControlador = new CategoriaControlador();
@@ -113,7 +113,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
        
        //Cargar el JComboBox desde la base de datos
        try {
-           ArrayList<Categoria> categorias = categoriaControlador.listar();
+           ArrayList<String> categorias = categoriaControlador.listar2();
            modelCombo = new DefaultComboBoxModel(categorias.toArray());
            jcbCategorias.setModel(modelCombo);
            
@@ -159,7 +159,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         jtfDescripcion = new javax.swing.JTextField();
         jcbCategorias = new javax.swing.JComboBox<>();
         jtfPrecioVenta = new javax.swing.JTextField();
-        jdcFechaCreacion = new com.toedter.calendar.JDateChooser();
+        jdcFechaIngreso = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -168,16 +168,11 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         jbRegistrarProducto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListadoProductos = new javax.swing.JTable();
-        jtfId = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jtfCategoriaId = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jtfCategoriaNombre = new javax.swing.JTextField();
         jtfStock = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jtfFiltradoNombre = new javax.swing.JTextField();
+        jtfFiltradoDescripcion = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jtfZiseTable = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
@@ -185,7 +180,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         jButton4 = new javax.swing.JButton();
         jtfJCBSelectedItem = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jtfImagenFuente = new javax.swing.JTextField();
+        jtfImagen = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jtfOrigen = new javax.swing.JTextField();
@@ -220,7 +215,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        jdcFechaCreacion.setEnabled(false);
+        jdcFechaIngreso.setEnabled(false);
 
         jLabel1.setText("Codigo");
 
@@ -230,7 +225,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Filtrar por categoria");
 
-        jLabel5.setText("Fecha Creacion");
+        jLabel5.setText("Fecha Ingreso");
 
         jbRegistrarProducto.setText("Agregar a factura");
         jbRegistrarProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -244,7 +239,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "CODIGO", "DESCRIPCION", "P_VENTA", "ORIGEN", "PROVEEDOR", "STOCK"
+                "CODIGO", "DESCRIPCION", "P_VENTA", "ORIGEN", "PROVEEDOR", "STOCK", "CATEGORIA", "IMAGEN", "FECHA_INGRESO"
             }
         ));
         jtListadoProductos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -257,20 +252,6 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jtListadoProductos);
 
-        jtfId.setEditable(false);
-        jtfId.setEnabled(false);
-
-        jLabel6.setText("Id");
-
-        jtfCategoriaId.setEditable(false);
-        jtfCategoriaId.setEnabled(false);
-
-        jLabel7.setText("Categoria_id");
-
-        jtfCategoriaNombre.setEditable(false);
-        jtfCategoriaNombre.setDisabledTextColor(new java.awt.Color(255, 102, 0));
-        jtfCategoriaNombre.setEnabled(false);
-
         jLabel8.setText("Stock");
 
         jButton1.setText("Salir");
@@ -282,9 +263,9 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Filtrar por descripcion");
 
-        jtfFiltradoNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtfFiltradoDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfFiltradoNombreKeyTyped(evt);
+                jtfFiltradoDescripcionKeyTyped(evt);
             }
         });
 
@@ -322,58 +303,46 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jtfCategoriaId, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jtfCategoriaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel4)
                                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel10)
                                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jtfStock, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfFiltradoNombre)
-                                            .addComponent(jtfPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfCodigo)
-                                            .addComponent(jtfDescripcion)
-                                            .addComponent(jcbCategorias, 0, 152, Short.MAX_VALUE)
-                                            .addComponent(jtfId)
-                                            .addComponent(jtfImagenFuente)
-                                            .addComponent(jtfOrigen, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jtfProveedor)))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(9, 9, 9)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jdcFechaIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jtfFiltradoDescripcion)
+                                    .addComponent(jtfCodigo)
+                                    .addComponent(jtfDescripcion)
+                                    .addComponent(jcbCategorias, 0, 152, Short.MAX_VALUE)
+                                    .addComponent(jtfImagen)
+                                    .addComponent(jtfOrigen, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jtfProveedor)
+                                    .addComponent(jtfStock)
+                                    .addComponent(jtfPrecioVenta)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 17, Short.MAX_VALUE)))
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jbRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -422,11 +391,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jbRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
@@ -441,7 +406,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jtfFiltradoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtfFiltradoDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -461,18 +426,14 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jtfImagenFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtfImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfCategoriaId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfCategoriaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -512,15 +473,15 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         
         
         
-        jtfFiltradoNombre.setText(null);
+        jtfFiltradoDescripcion.setText(null);
         
         String [] registro = new String [5];
         
         
         
-        registro [0] = jtListadoProductos.getValueAt(filasele, 2).toString();
-        registro [1] = jtListadoProductos.getValueAt(filasele, 3).toString();
-        registro [2] = jtListadoProductos.getValueAt(filasele, 4).toString();
+        registro [0] = jtListadoProductos.getValueAt(filasele, 0).toString(); // Codigo
+        registro [1] = jtListadoProductos.getValueAt(filasele, 1).toString();  //Descripcion
+        registro [2] = jtListadoProductos.getValueAt(filasele, 4).toString(); //P_venta
        
         
         do{
@@ -530,9 +491,9 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null,"Por favor ingrese un valor mayor a cero y menor al stock");
         }while(validacion<=0 || validacion>stockI);
         
-        registro [3] =  entradaUsuario;
+        registro [3] =  entradaUsuario; //Cantidad
         
-        registro [4] = jtListadoProductos.getValueAt(filasele, 0).toString();
+        registro [4] = jtListadoProductos.getValueAt(filasele, 6).toString(); //Proveedor
     
         
         cantidad = Double.parseDouble(entradaUsuario); // Esto lo hago para poder mas abajo multiplicar en #C1 (si no da error Integer * Double)
@@ -541,7 +502,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         
         totalS= jtListadoProductos.getValueAt(filasele, 4).toString();
         
-        totalD= Double.parseDouble(totalAnsS) + Double.parseDouble(totalS) * cantidad; //#C1
+        totalD= Double.parseDouble(totalAnsS) + Double.parseDouble(totalS) * cantidad; //#C1  [total anterior + (P_venta x Cantidad)]
         
        
         
@@ -562,14 +523,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         
 
         //Esto limpia campos
-        jtfId.setText("");
-        jtfCodigo.setText("");
-        jtfDescripcion.setText("");
-        jtfCategoriaId.setText("");
-        jtfCategoriaNombre.setText("");
-        jtfPrecioVenta.setText("");
-        jtfStock.setText("");
-        jdcFechaCreacion.setDate(null);
+        limpiarCampos();
         
         
         ///Voy a tener que considerar para solucionar un problema (que no mantiene el filtrado seleccionado una vez agrago un producto)
@@ -585,7 +539,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         ArrayList<Producto> productos;
         
         controladorProducto = new ProductoControlador();
-        categoriaControlador = new CategoriaControlador();
+        categoriaControlador = new CategoriaControlador(); //Instancio o creo un objeto de CategoriaControlador
         
         
         try {
@@ -610,7 +564,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
            String cat_name = jcbCategorias.getSelectedItem().toString();
            
             
-             jtfFiltradoNombre.setText(null);
+             jtfFiltradoDescripcion.setText(null);
            
                try {
                    categoria = facturaProductoControlador.extraer(cat_name);
@@ -668,18 +622,22 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         Producto Oproducto = new Producto();
         
         
-        Oproducto.setId(Integer.parseInt(jtListadoProductos.getValueAt(i, 0).toString()));
-        Oproducto.setCategoria_id(Integer.parseInt(jtListadoProductos.getValueAt(i, 1).toString()));
-        Oproducto.setNombre((jtListadoProductos.getValueAt(i, 2).toString()));
-        Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 3).toString()));
-        Oproducto.setPrecio(Float.parseFloat(jtListadoProductos.getValueAt(i, 4).toString()));
+        //Oproducto.setId(Integer.parseInt(jtListadoProductos.getValueAt(i, 0).toString()));
+       
+        Oproducto.setCodigo((jtListadoProductos.getValueAt(i, 0).toString()));
+        Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 1).toString()));
+        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 4).toString()));
         Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 5).toString()));
-        Oproducto.setFechaAlta((jtListadoProductos.getValueAt(i, 6).toString()));
+        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 6).toString()));
+        Oproducto.setImagen((jtListadoProductos.getValueAt(i, 7).toString()));
+        Oproducto.setFechaIngreso((jtListadoProductos.getValueAt(i, 8).toString()));
         
-        
+      
         
         for(int j=0;j<cantfilasfact;j++){
-         if(Oproducto.getId()==Integer.parseInt(AbmFactura.jtListadoFacturacion.getValueAt(j, 4).toString()))
+         if( Oproducto.getCodigo().equals(AbmFactura.jtListadoFacturacion.getValueAt(j, 0).toString()) && Oproducto.getProveedor().equals(AbmFactura.jtListadoFacturacion.getValueAt(j, 4).toString()) )
            Oproducto.setStock(Oproducto.getStock()-Integer.parseInt(AbmFactura.jtListadoFacturacion.getValueAt(j, 3).toString())); 
         }
             
@@ -740,15 +698,17 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         
          
      
-       jtfId.setText( producto.getId().toString() );
-        jtfCodigo.setText(producto.getNombre());
+       //jtfId.setText( producto.getId().toString() );
+        jtfCodigo.setText(producto.getCodigo());
        jtfDescripcion.setText(producto.getDescripcion());
-       jtfPrecioVenta.setText( producto.getPrecio().toString() );
+       jtfPrecioVenta.setText( producto.getP_venta().toString() );
+       jtfOrigen.setText(producto.getOrigen());
+       jtfProveedor.setText(producto.getProveedor());
         jtfStock.setText( producto.getStock().toString() );
        
-          // jcbCategorias.setSelectedItem(categoria.getDenominacion());
-       jdcFechaCreacion.setDate(producto.getFechaCreacion());
-       jtfCategoriaId.setText(producto.getCategoria_id().toString());
+          jcbCategorias.setSelectedItem(producto.getCategoria());
+       jdcFechaIngreso.setDate(producto.getFechaIngreso());
+      // jtfCategoriaId.setText(producto.getCategoria_id().toString());
        
       
        
@@ -781,7 +741,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
             jtfFiltradoNombre.setText(jtfFiltradoNombre.getText().substring(0, jtfFiltradoNombre.getText().length()-1));
         }*/
            
-            jtfFiltradoNombre.setText(null);
+            jtfFiltradoDescripcion.setText(null);
              /*jtfFiltradoNombre.invalidate();
              jtfFiltradoNombre.repaint();
              jtfFiltradoNombre.removeAll();
@@ -793,7 +753,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
            
            if(cat_name.equals("Todos")){
                
-               jtfFiltradoNombre.setText(null);
+               jtfFiltradoDescripcion.setText(null);
               
                
                
@@ -834,23 +794,27 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         int filas = jtListadoProductos.getRowCount();
        
         
-        for(int i=0;i<filas;i++){
+         for(int i=0;i<filas;i++){
             
         Producto Oproducto = new Producto();
         
         
-        Oproducto.setId(Integer.parseInt(jtListadoProductos.getValueAt(i, 0).toString()));
-        Oproducto.setCategoria_id(Integer.parseInt(jtListadoProductos.getValueAt(i, 1).toString()));
-        Oproducto.setNombre((jtListadoProductos.getValueAt(i, 2).toString()));
-        Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 3).toString()));
-        Oproducto.setPrecio(Float.parseFloat(jtListadoProductos.getValueAt(i, 4).toString()));
+        //Oproducto.setId(Integer.parseInt(jtListadoProductos.getValueAt(i, 0).toString()));
+       
+        Oproducto.setCodigo((jtListadoProductos.getValueAt(i, 0).toString()));
+        Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 1).toString()));
+        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 4).toString()));
         Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 5).toString()));
-        Oproducto.setFechaAlta((jtListadoProductos.getValueAt(i, 6).toString()));
+        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 6).toString()));
+        Oproducto.setImagen((jtListadoProductos.getValueAt(i, 7).toString()));
+        Oproducto.setFechaIngreso((jtListadoProductos.getValueAt(i, 8).toString()));
         
+      
         
-        
-        for(int j=0;j<cantfilasfact;j++) {
-         if(Oproducto.getId()==Integer.parseInt(AbmFactura.jtListadoFacturacion.getValueAt(j, 4).toString()))
+        for(int j=0;j<cantfilasfact;j++){
+         if( Oproducto.getCodigo().equals(AbmFactura.jtListadoFacturacion.getValueAt(j, 0).toString()) && Oproducto.getProveedor().equals(AbmFactura.jtListadoFacturacion.getValueAt(j, 4).toString()) )
            Oproducto.setStock(Oproducto.getStock()-Integer.parseInt(AbmFactura.jtListadoFacturacion.getValueAt(j, 3).toString())); 
         }
             
@@ -880,7 +844,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
            
            else{
                
-               jtfFiltradoNombre.setText(null);
+               jtfFiltradoDescripcion.setText(null);
            
                try {
                    categoria = facturaProductoControlador.extraer(cat_name);
@@ -926,23 +890,27 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         int filas = jtListadoProductos.getRowCount();
        
         
-        for(int i=0;i<filas;i++){
+         for(int i=0;i<filas;i++){
             
         Producto Oproducto = new Producto();
         
         
-        Oproducto.setId(Integer.parseInt(jtListadoProductos.getValueAt(i, 0).toString()));
-        Oproducto.setCategoria_id(Integer.parseInt(jtListadoProductos.getValueAt(i, 1).toString()));
-        Oproducto.setNombre((jtListadoProductos.getValueAt(i, 2).toString()));
-        Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 3).toString()));
-        Oproducto.setPrecio(Float.parseFloat(jtListadoProductos.getValueAt(i, 4).toString()));
+        //Oproducto.setId(Integer.parseInt(jtListadoProductos.getValueAt(i, 0).toString()));
+       
+        Oproducto.setCodigo((jtListadoProductos.getValueAt(i, 0).toString()));
+        Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 1).toString()));
+        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 4).toString()));
         Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 5).toString()));
-        Oproducto.setFechaAlta((jtListadoProductos.getValueAt(i, 6).toString()));
+        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 6).toString()));
+        Oproducto.setImagen((jtListadoProductos.getValueAt(i, 7).toString()));
+        Oproducto.setFechaIngreso((jtListadoProductos.getValueAt(i, 8).toString()));
         
+      
         
-        
-        for(int j=0;j<cantfilasfact;j++) {
-         if(Oproducto.getId()==Integer.parseInt(AbmFactura.jtListadoFacturacion.getValueAt(j, 4).toString()))
+        for(int j=0;j<cantfilasfact;j++){
+         if( Oproducto.getCodigo().equals(AbmFactura.jtListadoFacturacion.getValueAt(j, 0).toString()) && Oproducto.getProveedor().equals(AbmFactura.jtListadoFacturacion.getValueAt(j, 4).toString()) )
            Oproducto.setStock(Oproducto.getStock()-Integer.parseInt(AbmFactura.jtListadoFacturacion.getValueAt(j, 3).toString())); 
         }
             
@@ -975,18 +943,18 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
       
     }//GEN-LAST:event_jcbCategoriasItemStateChanged
 
-    private void jtfFiltradoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfFiltradoNombreKeyTyped
+    private void jtfFiltradoDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfFiltradoDescripcionKeyTyped
         // TODO add your handling code here:
         
          //DefaultTableModel dtm = new DefaultTableModel();
         
-       jtfFiltradoNombre.addKeyListener(new KeyAdapter() {
+       jtfFiltradoDescripcion.addKeyListener(new KeyAdapter() {
            @Override
            public void keyReleased(KeyEvent e) 
             
             {
                
-               trs.setRowFilter(RowFilter.regexFilter("(?i)"+jtfFiltradoNombre.getText(), 2));
+               trs.setRowFilter(RowFilter.regexFilter("(?i)"+jtfFiltradoDescripcion.getText(), 2));
            }
         
        });
@@ -1000,7 +968,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
        
        
        
-    }//GEN-LAST:event_jtfFiltradoNombreKeyTyped
+    }//GEN-LAST:event_jtfFiltradoDescripcionKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -1019,7 +987,21 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         jtfJCBSelectedItem.setText(jcbCategorias.getSelectedItem().toString());
     }//GEN-LAST:event_jButton4ActionPerformed
 
-   
+    private void limpiarCampos() {
+        
+        jtfDescripcion.setText("");
+        jtfCodigo.setText("");
+        jtfPrecioVenta.setText("");
+        //jtfPrecioCosto.setText("");
+        //jtfPrecioDolar.setText("");
+        jtfOrigen.setText("");
+        jtfProveedor.setText("");
+        jtfStock.setText("");
+        jcbCategorias.setToolTipText("");
+        jtfImagen.setText("");
+        jdcFechaIngreso.setToolTipText("");
+        jdcFechaIngreso.setDate(null);
+    }
   
     
     /**
@@ -1041,23 +1023,18 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbRegistrarProducto;
     public static javax.swing.JComboBox<String> jcbCategorias;
-    private com.toedter.calendar.JDateChooser jdcFechaCreacion;
+    private com.toedter.calendar.JDateChooser jdcFechaIngreso;
     public static javax.swing.JTable jtListadoProductos;
-    private javax.swing.JTextField jtfCategoriaId;
-    private javax.swing.JTextField jtfCategoriaNombre;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfDescripcion;
     private javax.swing.JTextField jtfFilaSele;
-    private javax.swing.JTextField jtfFiltradoNombre;
-    private javax.swing.JTextField jtfId;
-    private javax.swing.JTextField jtfImagenFuente;
+    private javax.swing.JTextField jtfFiltradoDescripcion;
+    private javax.swing.JTextField jtfImagen;
     private javax.swing.JTextField jtfJCBSelectedItem;
     private javax.swing.JTextField jtfOrigen;
     private javax.swing.JTextField jtfPrecioVenta;
