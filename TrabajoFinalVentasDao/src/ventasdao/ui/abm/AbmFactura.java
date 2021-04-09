@@ -573,7 +573,8 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
         for(int i=0;i<cantidadfilas;i++){
             DetalleFactura detallefactura = new DetalleFactura();
 
-            detallefactura.setProducto_id(Integer.parseInt(jtListadoFacturacion.getValueAt(i, 4).toString()));  //producto_id
+            detallefactura.setCodigo(jtListadoFacturacion.getValueAt(i, 0).toString());  //Codigo del producto
+             detallefactura.setProveedor(jtListadoFacturacion.getValueAt(i, 4).toString());  //Proveedor del producto
             //JOptionPane.showMessageDialog(null,"ProductoId"+jtListadoFacturacion.getValueAt(i, 4).toString());
             detallefactura.setCantidad(Integer.parseInt(jtListadoFacturacion.getValueAt(i, 3).toString()));   //cantidad
             //JOptionPane.showMessageDialog(null,"Cantidad="+jtListadoFacturacion.getValueAt(i, 3).toString());
@@ -623,8 +624,9 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
 
         int filasele = jtListadoFacturacion.getSelectedRow();
 
-        int factPID = Integer.parseInt(jtListadoFacturacion.getValueAt(filasele, 4).toString()); //Guardo este dato
-        int factPST = Integer.parseInt(jtListadoFacturacion.getValueAt(filasele, 3).toString()); // Guardo este dato
+        String factCOD = jtListadoFacturacion.getValueAt(filasele, 0).toString(); //Codigo del producto en factura
+        String factPROV = jtListadoFacturacion.getValueAt(filasele, 4).toString(); //Proveedor del producto en factura
+        int factCANT = Integer.parseInt(jtListadoFacturacion.getValueAt(filasele, 3).toString()); // Cantidad del producto en factura
 
         descontar = jtListadoFacturacion.getValueAt(filasele, 2).toString();
 
@@ -657,16 +659,18 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
 
                     Producto Oproducto = new Producto();
 
-                    Oproducto.setId(Integer.parseInt(jtListadoProductos.getValueAt(i, 0).toString()));
-                    Oproducto.setCategoria_id(Integer.parseInt(jtListadoProductos.getValueAt(i, 1).toString()));
-                    Oproducto.setNombre((jtListadoProductos.getValueAt(i, 2).toString()));
-                    Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 3).toString()));
-                    Oproducto.setPrecio(Float.parseFloat(jtListadoProductos.getValueAt(i, 4).toString()));
+                    Oproducto.setCodigo((jtListadoProductos.getValueAt(i, 0).toString()));
+                    Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 1).toString()));
+                    Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+                    Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 3).toString()));
+                    Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 4).toString()));
                     Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 5).toString()));
-                    Oproducto.setFechaAlta((jtListadoProductos.getValueAt(i, 6).toString()));
+                    Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 6).toString()));
+                    Oproducto.setImagen((jtListadoProductos.getValueAt(i, 7).toString()));
+                    Oproducto.setFechaIngreso((jtListadoProductos.getValueAt(i, 8).toString()));
 
-                    if(Oproducto.getId()==factPID)
-                    Oproducto.setStock(Oproducto.getStock()+factPST);
+                    if(Oproducto.getCodigo().equals(factCOD) && Oproducto.getProveedor().equals(factPROV))
+                    Oproducto.setStock(Oproducto.getStock()+factCANT);
 
                     aOproductos.add(Oproducto);
 

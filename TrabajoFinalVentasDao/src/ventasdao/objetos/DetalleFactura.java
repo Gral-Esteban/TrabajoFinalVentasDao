@@ -12,39 +12,18 @@ package ventasdao.objetos;
 public class DetalleFactura {
     
     private Integer id;
-    private String nombre;
+    private String codigo;
     private String descripcion;
-    private Float precio;
+    private Float p_venta;
     private Integer cantidad;
-   private Integer producto_id;
+   private String proveedor;
     private Factura factura;
     private Integer factura_id;
     
     
     
+//Getter and Setter
 
-    public Factura getFactura() {
-        return factura;
-    }
-
-    public void setFactura(Factura factura) {
-        
-        this.factura = factura;
-        
-    }
-
-    
-    
-    
-    public Integer getProducto_id() {
-        return producto_id;
-    }
-
-    public void setProducto_id(Integer producto_id) {
-        this.producto_id = producto_id;
-    }
-
-    
     public Integer getId() {
         return id;
     }
@@ -53,12 +32,12 @@ public class DetalleFactura {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getDescripcion() {
@@ -69,12 +48,12 @@ public class DetalleFactura {
         this.descripcion = descripcion;
     }
 
-    public Float getPrecio() {
-        return precio;
+    public Float getP_venta() {
+        return p_venta;
     }
 
-    public void setPrecio(Float precio) {
-        this.precio = precio;
+    public void setP_venta(Float p_venta) {
+        this.p_venta = p_venta;
     }
 
     public Integer getCantidad() {
@@ -85,6 +64,22 @@ public class DetalleFactura {
         this.cantidad = cantidad;
     }
 
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
+    }
+
     public Integer getFactura_id() {
         return factura_id;
     }
@@ -92,6 +87,8 @@ public class DetalleFactura {
     public void setFactura_id(Integer factura_id) {
         this.factura_id = factura_id;
     }
+  
+   
     
     
     

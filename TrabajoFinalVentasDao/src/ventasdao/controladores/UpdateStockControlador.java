@@ -68,7 +68,7 @@ public class UpdateStockControlador implements ICrud<Factura>{
         connection = Conexion.obtenerConexion ();
         
         
-        String sql = "UPDATE producto SET stock=stock - ? WHERE id = ?";
+        String sql = "UPDATE productos1 SET stock=stock - ? WHERE codigo = ? AND proveedor = ?";
      
           //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
         
@@ -82,7 +82,8 @@ public class UpdateStockControlador implements ICrud<Factura>{
             ps = connection.prepareStatement(sql);
             
             ps.setInt(1, detallefactura.getCantidad());
-            ps.setInt(2, detallefactura.getProducto_id());
+            ps.setString(2, detallefactura.getCodigo());
+            ps.setString(3, detallefactura.getProveedor());
             //ps.setDate(2, (java.sql.Date) entidad.getFecha_facturacion());
             //ps.setDate(2, fecha);
            
@@ -126,7 +127,7 @@ public class UpdateStockControlador implements ICrud<Factura>{
         connection = Conexion.obtenerConexion ();
         
         
-        String sql2 = "UPDATE producto SET stock=stock + ? WHERE id = ?";
+        String sql2 = "UPDATE producto SET stock=stock + ? WHERE codigo = ? AND proveedor = ?";
      
           //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
         
@@ -140,7 +141,8 @@ public class UpdateStockControlador implements ICrud<Factura>{
             ps = connection.prepareStatement(sql2);
             
             ps.setInt(1, detalleFactura.getCantidad());
-            ps.setInt(2, detalleFactura.getProducto_id());
+            ps.setString(2, detalleFactura.getCodigo());
+            ps.setString(3, detalleFactura.getProveedor());
             //ps.setDate(2, (java.sql.Date) entidad.getFecha_facturacion());
             //ps.setDate(2, fecha);
            
@@ -180,7 +182,7 @@ public class UpdateStockControlador implements ICrud<Factura>{
         connection = Conexion.obtenerConexion ();
         
         
-        String sql2 = "UPDATE producto SET stock=stock + ? WHERE id = ?";
+        String sql2 = "UPDATE producto SET stock=stock + ? WHERE codigo = ? AND proveedor = ?";
      
           //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
         
@@ -190,7 +192,8 @@ public class UpdateStockControlador implements ICrud<Factura>{
             ps = connection.prepareStatement(sql2);
             
             ps.setInt(1, articuloEliminado.getCantidad());
-            ps.setInt(2, articuloEliminado.getProducto_id());
+            ps.setString(2, articuloEliminado.getCodigo());
+            ps.setString(3, articuloEliminado.getProveedor());
             //ps.setDate(2, (java.sql.Date) entidad.getFecha_facturacion());
             //ps.setDate(2, fecha);
            

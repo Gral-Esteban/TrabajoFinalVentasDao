@@ -53,9 +53,9 @@ public class FacturaProductoControlador implements ICrud<Producto> {
         try {
             ps = connection.prepareStatement(sql);
            
-            ps.setString(1, entidad.getNombre());
+            ps.setString(1, entidad.getCodigo());
             ps.setString(2, entidad.getDescripcion());
-            ps.setFloat(3, entidad.getPrecio());
+            ps.setFloat(3, entidad.getP_venta());
             //ps.setInt(4,entidad.getCantidad());
             //ps.setInt(5, entidad.getFactura_id());
           
@@ -87,9 +87,9 @@ public class FacturaProductoControlador implements ICrud<Producto> {
        
        
        ps = connection.prepareStatement(sql);
-       ps.setString(1,entidad.getNombre() );
+       ps.setString(1,entidad.getCodigo() );
        ps.setString(2,entidad.getDescripcion());
-       ps.setFloat(3,entidad.getPrecio());
+       ps.setFloat(3,entidad.getP_venta());
        //ps.setInt(4,entidad.getCantidad());
        //ps.setInt(5,entidad.getFactura_id() );
        
@@ -125,51 +125,51 @@ public class FacturaProductoControlador implements ICrud<Producto> {
     
     
 
+    //Esto ya no se va usar
+    /* public Categoria extraer(String denominacion) throws SQLException,Exception{
     
-    public Categoria extraer(String denominacion) throws SQLException,Exception{
-        
-          Categoria categoria = new Categoria();
-        
-        
-         connection = Conexion.obtenerConexion ();
-        
-            
-        try {
-            this.stmt = connection.createStatement();
-            this.sql = " select id from categorias where denominacion ='"+denominacion+"'";
-   
-            this.rs   = stmt.executeQuery(sql);
-            connection.close();
-            
-            
-            
-            while(rs.next()){
-               
-            categoria.setId(rs.getInt("id"));
-            
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(FacturaProductoControlador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            
-        
-        
-        
-       
-        return categoria;
+    Categoria categoria = new Categoria();
+    
+    
+    connection = Conexion.obtenerConexion ();
+    
+    
+    try {
+    this.stmt = connection.createStatement();
+    this.sql = " select id from categorias where denominacion ='"+denominacion+"'";
+    
+    this.rs   = stmt.executeQuery(sql);
+    connection.close();
+    
+    
+    
+    while(rs.next()){
+    
+    categoria.setId(rs.getInt("id"));
+    
     }
+    
+    } catch (SQLException ex) {
+    Logger.getLogger(FacturaProductoControlador.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    
+    
+    
+    
+    return categoria;
+    }*/
 
    
 
-    public ArrayList<Producto> listar(int Categ_id) throws SQLException,Exception{
+    public ArrayList<Producto> listar(String cat_Name) throws SQLException,Exception{
         
         
         connection = Conexion.obtenerConexion ();
         try{
-            String cadena= String.valueOf(Categ_id); //Esto lo hice porque para hacer una consulta no me funcionaba el signo ?
+            //String cadena= String.valueOf(Categ_id); //Esto lo hice porque para hacer una consulta no me funcionaba el signo ?
             this.stmt = connection.createStatement();
-            this.sql = " SELECT * from producto where categoria_id = '"+cadena+"' ORDER BY id";
+            this.sql = " SELECT * FROM productos1 WHERE categoria = '"+cat_Name+"' ORDER BY id";
             
             this.rs   = stmt.executeQuery(sql);
             connection.close();
@@ -180,14 +180,18 @@ public class FacturaProductoControlador implements ICrud<Producto> {
                 
                 Producto producto = new Producto();
                 
-                 producto.setId(rs.getInt("id"));
-                producto.setNombre(rs.getString("nombre"));
+                producto.setId(rs.getInt("id"));
+                producto.setCodigo(rs.getString("codigo"));
                 producto.setDescripcion(rs.getString("descripcion") );
-                producto.setPrecio (rs.getFloat("precio"));
-                 producto.setStock (rs.getInt("stock"));
-                producto.setFechaCreacion(rs.getDate("fecha_creacion"));
-                
-                producto.setCategoria_id(rs.getInt("categoria_id"));
+                producto.setP_dolar (rs.getFloat("p_dolar"));
+                producto.setP_costo (rs.getFloat("p_costo"));
+                producto.setP_venta (rs.getFloat("p_venta"));
+                producto.setOrigen(rs.getString("origen"));
+                producto.setProveedor(rs.getString("proveedor")); 
+                producto.setStock (rs.getInt("stock"));
+                producto.setCategoria(rs.getString("categoria"));
+                producto.setImagen(rs.getString("imagen"));
+                producto.setFechaIngreso(rs.getDate("fecha_ingreso"));
                 
               
                 productos.add(producto);

@@ -40,11 +40,11 @@ public class GrillaDetalleFacturaAnulacion extends AbstractTableModel {
         switch(columnIndex){
               
               case 0: return detallefactura.getId();
-              case 1: return detallefactura.getNombre();
+              case 1: return detallefactura.getCodigo();
               case 2: return detallefactura.getDescripcion();
-              case 3: return detallefactura.getPrecio();
+              case 3: return detallefactura.getP_venta();
               case 4: return detallefactura.getCantidad();
-              case 5: return detallefactura.getProducto_id();
+              case 5: return detallefactura.getProveedor();
               
               default: return "";
           }
@@ -55,11 +55,11 @@ public class GrillaDetalleFacturaAnulacion extends AbstractTableModel {
         switch(column){
             
             case 0: return "ID";
-            case 1: return "NOMBRE";
+            case 1: return "CODIGO";
             case 2: return "DESCRIPCION";
-            case 3: return "PRECIO";
+            case 3: return "P_VENTA";
             case 4: return "CANTIDAD";
-            case 5: return "PRODUCTO_ID";
+            case 5: return "PROVEEDOR";
             default: return "";
         
         

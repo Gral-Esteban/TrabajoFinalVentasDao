@@ -559,18 +559,19 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         }
         
         else {
-            Categoria categoria = new Categoria();
+            //Categoria categoria = new Categoria();
+            
            
            String cat_name = jcbCategorias.getSelectedItem().toString();
            
             
              jtfFiltradoDescripcion.setText(null);
            
-               try {
-                   categoria = facturaProductoControlador.extraer(cat_name);
-               } catch (Exception ex) {
-                   Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
-               }
+             /* try { //Aqui lo que hacia era extraer el id de la categoria
+             categoria = facturaProductoControlador.extraer(cat_name);
+             } catch (Exception ex) {
+             Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
+             }*/
            
            
            
@@ -582,7 +583,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
          
            
            try {
-               productos = (ArrayList<Producto>) facturaProductoControlador.listar(categoria.getId());
+               productos = (ArrayList<Producto>) facturaProductoControlador.listar(cat_name);
                grillaProducto = new GrillaProducto(productos);
                jtListadoProductos.setModel(grillaProducto);
                
@@ -846,11 +847,11 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
                
                jtfFiltradoDescripcion.setText(null);
            
-               try {
-                   categoria = facturaProductoControlador.extraer(cat_name);
+               /*try {
+               categoria = facturaProductoControlador.extraer(cat_name);
                } catch (Exception ex) {
-                   Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
-               }
+               Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
+               }*/
            
            
            
@@ -862,7 +863,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
          
            
            try {
-               productos = (ArrayList<Producto>) facturaProductoControlador.listar(categoria.getId());
+               productos = (ArrayList<Producto>) facturaProductoControlador.listar(cat_name);
                grillaProducto = new GrillaProducto(productos);
                jtListadoProductos.setModel(grillaProducto);
                

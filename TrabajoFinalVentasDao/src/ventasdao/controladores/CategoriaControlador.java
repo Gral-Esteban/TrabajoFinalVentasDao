@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -203,6 +204,11 @@ public class CategoriaControlador implements ICrud<Categoria>{
        ps.executeUpdate();
        connection.close();
        return true;
+    }
+
+    @Override
+    public List<Categoria> listar() throws SQLException, Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

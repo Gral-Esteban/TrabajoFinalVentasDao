@@ -73,7 +73,7 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
         connection = Conexion.obtenerConexion ();
         
         
-        String sql = "INSERT INTO detalle_factura (producto_id,cantidad,factura_id) VALUES (?,?,?)";
+        String sql = "INSERT INTO detalle_factura (cantidad,factura_id,codigo,proveedor) VALUES (?,?,?,?)";
      
           //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
         
@@ -85,12 +85,12 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
         
         try {
             ps = connection.prepareStatement(sql);
-            ps.setInt(1, detallefactura.getProducto_id());
+            ps.setInt(1, detallefactura.getCantidad());
             //ps.setDate(2, (java.sql.Date) entidad.getFecha_facturacion());
             //ps.setDate(2, fecha);
-            ps.setInt(2, detallefactura.getCantidad());
-            ps.setInt(3, detallefactura.getFactura_id());
-          
+            ps.setInt(2, detallefactura.getFactura_id());
+            ps.setString(3, detallefactura.getCodigo());
+            ps.setString(4, detallefactura.getProveedor());
             
             ps.executeUpdate();
                  
@@ -125,7 +125,7 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
         try{
             String cadena= String.valueOf(num_fact); //Esto lo hice porque para hacer una consulta no me funcionaba el signo ?
             this.stmt = connection.createStatement();
-            this.sql = " SELECT df.id, p.nombre, p.descripcion, p.precio, df.cantidad, df.producto_id FROM detalle_factura df INNER JOIN producto p ON producto_id = p.id WHERE factura_id = '"+cadena+"' ORDER BY df.id";
+            this.sql = " SELECT df.id, p.codigo, p.descripcion, p.p_venta, df.cantidad, p.proveedor FROM detalle_factura df INNER JOIN productos1 p ON (df.codigo = p.codigo AND df.proveedor = p.proveedor) WHERE factura_id = '"+cadena+"' ORDER BY df.id";
             
             this.rs   = stmt.executeQuery(sql);
             connection.close();
@@ -137,11 +137,11 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
                 detalleFacturaAnulacion = new DetalleFacturaAnulacion();
                 
                 detalleFacturaAnulacion.setId(rs.getInt("id"));
-                detalleFacturaAnulacion.setNombre(rs.getString("nombre"));
+                detalleFacturaAnulacion.setCodigo(rs.getString("codigo"));
                 detalleFacturaAnulacion.setDescripcion(rs.getString("descripcion"));
-                detalleFacturaAnulacion.setPrecio(rs.getFloat("precio"));
+                detalleFacturaAnulacion.setP_venta(rs.getFloat("p_venta"));
                 detalleFacturaAnulacion.setCantidad(rs.getInt("cantidad") );
-                detalleFacturaAnulacion.setProducto_id(rs.getInt("producto_id") );
+                detalleFacturaAnulacion.setProveedor(rs.getString("proveedor") );
                 
               
                 detalleFacturaAnulaciones.add(detalleFacturaAnulacion);
@@ -189,9 +189,10 @@ public class DetalleFacturaControlador implements ICrud<Factura>{
                 detallefactura = new DetalleFactura();
                 
                  detallefactura.setId(rs.getInt("id"));
+                 detallefactura.setCodigo(rs.getString("codigo") );
                  detallefactura.setCantidad(rs.getInt("cantidad"));
                 detallefactura.setFactura_id(rs.getInt("factura_id"));
-                detallefactura.setProducto_id(rs.getInt("producto_id") );
+                detallefactura.setProveedor(rs.getString("proveedor") );
                
                 
               
