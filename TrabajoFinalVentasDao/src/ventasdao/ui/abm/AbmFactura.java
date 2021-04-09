@@ -16,8 +16,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import ventasdao.ui.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -150,6 +153,24 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
     }
     
     
+    /**
+     * Permite convertir un String en fecha (Date).
+     * @param fecha Cadena de fecha dd/MM/yyyy
+     * @return Objeto Date
+     */
+    public static Date ParseFecha(String fecha)
+    {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaDate = null;
+        try {
+            fechaDate = formato.parse(fecha);
+        } 
+        catch (ParseException ex) 
+        {
+            System.out.println(ex);
+        }
+        return fechaDate;
+    }
     
     
     
@@ -667,7 +688,7 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
                     Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 5).toString()));
                     Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 6).toString()));
                     Oproducto.setImagen((jtListadoProductos.getValueAt(i, 7).toString()));
-                    Oproducto.setFechaIngreso((jtListadoProductos.getValueAt(i, 8).toString()));
+                    Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 8).toString()));
 
                     if(Oproducto.getCodigo().equals(factCOD) && Oproducto.getProveedor().equals(factPROV))
                     Oproducto.setStock(Oproducto.getStock()+factCANT);

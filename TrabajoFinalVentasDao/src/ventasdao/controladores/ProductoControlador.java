@@ -36,7 +36,7 @@ public class ProductoControlador implements ICrud<Producto> {
     public boolean crear(Producto entidad) throws SQLException, Exception{
 
         connection = Conexion.obtenerConexion ();
-        String sql = "INSERT INTO productos1 (codigo,descripcion,p_dolar,p_costo,p_venta,origen,proveedor,stock,categoria,imagen,fecha_ingreso) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO productos1 (codigo,descripcion,p_dolar,p_costo,p_venta,origen,proveedor,stock,categoria,imagen) VALUES (?,?,?,?,?,?,?,?,?,?)";
         
         Date fecha = new Date (entidad.getFechaIngreso().getTime()); 
         
@@ -46,15 +46,15 @@ public class ProductoControlador implements ICrud<Producto> {
             ps.setString(1, entidad.getCodigo());
             ps.setString(2, entidad.getDescripcion());
             ps.setFloat(3, entidad.getP_dolar());
-            ps.setFloat(3, entidad.getP_costo());
-            ps.setFloat(3, entidad.getP_venta());
-            ps.setString(1, entidad.getOrigen());
-            ps.setString(1, entidad.getProveedor());
-            ps.setInt(4,entidad.getStock());
-            ps.setString(1, entidad.getCategoria());
-            ps.setString(1, entidad.getImagen());
-
-            ps.setDate(5, fecha);
+            ps.setFloat(4, entidad.getP_costo());
+            ps.setFloat(5, entidad.getP_venta());
+            ps.setString(6, entidad.getOrigen());
+            ps.setString(7, entidad.getProveedor());
+            ps.setInt(8,entidad.getStock());
+            ps.setString(9, entidad.getCategoria());
+            ps.setString(10, entidad.getImagen());
+            
+            
             //ps.setInt(6, entidad.getCategoria().getId());
             
             ps.executeUpdate();
@@ -93,6 +93,8 @@ public class ProductoControlador implements ICrud<Producto> {
             ps.setString(9, entidad.getCategoria());
             ps.setString(10, entidad.getImagen());
             ps.setDate(11, fecha);
+            ps.setString(12, entidad.getCodigo());
+            ps.setString(13, entidad.getProveedor());
        
        ps.executeUpdate();
        connection.close();
@@ -110,7 +112,8 @@ public class ProductoControlador implements ICrud<Producto> {
         String sql = "DELETE FROM productos1 WHERE codigo=? AND proveedor =?";
         try {
             ps=connection.prepareStatement(sql);
-            ps.setInt(1, entidad.getId());
+            ps.setString(1, entidad.getCodigo());
+            ps.setString(2, entidad.getProveedor());
             ps.executeUpdate();
             connection.close();
             

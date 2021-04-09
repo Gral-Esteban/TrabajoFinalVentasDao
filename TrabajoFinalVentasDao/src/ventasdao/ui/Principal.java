@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 import ventasdao.controladores.LoginUserControlador;
 import ventasdao.objetos.Usuario;
-import ventasdao.ui.abm.AbmCategoria;
+
 import ventasdao.ui.abm.AbmCliente;
 import ventasdao.ui.abm.AbmProducto;
 import ventasdao.ui.abm.AbmTipoCliente;
@@ -308,15 +308,7 @@ public class Principal extends javax.swing.JFrame {
     private void jmiCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCategoriaActionPerformed
         // TODO add your handling code here:
 
-        AbmCategoria abmCategoria = new AbmCategoria();
-        jdpContenedorPrincipal.add(abmCategoria);
-        abmCategoria.setVisible(true);
-        
-        //Centrar ventana
-        Dimension desktopSize = jdpContenedorPrincipal.getSize();
-        Dimension FrameSize = abmCategoria.getSize();
-        abmCategoria.setLocation((desktopSize.width - FrameSize.width - 150)/2, (desktopSize.height- FrameSize.height)/2);
-        abmCategoria.show();
+      
     }//GEN-LAST:event_jmiCategoriaActionPerformed
 
     private void jmiProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProductoActionPerformed

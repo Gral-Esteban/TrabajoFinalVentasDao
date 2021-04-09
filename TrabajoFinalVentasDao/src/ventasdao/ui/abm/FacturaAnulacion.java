@@ -338,14 +338,14 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
             
             String id_S= jtDetalleFacturas.getValueAt(filaSele2, 0).toString();
             int id= Integer.parseInt(id_S);
-            String precio_S=jtDetalleFacturas.getValueAt(filaSele2, 3).toString();
-            float precio= Float.parseFloat(precio_S);
+            String p_ventaS=jtDetalleFacturas.getValueAt(filaSele2, 3).toString();
+            float p_venta= Float.parseFloat(p_ventaS);
             String cantidad_S=jtDetalleFacturas.getValueAt(filaSele2, 4).toString();
             int cantidad= Integer.parseInt(cantidad_S);
-            String productoId_S=jtDetalleFacturas.getValueAt(filaSele2, 5).toString();
-            int productoId= Integer.parseInt(productoId_S);
+            String codigo=jtDetalleFacturas.getValueAt(filaSele2, 1).toString();
+            String proveedor=jtDetalleFacturas.getValueAt(filaSele2, 5).toString();
             
-            float decMontoTot= precio * cantidad;
+            float decMontoTot= p_venta * cantidad;
             
             
             
@@ -392,7 +392,8 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         los cuales son necesarios para impactar el incremento en la BD */
         DetalleFactura incStock = new DetalleFactura(); 
         incStock.setCantidad(cantidad);
-        incStock.setProducto_id(productoId);
+        incStock.setCodigo(codigo);
+        incStock.setProveedor(proveedor);
       
         
         
