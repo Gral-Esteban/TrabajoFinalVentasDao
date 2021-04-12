@@ -345,34 +345,39 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(9, 9, 9)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jdcFechaIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jtfFiltradoDescripcion)
+                                    .addComponent(jcbCategorias, 0, 152, Short.MAX_VALUE)
                                     .addComponent(jtfCodigo)
                                     .addComponent(jtfDescripcion)
-                                    .addComponent(jcbCategorias, 0, 152, Short.MAX_VALUE)
-                                    .addComponent(jtfImagen)
-                                    .addComponent(jtfOrigen, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jtfPrecioVenta)
+                                    .addComponent(jtfOrigen)
                                     .addComponent(jtfProveedor)
-                                    .addComponent(jtfPrecioVenta)))
+                                    .addComponent(jtfFiltradoDescripcion)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfCategoria)
-                            .addComponent(jtfStock))
-                        .addGap(18, 18, 18)))
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6))
+                                .addGap(58, 58, 58)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtfStock)
+                                    .addComponent(jtfCategoria)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jdcFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(19, 19, 19)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -490,7 +495,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         
         int filasele = jtListadoProductos.getSelectedRow();
         
-        stockS =  jtListadoProductos.getValueAt(filasele, 5).toString();
+        stockS =  jtListadoProductos.getValueAt(filasele, 7).toString();
         stockI = Integer.parseInt(stockS);
         
         //Valido que tenga stock antes que todo
@@ -655,17 +660,26 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         Producto Oproducto = new Producto();
         
         
-        //Oproducto.setId(Integer.parseInt(jtListadoProductos.getValueAt(i, 0).toString()));
+        //Se validan todos los campos que pueden ser nulos con un if
        
         Oproducto.setCodigo((jtListadoProductos.getValueAt(i, 0).toString()));
         Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 1).toString()));
-        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
-        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 3).toString()));
-        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 4).toString()));
-        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 5).toString()));
-        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 6).toString()));
-        Oproducto.setImagen((jtListadoProductos.getValueAt(i, 7).toString()));
-        Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 8).toString()));
+        if(jtListadoProductos.getValueAt(i, 2)!=null)
+        Oproducto.setP_dolar(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+        if(jtListadoProductos.getValueAt(i, 3)!=null)
+        Oproducto.setP_costo(Float.parseFloat(jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 4).toString()));
+        if(jtListadoProductos.getValueAt(i, 5)!=null)
+        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 5).toString()));
+        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 6).toString()));
+        if(jtListadoProductos.getValueAt(i, 7)!=null)
+        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 7).toString()));
+        if(jtListadoProductos.getValueAt(i, 8)!=null)
+        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 8).toString()));
+        if(jtListadoProductos.getValueAt(i, 9)!=null)
+        Oproducto.setImagen((jtListadoProductos.getValueAt(i, 9).toString()));
+        if(jtListadoProductos.getValueAt(i, 10)!=null)
+        Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 10).toString()));
         
       
         
@@ -774,7 +788,11 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
             jtfFiltradoNombre.setText(jtfFiltradoNombre.getText().substring(0, jtfFiltradoNombre.getText().length()-1));
         }*/
            
+          
+          //String filtdesc= jtfFiltradoDescripcion.getText();
+          
             jtfFiltradoDescripcion.setText(null);
+            
              /*jtfFiltradoNombre.invalidate();
              jtfFiltradoNombre.repaint();
              jtfFiltradoNombre.removeAll();
@@ -965,7 +983,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
            
            
            
-           
+           //jtfFiltradoDescripcion.setText(filtdesc);
            
            } //Fin del Else
            

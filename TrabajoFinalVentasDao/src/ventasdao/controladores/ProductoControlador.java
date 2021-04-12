@@ -141,7 +141,7 @@ public class ProductoControlador implements ICrud<Producto> {
         try{
             
             this.stmt = connection.createStatement();
-            this.sql = "SELECT * FROM productos1 ORDER BY id";
+            this.sql = "SELECT * FROM productos1 ORDER BY id DESC";
             this.rs   = stmt.executeQuery(sql);
             connection.close();
             

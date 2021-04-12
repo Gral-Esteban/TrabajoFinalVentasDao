@@ -33,7 +33,7 @@ public class GrillaProducto extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-         return 10;
+         return 11;
     }
 
     @Override
@@ -48,13 +48,14 @@ public class GrillaProducto extends AbstractTableModel{
               case 5: return producto.getOrigen();
               case 6: return producto.getProveedor();
               case 7: return producto.getStock();
-              case 8: return producto.getImagen();
-              case 9: if(producto.getFechaIngreso()!=null){  // hago esto porque al querer pasar de string a date no respeta el formato y me vi obligado a crear otro campo del objeto producto fechaAlta de tipo string
+              case 8: return producto.getCategoria(); 
+              case 9: return producto.getImagen();
+              case 10: if(producto.getFechaIngreso()!=null){  // hago esto porque al querer pasar de string a date no respeta el formato y me vi obligado a crear otro campo del objeto producto fechaAlta de tipo string
                       return producto.getFechaIngreso();}
                      else{
                           return producto.getFechaAlta();
                          }
-              case 10: return producto.getCategoria();         
+                      
               default: return "";
           }
         
@@ -71,9 +72,10 @@ public class GrillaProducto extends AbstractTableModel{
             case 5: return "ORIGEN";
             case 6: return "PROVEEDOR";
             case 7: return "STOCK";
-            case 8: return "IMAGEN";
-            case 9: return "FECH_ING";
-            case 10: return "CATEGORIA";
+            case 8: return "CATEGORIA";
+            case 9: return "IMAGEN";
+            case 10: return "FECH_ING";
+           
             default: return "";
         
         
