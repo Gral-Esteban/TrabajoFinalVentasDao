@@ -5,9 +5,12 @@
  */
 package ventasdao.ui.grilla;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumnModel;
 import ventasdao.objetos.Producto;
+import static ventasdao.ui.abm.FacturaGetProducto.jtListadoProductos;
 
 
 /**
@@ -88,5 +91,27 @@ public class GrillaProducto extends AbstractTableModel{
    
    
    }
-    
+     
+     
+     /*public Dimension setColumnZize(int columnIndex){
+     
+     TableColumnModel columnModel = jtListadoProductos.getColumnModel();
+     
+     switch(columnIndex){
+     case 0:columnModel.getColumn(0).setPreferredWidth(50);
+     case 1: columnModel.getColumn(1).setPreferredWidth(400);
+     case 2:columnModel.getColumn(2).setPreferredWidth(150);
+     case 3:columnModel.getColumn(3).setPreferredWidth(200);
+     case 4:columnModel.getColumn(4).setPreferredWidth(250);
+     case 5: columnModel.getColumn(5).setPreferredWidth(50);
+     case 6:columnModel.getColumn(6).setPreferredWidth(150);
+     case 7:columnModel.getColumn(7).setPreferredWidth(200);
+     case 8:columnModel.getColumn(8).setPreferredWidth(250);
+     default: return null;
+     }
+     
+     }*/
+     
+     
+     
 }
