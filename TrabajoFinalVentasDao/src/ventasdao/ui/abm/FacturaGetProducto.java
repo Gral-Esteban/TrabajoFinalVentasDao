@@ -57,7 +57,7 @@ import javax.swing.table.TableColumn;
 
 
 
-public class FacturaGetProducto extends javax.swing.JInternalFrame {
+public final class FacturaGetProducto extends javax.swing.JInternalFrame {
     
     
 
@@ -90,7 +90,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
     TableRowSorter trs;
    
    
-   
+   //int bandera=0;
    
     
     
@@ -111,11 +111,14 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
            grillaProducto = new GrillaProducto(productos);
            jtListadoProductos.setModel(grillaProducto);
            
+           
    
            
-       } catch (Exception ex) {
+       } 
+       
+            catch (Exception ex) {
            Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
-       }
+            }
        
        //Cargar el JComboBox desde la base de datos
        try {
@@ -123,24 +126,29 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
            modelCombo = new DefaultComboBoxModel(categorias.toArray());
            jcbCategorias.setModel(modelCombo);
            
+           //Agrego la opcion de Todos al jcbCategorias
+           jcbCategorias.addItem("Todos");
            
-           //jcbCategorias.addItem(new ComboItem(0, "Pan"));
-
-
+          //jcbCategorias.addItem(new ComboItem(0, "Pan"));
              //para seleccionar el de ID = 2, huevos
            //jcbCategorias.setSelectedIndex(2);
-
+             jcbCategorias.setToolTipText("Todos");
+           
+           
           //para seleccionar el de valor "Todos" por defecto en el combo box (es necesario agregar la propiedad editable al JCB)
-            jcbCategorias.setSelectedItem("Todos");
+            //jcbCategorias.setSelectedItem("Todos");
+          
            
            
-           
-           
-       } catch (Exception ex) {
-           Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
-       }
+       } 
+       
+            catch (Exception ex) {
+            Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
+             }
         
- 
+           //No funciona si lo pongo dentro de un try catch poreso esta afuera  
+           configtable(); //###################################### CONFIGURACION DE LA TABLA ##################################
+
     
      
     }
@@ -164,7 +172,59 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         return fechaDate;
     }
      
-    
+    /*############### Configuracion de la tabla ##################*/
+    public void configtable() {
+        
+        
+        TableColumn columna = null;
+//se hace el recorrido de tu arreglo de columnas
+for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
+    columna = jtListadoProductos.getColumnModel().getColumn(i);
+    switch(i){
+        case 0:
+            columna.setWidth(80); //el ancho de la column
+            break;
+        case 1:
+            columna.setPreferredWidth(500);
+            break;
+        case 2:
+            
+            
+            jtListadoProductos.removeColumn(jtListadoProductos.getColumnModel().getColumn(2));
+            jtListadoProductos.removeColumn(jtListadoProductos.getColumnModel().getColumn(2));
+            jtListadoProductos.removeColumn(jtListadoProductos.getColumnModel().getColumn(7));
+             jtListadoProductos.removeColumn(jtListadoProductos.getColumnModel().getColumn(7));
+           
+               //columna.setPreferredWidth(80);
+            break;
+        case 3:
+           columna.setPreferredWidth(90);
+            break;
+        case 4:
+            columna.setPreferredWidth(80);
+            break;
+        case 5:
+            columna.setPreferredWidth(80);
+            break;
+            /*case 6:
+            columna.setPreferredWidth(90);
+            break;
+            case 7:
+            columna.setPreferredWidth(60);
+            break;
+            case 8:
+            columna.setPreferredWidth(80);
+            break;*/
+            
+        default:columna.setPreferredWidth(80);     
+        //etc aqui las demas columnas
+                }
+
+        }  
+        
+        
+        
+ }
     
     
     
@@ -211,6 +271,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         jtfProveedor = new javax.swing.JTextField();
         jtfCategoria = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -333,6 +394,13 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Categoria");
 
+        jButton5.setText("configtable");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -389,7 +457,9 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
                                 .addComponent(jtfCategoria)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 246, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
                         .addComponent(jbRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -485,7 +555,9 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -624,6 +696,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
         Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        configtable(); //###################################### CONFIGURACION DE LA TABLA ##################################
         
         }
         
@@ -734,6 +807,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
             jtListadoProductos.setRowSorter(trs);  /////
         
         
+        configtable(); //###################################### CONFIGURACION DE LA TABLA ##################################    
        }
         
        
@@ -790,44 +864,7 @@ public class FacturaGetProducto extends javax.swing.JInternalFrame {
       // jtfCategoriaId.setText(producto.getCategoria_id().toString());
       
       
-                TableColumn columna = null;
-//se hace el recorrido de tu arreglo de columnas
-for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
-    columna = jtListadoProductos.getColumnModel().getColumn(i);
-    switch(i){
-        case 0:
-            columna.setWidth(80); //el ancho de la column
-            break;
-        case 1:
-            columna.setPreferredWidth(400);
-            break;
-        case 2:
-            
-            jtListadoProductos.removeColumn(jtListadoProductos.getColumnModel().getColumn(2));
-            
-            break;
-        case 3:
-            jtListadoProductos.removeColumn(jtListadoProductos.getColumnModel().getColumn(3));
-            break;
-        case 4:
-            columna.setPreferredWidth(80);
-            break;
-        case 5:
-            columna.setPreferredWidth(80);
-            break;
-        case 6:
-            columna.setPreferredWidth(80);
-            break;
-        case 7:
-            columna.setPreferredWidth(60);
-            break;
-        case 8:
-            columna.setPreferredWidth(80);
-            break;
-        //etc aqui las demas columnas
-    }
-
-}  
+                
        
       
        
@@ -842,7 +879,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
     
     private void jcbCategoriasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbCategoriasItemStateChanged
       
-        
+        //Filtrado por categoria #######################
         
           
         
@@ -926,13 +963,15 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
        
         Oproducto.setCodigo((jtListadoProductos.getValueAt(i, 0).toString()));
         Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 1).toString()));
-        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
-        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 3).toString()));
-        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 4).toString()));
-        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 5).toString()));
-        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 6).toString()));
-        Oproducto.setImagen((jtListadoProductos.getValueAt(i, 7).toString()));
-        Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 8).toString()));
+        Oproducto.setP_dolar(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+        Oproducto.setP_costo(Float.parseFloat(jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 4).toString()));
+        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 5).toString()));
+        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 6).toString()));
+        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 7).toString()));
+        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 8).toString()));
+        Oproducto.setImagen((jtListadoProductos.getValueAt(i, 9).toString()));
+        Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 10).toString()));
         
       
         
@@ -946,17 +985,25 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
         }
         
         
-        grillaProducto = new GrillaProducto(aOproductos);
-        jtListadoProductos.setModel(grillaProducto);
-        
-        ///// Estas dos lineas me solucionaron el problema que tenia al filtrar por nombre no me mostraba despues todas las filas al seleccionar una catgoria
-            trs = new TableRowSorter(jtListadoProductos.getModel());
-            jtListadoProductos.setRowSorter(trs);  /////
+           try {
+               grillaProducto = new GrillaProducto(aOproductos);
+               jtListadoProductos.setModel(grillaProducto);
                
-           
+              
+
+               ///// Estas dos lineas me solucionaron el problema que tenia al filtrar por nombre no me mostraba despues todas las filas al seleccionar una catgoria
+               trs = new TableRowSorter(jtListadoProductos.getModel());
+               jtListadoProductos.setRowSorter(trs);  /////
+           } catch (Exception ex) {
+               Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
+           }
+               
+        
+            
        } //Fin del if(cantfilasfact>0)    
                 
-                
+            //Si el configtable lo pongo dentro del if(cantfilasfact>0) no le da bola por eso lo puse aqui
+           configtable(); //###################################### CONFIGURACION DE LA TABLA ##################################    
                
             }//Fin del If (cat_name.equals("Todos"))
        
@@ -965,7 +1012,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
        
        
            
-           else{
+           else{ //If (cat_name !="Todos")
                
                jtfFiltradoDescripcion.setText(null);
            
@@ -1022,13 +1069,15 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
        
         Oproducto.setCodigo((jtListadoProductos.getValueAt(i, 0).toString()));
         Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 1).toString()));
-        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
-        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 3).toString()));
-        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 4).toString()));
-        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 5).toString()));
-        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 6).toString()));
-        Oproducto.setImagen((jtListadoProductos.getValueAt(i, 7).toString()));
-        Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 8).toString()));
+        Oproducto.setP_dolar(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+        Oproducto.setP_costo(Float.parseFloat(jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 4).toString()));
+        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 5).toString()));
+        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 6).toString()));
+        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 7).toString()));
+        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 8).toString()));
+        Oproducto.setImagen((jtListadoProductos.getValueAt(i, 9).toString()));
+        Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 10).toString()));
         
       
         
@@ -1042,18 +1091,26 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
         }
         
         
-        grillaProducto = new GrillaProducto(aOproductos);
-        jtListadoProductos.setModel(grillaProducto);
-        
-        
-        ///// Estas dos lineas me solucionaron el problema que tenia al filtrar por nombre no me mostraba despues todas las filas al seleccionar una catgoria
-            trs = new TableRowSorter(jtListadoProductos.getModel());
-            jtListadoProductos.setRowSorter(trs);  /////
+          
+               try {
+               grillaProducto = new GrillaProducto(aOproductos);
+               jtListadoProductos.setModel(grillaProducto);
+
+               ///// Estas dos lineas me solucionaron el problema que tenia al filtrar por nombre no me mostraba despues todas las filas al seleccionar una catgoria
+               trs = new TableRowSorter(jtListadoProductos.getModel());
+               jtListadoProductos.setRowSorter(trs);  /////
+           } catch (Exception ex) {
+               Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
+           }
                
+           
+          
+                 
            
        } //Fin del if(cantfilasfact>0)    
            
-           
+            //Si el configtable lo pongo dentro del if(cantfilasfact>0) no le da bola por eso lo puse aqui
+           configtable(); //###################################### CONFIGURACION DE LA TABLA ################################## 
            
            //jtfFiltradoDescripcion.setText(filtdesc);
            
@@ -1110,6 +1167,11 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
         jtfJCBSelectedItem.setText(jcbCategorias.getSelectedItem().toString());
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        configtable();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     private void limpiarCampos() {
         
         jtfDescripcion.setText("");
@@ -1137,6 +1199,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
