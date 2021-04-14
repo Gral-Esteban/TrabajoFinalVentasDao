@@ -47,7 +47,7 @@ public class CategoriaControlador implements ICrud<Categoria>{
         try{
             
             this.stmt = connection.createStatement();
-            this.sql = "SELECT categoria FROM productos1 GROUP BY categoria";
+            this.sql = "SELECT categoria FROM productos1 WHERE categoria IS NOT null GROUP BY categoria";
             this.rs   = stmt.executeQuery(sql);
             connection.close();
             

@@ -185,7 +185,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
             columna.setWidth(80); //el ancho de la column
             break;
         case 1:
-            columna.setPreferredWidth(500);
+            columna.setPreferredWidth(564);
             break;
         case 2:
             
@@ -204,7 +204,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
             columna.setPreferredWidth(80);
             break;
         case 5:
-            columna.setPreferredWidth(80);
+            columna.setPreferredWidth(50); //Stock
             break;
             /*case 6:
             columna.setPreferredWidth(90);

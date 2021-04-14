@@ -266,7 +266,10 @@ end $$
 
 select * from productos1 order by id
 
-
+select categoria
+from productos1
+where categoria is not null
+group by categoria
 
 
 
