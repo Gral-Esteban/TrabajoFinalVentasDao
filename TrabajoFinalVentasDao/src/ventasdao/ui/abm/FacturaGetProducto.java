@@ -90,7 +90,7 @@ public final class FacturaGetProducto extends javax.swing.JInternalFrame {
     TableRowSorter trs;
    
    
-   //int bandera=0;
+   
    
     
     
@@ -136,7 +136,7 @@ public final class FacturaGetProducto extends javax.swing.JInternalFrame {
            
            
           //para seleccionar el de valor "Todos" por defecto en el combo box (es necesario agregar la propiedad editable al JCB)
-            //jcbCategorias.setSelectedItem("Todos");
+            jcbCategorias.setSelectedItem("Todos");
           
            
            
@@ -147,7 +147,7 @@ public final class FacturaGetProducto extends javax.swing.JInternalFrame {
              }
         
            //No funciona si lo pongo dentro de un try catch poreso esta afuera  
-           configtable(); //###################################### CONFIGURACION DE LA TABLA ##################################
+           //configtable(); //###################################### CONFIGURACION DE LA TABLA ##################################
 
     
      
@@ -342,6 +342,11 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
         jtListadoProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtListadoProductosMouseClicked(evt);
+            }
+        });
+        jtListadoProductos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtListadoProductosKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(jtListadoProductos);
@@ -599,7 +604,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
         
         int filasele = jtListadoProductos.getSelectedRow();
         
-        stockS =  jtListadoProductos.getValueAt(filasele, 7).toString();
+        stockS =  jtListadoProductos.getValueAt(filasele, 5).toString();
         stockI = Integer.parseInt(stockS);
         
         //Valido que tenga stock antes que todo
@@ -622,7 +627,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
         
         registro [0] = jtListadoProductos.getValueAt(filasele, 0).toString(); // Codigo
         registro [1] = jtListadoProductos.getValueAt(filasele, 1).toString();  //Descripcion
-        registro [2] = jtListadoProductos.getValueAt(filasele, 4).toString(); //P_venta
+        registro [2] = jtListadoProductos.getValueAt(filasele, 2).toString(); //P_venta
        
         
         do{
@@ -634,14 +639,14 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
         
         registro [3] =  entradaUsuario; //Cantidad
         
-        registro [4] = jtListadoProductos.getValueAt(filasele, 6).toString(); //Proveedor
+        registro [4] = jtListadoProductos.getValueAt(filasele, 4).toString(); //Proveedor
     
         
         cantidad = Double.parseDouble(entradaUsuario); // Esto lo hago para poder mas abajo multiplicar en #C1 (si no da error Integer * Double)
         
        totalAnsS = AbmFactura.jtfTotal.getText();
         
-        totalS= jtListadoProductos.getValueAt(filasele, 4).toString();
+        totalS= jtListadoProductos.getValueAt(filasele, 2).toString(); //P_venta
         
         totalD= Double.parseDouble(totalAnsS) + Double.parseDouble(totalS) * cantidad; //#C1  [total anterior + (P_venta x Cantidad)]
         
@@ -737,7 +742,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
                Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
            }
         
-            
+            configtable(); //###################################### CONFIGURACION DE LA TABLA ##################################
             
         }
         
@@ -769,22 +774,22 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
        
         Oproducto.setCodigo((jtListadoProductos.getValueAt(i, 0).toString()));
         Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 1).toString()));
-        if(jtListadoProductos.getValueAt(i, 2)!=null)
-        Oproducto.setP_dolar(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+      //  if(jtListadoProductos.getValueAt(i, 2)!=null)
+      //  Oproducto.setP_dolar(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+      //  if(jtListadoProductos.getValueAt(i, 3)!=null)
+      //  Oproducto.setP_costo(Float.parseFloat(jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
         if(jtListadoProductos.getValueAt(i, 3)!=null)
-        Oproducto.setP_costo(Float.parseFloat(jtListadoProductos.getValueAt(i, 3).toString()));
-        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 4).toString()));
+        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 4).toString()));
         if(jtListadoProductos.getValueAt(i, 5)!=null)
-        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 5).toString()));
-        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 6).toString()));
-        if(jtListadoProductos.getValueAt(i, 7)!=null)
-        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 7).toString()));
-        if(jtListadoProductos.getValueAt(i, 8)!=null)
-        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 8).toString()));
-        if(jtListadoProductos.getValueAt(i, 9)!=null)
-        Oproducto.setImagen((jtListadoProductos.getValueAt(i, 9).toString()));
-        if(jtListadoProductos.getValueAt(i, 10)!=null)
-        Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 10).toString()));
+        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 5).toString()));
+        if(jtListadoProductos.getValueAt(i, 6)!=null)
+        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 6).toString()));
+       // if(jtListadoProductos.getValueAt(i, 9)!=null)
+       // Oproducto.setImagen((jtListadoProductos.getValueAt(i, 9).toString()));
+       // if(jtListadoProductos.getValueAt(i, 10)!=null)
+       // Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 10).toString()));
         
       
         
@@ -864,7 +869,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
       // jtfCategoriaId.setText(producto.getCategoria_id().toString());
       
       
-                
+            
        
       
        
@@ -936,7 +941,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
            Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
        }
        
-       
+        
        
        
         //Aqui contrastaremos el stock de la factura y lo descontaremos al que se cargo anteriormente desde la base de datos
@@ -945,6 +950,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
        
        if(cantfilasfact>0){
            
+       configtable(); //###################################### CONFIGURACION DE LA TABLA ##################################
            
            //En esta parte cargo toda la tabla en un arraylist para modificar el stock y volver a poner todo en la grilla
         
@@ -958,20 +964,27 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
             
         Producto Oproducto = new Producto();
         
-        
-        //Oproducto.setId(Integer.parseInt(jtListadoProductos.getValueAt(i, 0).toString()));
+       
+         //Se validan todos los campos que pueden ser nulos con un if
        
         Oproducto.setCodigo((jtListadoProductos.getValueAt(i, 0).toString()));
         Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 1).toString()));
-        Oproducto.setP_dolar(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
-        Oproducto.setP_costo(Float.parseFloat(jtListadoProductos.getValueAt(i, 3).toString()));
-        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 4).toString()));
-        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 5).toString()));
-        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 6).toString()));
-        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 7).toString()));
-        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 8).toString()));
-        Oproducto.setImagen((jtListadoProductos.getValueAt(i, 9).toString()));
-        Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 10).toString()));
+      //  if(jtListadoProductos.getValueAt(i, 2)!=null)
+      //  Oproducto.setP_dolar(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+      //  if(jtListadoProductos.getValueAt(i, 3)!=null)
+      //  Oproducto.setP_costo(Float.parseFloat(jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+        if(jtListadoProductos.getValueAt(i, 3)!=null)
+        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 4).toString()));
+        if(jtListadoProductos.getValueAt(i, 5)!=null)
+        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 5).toString()));
+        if(jtListadoProductos.getValueAt(i, 6)!=null)
+        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 6).toString()));
+       // if(jtListadoProductos.getValueAt(i, 9)!=null)
+       // Oproducto.setImagen((jtListadoProductos.getValueAt(i, 9).toString()));
+       // if(jtListadoProductos.getValueAt(i, 10)!=null)
+       // Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 10).toString()));
         
       
         
@@ -1044,12 +1057,15 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
                Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
            }
            
+            
            
            //Aqui contrastaremos el stock de la factura y lo descontaremos al que se cargo anteriormente desde la base de datos
        
        int cantfilasfact = AbmFactura.jtListadoFacturacion.getRowCount();
        
        if(cantfilasfact>0){
+           
+       configtable(); //###################################### CONFIGURACION DE LA TABLA ##################################    
            
            
            //En esta parte cargo toda la tabla en un arraylist para modificar el stock y volver a poner todo en la grilla
@@ -1065,19 +1081,26 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
         Producto Oproducto = new Producto();
         
         
-        //Oproducto.setId(Integer.parseInt(jtListadoProductos.getValueAt(i, 0).toString()));
+         //Se validan todos los campos que pueden ser nulos con un if
        
         Oproducto.setCodigo((jtListadoProductos.getValueAt(i, 0).toString()));
         Oproducto.setDescripcion((jtListadoProductos.getValueAt(i, 1).toString()));
-        Oproducto.setP_dolar(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
-        Oproducto.setP_costo(Float.parseFloat(jtListadoProductos.getValueAt(i, 3).toString()));
-        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 4).toString()));
-        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 5).toString()));
-        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 6).toString()));
-        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 7).toString()));
-        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 8).toString()));
-        Oproducto.setImagen((jtListadoProductos.getValueAt(i, 9).toString()));
-        Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 10).toString()));
+      //  if(jtListadoProductos.getValueAt(i, 2)!=null)
+      //  Oproducto.setP_dolar(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+      //  if(jtListadoProductos.getValueAt(i, 3)!=null)
+      //  Oproducto.setP_costo(Float.parseFloat(jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setP_venta(Float.parseFloat(jtListadoProductos.getValueAt(i, 2).toString()));
+        if(jtListadoProductos.getValueAt(i, 3)!=null)
+        Oproducto.setOrigen((jtListadoProductos.getValueAt(i, 3).toString()));
+        Oproducto.setProveedor((jtListadoProductos.getValueAt(i, 4).toString()));
+        if(jtListadoProductos.getValueAt(i, 5)!=null)
+        Oproducto.setStock(Integer.parseInt(jtListadoProductos.getValueAt(i, 5).toString()));
+        if(jtListadoProductos.getValueAt(i, 6)!=null)
+        Oproducto.setCategoria((jtListadoProductos.getValueAt(i, 6).toString()));
+       // if(jtListadoProductos.getValueAt(i, 9)!=null)
+       // Oproducto.setImagen((jtListadoProductos.getValueAt(i, 9).toString()));
+       // if(jtListadoProductos.getValueAt(i, 10)!=null)
+       // Oproducto.setFechaIngreso(ParseFecha(jtListadoProductos.getValueAt(i, 10).toString()));
         
       
         
@@ -1171,6 +1194,33 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
         // TODO add your handling code here:
         configtable();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jtListadoProductosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtListadoProductosKeyReleased
+        // TODO add your handling code here:
+        
+        if( (evt.getKeyCode()==KeyEvent.VK_DOWN) ||(evt.getKeyCode()==KeyEvent.VK_UP) )  {
+        
+        
+         Producto producto = grillaProducto.getProductoFromRow(jtListadoProductos.getSelectedRow());  //Obtiene el objeto producto con todos sus atributos de la fila seleccionada en la grillaProducto
+        categoriaControlador = new CategoriaControlador();
+        
+         
+     
+       //jtfId.setText( producto.getId().toString() );
+        jtfCodigo.setText(producto.getCodigo());
+       jtfDescripcion.setText(producto.getDescripcion());
+       jtfPrecioVenta.setText( producto.getP_venta().toString() );
+       jtfOrigen.setText(producto.getOrigen());
+       jtfProveedor.setText(producto.getProveedor());
+        jtfStock.setText( producto.getStock().toString() );
+       jtfCategoria.setText(producto.getCategoria());
+       //jcbCategorias.setSelectedItem(producto.getCategoria());
+       jdcFechaIngreso.setDate(producto.getFechaIngreso());
+      // jtfCategoriaId.setText(producto.getCategoria_id().toString());
+        }
+      
+      
+    }//GEN-LAST:event_jtListadoProductosKeyReleased
 
     private void limpiarCampos() {
         

@@ -241,7 +241,6 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
         setResizable(true);
         setTitle("Facturacion");
 
-        jPanelFactura.setBackground(new java.awt.Color(240, 178, 96));
         jPanelFactura.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtListadoFacturacion.setForeground(new java.awt.Color(0, 127, 248));
@@ -314,7 +313,7 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
         jLabel11.setText("Vuelto $");
         jPanelFactura.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(375, 343, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(59, 163, 182));
+        jPanel1.setBackground(new java.awt.Color(204, 255, 102));
 
         jtfDescuento.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {

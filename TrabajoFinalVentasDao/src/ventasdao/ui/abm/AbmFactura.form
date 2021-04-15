@@ -44,11 +44,6 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanelFactura">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="60" green="b2" red="f0" type="rgb"/>
-        </Property>
-      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
@@ -261,7 +256,7 @@
             <Container class="javax.swing.JPanel" name="jPanel1">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="b6" green="a3" red="3b" type="rgb"/>
+                  <Color blue="66" green="ff" red="cc" type="rgb"/>
                 </Property>
               </Properties>
               <Constraints>
