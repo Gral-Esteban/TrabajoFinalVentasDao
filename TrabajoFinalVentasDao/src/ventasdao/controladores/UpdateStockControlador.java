@@ -182,7 +182,7 @@ public class UpdateStockControlador implements ICrud<Factura>{
         connection = Conexion.obtenerConexion ();
         
         
-        String sql2 = "UPDATE producto SET stock=stock + ? WHERE codigo = ? AND proveedor = ?";
+        String sql2 = "UPDATE productos1 SET stock=stock + ? WHERE codigo = ? AND proveedor = ?";
      
           //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
         

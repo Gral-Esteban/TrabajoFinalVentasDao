@@ -248,7 +248,7 @@ public class LoginUserControlador implements ICrud<Usuario>{
                     
                     /*Hago conexion a la BD para poner el estado en  desconectado a todos para posteriori poner
                     en conectado el que es esta logeando*/
-                            //Consigo la MAC del PC y lo ponog en el java text field
+                            //Consigo la MAC del PC y lo pongo en el java text field
         
                              mac p = new mac();
                              
