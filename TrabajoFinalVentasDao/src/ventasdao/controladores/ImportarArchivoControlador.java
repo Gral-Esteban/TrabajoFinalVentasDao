@@ -47,6 +47,9 @@ public class ImportarArchivoControlador {
                             "proveedor character varying (100) not null,\n" +
                             "stock integer,\n" +
                             "categoria character varying (100),\n" +
+                            "imagen character varying (200),\n" +
+                            "fecha_ingreso date,\n" +
+                            "UNIQUE (codigo, proveedor),\n" +  //Esto evita que se agregue un registro con codigo repetido para un mismo proveedor
                             "primary key (id)\n" +
                             ")";
         
@@ -68,17 +71,11 @@ public class ImportarArchivoControlador {
              
         
         /*Aqui cargo el contenido del fichero .csv que seleccione de mi equipo a la tabla productos2*/
-             String  sql2 = "COPY PUBLIC.productos2 FROM '"+absolutePath+"' DELIMITER ',' CSV HEADER";  //El signo de pregunta ? se reemplazo por '"+absolutePath+"' y el error se fue
+             String  sql2 = "COPY PUBLIC.productos2 FROM '"+absolutePath+"' DELIMITER ';' CSV HEADER";  //El signo de pregunta ? se reemplazo por '"+absolutePath+"' y el error se fue
              
          
-        /*Aqui inserto desde productos2 a producos1 los nuevos productos o registros cuyo codigo y respectivo proveedor no figuran en la tabla productos1*/
-             String  sql3 = "INSERT INTO productos1(codigo,descripcion,p_dolar,p_costo,p_venta,origen,proveedor,stock,categoria)\n" +
-                            "SELECT productos2.codigo,productos2.descripcion,productos2.p_dolar,productos2.p_costo,productos2.p_venta,productos2.origen,productos2.proveedor,productos2.stock,productos2.categoria\n" +
-                            "FROM productos2 \n" +
-                            "WHERE productos2.codigo NOT IN (SELECT productos1.codigo FROM productos1) OR proveedor NOT IN(SELECT productos1.proveedor FROM productos1 WHERE productos1.codigo=productos2.codigo)";
-             
-        /*Aqui actualizo los datos de la tabla productos2 a productos1*/    
-             String  sql4 = "UPDATE productos1 p1 \n" +
+         /*Aqui actualizo los datos de la tabla productos2 a productos1*/    
+             String  sql3 = "UPDATE productos1 p1 \n" +
                             "SET \n" +
                             "descripcion = p2.descripcion,\n" +
                             "p_dolar= p2.p_dolar,\n" +
@@ -88,7 +85,17 @@ public class ImportarArchivoControlador {
                             "stock= p1.stock + p2.stock,\n" +
                             "categoria = p2.categoria\n" +
                             "FROM productos2 p2\n" +
-                            "WHERE p2.codigo=p1.codigo and p2.proveedor=p1.proveedor";
+                            "WHERE p2.codigo=p1.codigo and p2.proveedor=p1.proveedor";    
+             
+             
+        /*Aqui inserto desde productos2 a producos1 los nuevos productos o registros cuyo codigo y respectivo proveedor no figuran en la tabla productos1*/
+             String  sql4 = "INSERT INTO productos1(codigo,descripcion,p_dolar,p_costo,p_venta,origen,proveedor,stock,categoria)\n" +
+                            "SELECT productos2.codigo,productos2.descripcion,productos2.p_dolar,productos2.p_costo,productos2.p_venta,productos2.origen,productos2.proveedor,productos2.stock,productos2.categoria\n" +
+                            "FROM productos2 \n" +
+                            "WHERE productos2.codigo NOT IN (SELECT productos1.codigo FROM productos1) OR proveedor NOT IN(SELECT productos1.proveedor FROM productos1 WHERE productos1.codigo=productos2.codigo)";
+         
+             
+        
              
              
         try {

@@ -846,6 +846,7 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
     private void jtfPagaConCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jtfPagaConCaretUpdate
         // TODO add your handling code here:
         String bandera = jtfPagaCon.getText();
+        DecimalFormat df = new DecimalFormat("#.00");
 
         if(bandera.equals("")){
 
@@ -855,7 +856,7 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
             Double total = Double.parseDouble(jtfTotal.getText());
             Double efectivo = Double.parseDouble(jtfPagaCon.getText());
             Double vueltoD = efectivo - total;
-            String vueltoS = String.valueOf(vueltoD);
+            String vueltoS = String.valueOf(df.format(vueltoD));
             jtfVuelto.setText(vueltoS);
         }
 
