@@ -271,5 +271,9 @@ from productos1
 where categoria is not null
 group by categoria
 
+select * from detalle_factura
+select * from factura
+delete from productos1
+where id>=1
 
 

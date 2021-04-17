@@ -25,6 +25,7 @@ import ventasdao.dominio.Conexion;
 import ventasdao.objetos.DetalleFactura;
 import ventasdao.objetos.DetalleFacturaAnulacion;
 import ventasdao.objetos.Factura;
+import ventasdao.objetos.Producto;
 import ventasdao.ui.abm.AbmFactura;
 //import ventasdao.ui.abm.Factura;
 
@@ -58,58 +59,41 @@ public class UpdateStockControlador implements ICrud<Factura>{
     //public void eliminarCategoria(Categoria c);
     
     
-    public boolean decrementar(List<DetalleFactura> detallefacturas) throws SQLException, Exception{
+    
+    
+    public boolean decrementar(List<DetalleFactura> detallefacturas) throws SQLException, Exception {
 
-     
-        
-        //int tamaño= detallefacturas.size();
-        
-       
-        connection = Conexion.obtenerConexion ();
-        
-        
+        connection = Conexion.obtenerConexion();
+
         String sql = "UPDATE productos1 SET stock=stock - ? WHERE codigo = ? AND proveedor = ?";
-     
-          //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
-        
-        
-        
-        
-        for(DetalleFactura detallefactura:detallefacturas)  {
-            
-        
-        try {
-            ps = connection.prepareStatement(sql);
-            
-            ps.setInt(1, detallefactura.getCantidad());
-            ps.setString(2, detallefactura.getCodigo());
-            ps.setString(3, detallefactura.getProveedor());
-            //ps.setDate(2, (java.sql.Date) entidad.getFecha_facturacion());
-            //ps.setDate(2, fecha);
-           
-            //ps.setInt(3, detallefactura.getFactura_id());
-          
-            
-            ps.executeUpdate();
-                 
-           
 
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateStockControlador.class.getName()).log(Level.SEVERE, null, ex);
-            
-            //return false;
-        }
-        
-       
-        
+        //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
+        for (DetalleFactura detallefactura : detallefacturas) {
+
+            try {
+                ps = connection.prepareStatement(sql);
+
+                ps.setInt(1, detallefactura.getCantidad());
+                ps.setString(2, detallefactura.getCodigo());
+                ps.setString(3, detallefactura.getProveedor());
+                //ps.setDate(2, (java.sql.Date) entidad.getFecha_facturacion());
+                //ps.setDate(2, fecha);
+
+                //ps.setInt(3, detallefactura.getFactura_id());
+                ps.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(UpdateStockControlador.class.getName()).log(Level.SEVERE, null, ex);
+
+                //return false;
+            }
+
         } //cierra el for
-       
-         connection.close();
-        
-        
-        
+
+        connection.close();
+
         return true;
-        
+
     }
 
     
@@ -117,106 +101,120 @@ public class UpdateStockControlador implements ICrud<Factura>{
     
     
     
-    public boolean incrementar(ArrayList<DetalleFactura> detalleFacturas) throws SQLException, Exception{
+    public boolean incrementar(ArrayList<DetalleFactura> detalleFacturas) throws SQLException, Exception {
 
-     
-        
         //int tamaño= detallefacturas.size();
-        
-       
-        connection = Conexion.obtenerConexion ();
-        
-        
-        String sql2 = "UPDATE productos1 SET stock=stock + ? WHERE codigo = ? AND proveedor = ?";
-     
-          //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
-        
-        
-        
-        
-        for(DetalleFactura detalleFactura:detalleFacturas)  {
-            
-              
-        try {
-            ps = connection.prepareStatement(sql2);
-            
-            ps.setInt(1, detalleFactura.getCantidad());
-            ps.setString(2, detalleFactura.getCodigo());
-            ps.setString(3, detalleFactura.getProveedor());
-            //ps.setDate(2, (java.sql.Date) entidad.getFecha_facturacion());
-            //ps.setDate(2, fecha);
-           
-            //ps.setInt(3, detallefactura.getFactura_id());
-          
-            
-            ps.executeUpdate();
-                 
-           
+        connection = Conexion.obtenerConexion();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateStockControlador.class.getName()).log(Level.SEVERE, null, ex);
-            
-            //return false;
-        }
-        
-       
-        
+        String sql2 = "UPDATE productos1 SET stock=stock + ? WHERE codigo = ? AND proveedor = ?";
+
+        //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
+        for (DetalleFactura detalleFactura : detalleFacturas) {
+
+            try {
+                ps = connection.prepareStatement(sql2);
+
+                ps.setInt(1, detalleFactura.getCantidad());
+                ps.setString(2, detalleFactura.getCodigo());
+                ps.setString(3, detalleFactura.getProveedor());
+                //ps.setDate(2, (java.sql.Date) entidad.getFecha_facturacion());
+                //ps.setDate(2, fecha);
+
+                //ps.setInt(3, detallefactura.getFactura_id());
+                ps.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(UpdateStockControlador.class.getName()).log(Level.SEVERE, null, ex);
+
+                //return false;
+            }
+
         } //cierra el for
-       
-         connection.close();
-        
-        
-        
+
+        connection.close();
+
         return true;
-        
+
     }
     
     
     
-    public boolean incrementar2(DetalleFactura articuloEliminado) throws SQLException, Exception{
+    public boolean incrementar2(DetalleFactura articuloEliminado) throws SQLException, Exception {
 
-     
         //int tamaño= detallefacturas.size();
-        
-       
-        connection = Conexion.obtenerConexion ();
-        
-        
-        String sql2 = "UPDATE productos1 SET stock=stock + ? WHERE codigo = ? AND proveedor = ?";
-     
-          //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
-        
+        connection = Conexion.obtenerConexion();
 
-              
+        String sql2 = "UPDATE productos1 SET stock=stock + ? WHERE codigo = ? AND proveedor = ?";
+
+        //java.sql.Date fecha = new java.sql.Date (entidad.getFecha_facturacion().getTime());
         try {
             ps = connection.prepareStatement(sql2);
-            
+
             ps.setInt(1, articuloEliminado.getCantidad());
             ps.setString(2, articuloEliminado.getCodigo());
             ps.setString(3, articuloEliminado.getProveedor());
             //ps.setDate(2, (java.sql.Date) entidad.getFecha_facturacion());
             //ps.setDate(2, fecha);
-           
+
             //ps.setInt(3, detallefactura.getFactura_id());
-          
-            
             ps.executeUpdate();
-                 
-           
 
         } catch (SQLException ex) {
             Logger.getLogger(UpdateStockControlador.class.getName()).log(Level.SEVERE, null, ex);
-            
+
             //return false;
         }
- 
-         connection.close();
-        
- 
+
+        connection.close();
+
         return true;
-        
+
     }
     
+    
+    
+    
+    
+    public boolean validar(List<DetalleFactura> detallefacturas) throws SQLException, Exception{
+
+        Producto objetoConsulta = new Producto();
+
+        connection = Conexion.obtenerConexion();
+
+        for (DetalleFactura detallefactura : detallefacturas) {
+
+            //Verifico que la cantidad no sea mayor al stock disponible antes de actualizarlo
+            try {
+
+                this.stmt = connection.createStatement();
+                this.sql2 = "SELECT stock FROM productos1 WHERE codigo = '" + detallefactura.getCodigo() + "' AND proveedor = '" + detallefactura.getProveedor() + "' ";
+                this.rs = stmt.executeQuery(sql2);
+
+                while (rs.next()) {
+                    
+                    
+                    objetoConsulta.setStock(rs.getInt("stock"));
+
+                }
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+
+            if (detallefactura.getCantidad() > objetoConsulta.getStock()) {
+
+                JOptionPane.showMessageDialog(null, "No hay stock suficiente para el producto cuyo codigo=" + detallefactura.getCodigo() + " y proveedor es:" + detallefactura.getProveedor() + "elimine este producto de la factura o reponga el stock e intente nuevamente");
+                return false;
+
+            } //cierra if
+
+        } //cierra el for
+
+        connection.close();
+
+        return true;
+
+    }
     
     
     

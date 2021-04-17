@@ -565,71 +565,84 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
     private void jbAltaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAltaFacturaActionPerformed
         // TODO add your handling code here:
 
-         /*Validamos la entradas*/
-        if(Integer.parseInt(jtfClienteIF.getText())>0 && Float.parseFloat(jtfTotal.getText())!=0.0)  {
-            
-        
-        Factura factura = new Factura();
+        boolean validacionStock;
 
-        factura.setMonto_total(Float.parseFloat(jtfTotal.getText()));
-        factura.setCliente_id(Integer.parseInt(jtfClienteIF.getText()));
-        factura.setFormapago((FormaPago)(jcbFormaPago.getSelectedItem()));
-        factura.setObservaciones(jtpObservaciones.getText());
-        factura.setExpedidor(jtfExpedidor.getText());
-        
-       
+        /*Validamos la entradas*/
+        if (Integer.parseInt(jtfClienteIF.getText()) > 0 && Float.parseFloat(jtfTotal.getText()) != 0.0) {
 
-        try {
-            facturaControlador.crear(factura);
-            //limpiarCampos();
-        } catch (Exception ex) {
-            Logger.getLogger(AbmFactura.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Factura factura = new Factura();
 
-        /// Cargo el Array del grilla factura
+            factura.setMonto_total(Float.parseFloat(jtfTotal.getText()));
+            factura.setCliente_id(Integer.parseInt(jtfClienteIF.getText()));
+            factura.setFormapago((FormaPago) (jcbFormaPago.getSelectedItem()));
+            factura.setObservaciones(jtpObservaciones.getText());
+            factura.setExpedidor(jtfExpedidor.getText());
 
-        int cantidadfilas = jtListadoFacturacion.getRowCount();
+            try {
+                facturaControlador.crear(factura);
+                //limpiarCampos();
+            } catch (Exception ex) {
+                Logger.getLogger(AbmFactura.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-        for(int i=0;i<cantidadfilas;i++){
-            DetalleFactura detallefactura = new DetalleFactura();
+            /// Cargo el Array del grilla factura
+            int cantidadfilas = jtListadoFacturacion.getRowCount();
 
-            detallefactura.setCodigo(jtListadoFacturacion.getValueAt(i, 0).toString());  //Codigo del producto
-             detallefactura.setProveedor(jtListadoFacturacion.getValueAt(i, 4).toString());  //Proveedor del producto
-            //JOptionPane.showMessageDialog(null,"ProductoId"+jtListadoFacturacion.getValueAt(i, 4).toString());
-            detallefactura.setCantidad(Integer.parseInt(jtListadoFacturacion.getValueAt(i, 3).toString()));   //cantidad
-            //JOptionPane.showMessageDialog(null,"Cantidad="+jtListadoFacturacion.getValueAt(i, 3).toString());
-            detallefactura.setFactura_id(Integer.parseInt(jtfNumeroFactura.getText())); //factura_id
+            for (int i = 0; i < cantidadfilas; i++) {
+                DetalleFactura detallefactura = new DetalleFactura();
 
-            //JOptionPane.showMessageDialog(null,"carga el 1er elemento del arraylist cuando i="+i);
+                detallefactura.setCodigo(jtListadoFacturacion.getValueAt(i, 0).toString());  //Codigo del producto
+                detallefactura.setProveedor(jtListadoFacturacion.getValueAt(i, 4).toString());  //Proveedor del producto
+                //JOptionPane.showMessageDialog(null,"ProductoId"+jtListadoFacturacion.getValueAt(i, 4).toString());
+                detallefactura.setCantidad(Integer.parseInt(jtListadoFacturacion.getValueAt(i, 3).toString()));   //cantidad
+                //JOptionPane.showMessageDialog(null,"Cantidad="+jtListadoFacturacion.getValueAt(i, 3).toString());
+                detallefactura.setFactura_id(Integer.parseInt(jtfNumeroFactura.getText())); //factura_id
 
-            detallefacturas.add(detallefactura);
+                //JOptionPane.showMessageDialog(null,"carga el 1er elemento del arraylist cuando i="+i);
+                detallefacturas.add(detallefactura);
 
-        }
+            }
 
-        try {
-            detalleFacturaControlador.crear(detallefacturas);
-            //limpiarCampos();
-        } catch (Exception ex) {
-            Logger.getLogger(AbmFactura.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            try {
+                validacionStock = updateStockControlador.validar(detallefacturas);
 
-        //En esta parte actualizo el stock en la base de datos un avez que se confirmo la factura
-        try {
-            updateStockControlador.decrementar(detallefacturas);
-            //limpiarCampos();
-        } catch (Exception ex) {
-            Logger.getLogger(AbmFactura.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            } catch (Exception ex) {
+                Logger.getLogger(AbmFactura.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-        JOptionPane.showMessageDialog(null,"La factura se creo Exitosamente!!!");
-        
+            if (validacionStock = true) {
+
+                //En esta parte actualizo el stock en la base de datos un avez que se confirmo la factura y que se valido el stock
+                try {
+                    updateStockControlador.decrementar(detallefacturas);
+                    //limpiarCampos();
+                } catch (Exception ex) {
+                    Logger.getLogger(AbmFactura.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                /*Aqui se crea la el detallefactura no sin antes haber hecho la validacion anterior*/
+                try {
+                    detalleFacturaControlador.crear(detallefacturas);
+                    //limpiarCampos();
+                } catch (Exception ex) {
+                    Logger.getLogger(AbmFactura.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                JOptionPane.showMessageDialog(null, "La factura se creo Exitosamente!!!");
+
+            } //Cierro el if validacionStock
+
+            //Incializo el array detallefacturas porque si no al dar confirmar 2 veces seguidas se carga el doble de productos ya que conserva los que cargo la 1era vez
+            detallefacturas.clear();
 
         } //Cierro el If de validacion
-        else{
-            if(Integer.parseInt(jtfClienteIF.getText())==0)
-            JOptionPane.showMessageDialog(null,"Debe ingresar un cliente");
-            if(Float.parseFloat(jtfTotal.getText())==0.0)
-            JOptionPane.showMessageDialog(null,"Debe Agregar al menos un producto a la factura");   
+        else {
+            if (Integer.parseInt(jtfClienteIF.getText()) == 0) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un cliente");
+            }
+            if (Float.parseFloat(jtfTotal.getText()) == 0.0) {
+                JOptionPane.showMessageDialog(null, "Debe Agregar al menos un producto a la factura");
+            }
         }
     }//GEN-LAST:event_jbAltaFacturaActionPerformed
 

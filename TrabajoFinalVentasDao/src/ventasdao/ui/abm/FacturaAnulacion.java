@@ -413,8 +413,9 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         //jtfZiseTable.setText(String.valueOf(jtListadoProductos.getRowCount()));
         int zisejtfacturas = jtFacturas.getRowCount();
         int facturaId = Integer.parseInt(jtfNumFactura.getText());
+        
        
-        for(int i=0;i<zisejtfacturas;i++) {
+        for(int i=0;i<=zisejtfacturas;i++) {
             
             int facturaIdCap =Integer.parseInt(jtFacturas.getValueAt(i, 0).toString());
             
@@ -423,7 +424,7 @@ public class FacturaAnulacion extends javax.swing.JInternalFrame {
         String montoTot_S=jtFacturas.getValueAt(i, 5).toString(); //Mucho cuidado si agrego una columna en la tabla verificar esto
             float montoTot= Float.parseFloat(montoTot_S);
             
-            if(montoTot==0.0) {
+            if(montoTot<0.1 ) {
             
                 try {
             facturaControlador.eliminar(Integer.parseInt(jtfNumFactura.getText()));
