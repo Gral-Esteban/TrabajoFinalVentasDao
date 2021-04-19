@@ -203,7 +203,7 @@ public class UpdateStockControlador implements ICrud<Factura>{
 
             if (detallefactura.getCantidad() > objetoConsulta.getStock()) {
 
-                JOptionPane.showMessageDialog(null, "No hay stock suficiente para el producto cuyo codigo=" + detallefactura.getCodigo() + " y proveedor es:" + detallefactura.getProveedor() + "elimine este producto de la factura o reponga el stock e intente nuevamente");
+                JOptionPane.showMessageDialog(null, "No hay stock suficiente para el producto cuyo codigo=" + detallefactura.getCodigo() + " y proveedor es:" + detallefactura.getProveedor() + " Elimine este producto de la factura o reponga el stock e intente nuevamente");
                 return false;
 
             } //cierra if
