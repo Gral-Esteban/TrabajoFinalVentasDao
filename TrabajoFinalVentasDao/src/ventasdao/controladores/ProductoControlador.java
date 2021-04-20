@@ -181,6 +181,25 @@ public class ProductoControlador implements ICrud<Producto> {
     }
    
     
+    
+    public boolean reset() throws SQLException, ClassNotFoundException {
+        
+          connection = Conexion.obtenerConexion();
+        
+        String sql = "DELETE FROM productos1 WHERE id>=1";
+        try {
+            ps=connection.prepareStatement(sql);
+            ps.executeUpdate();
+            connection.close();
+            
+            
+        } catch (SQLException e) {
+             Logger.getLogger(ProductoControlador.class.getName()).log(Level.SEVERE, null, e);
+             return false;
+        }
+        return true;
+    }
+    
   
 
     @Override

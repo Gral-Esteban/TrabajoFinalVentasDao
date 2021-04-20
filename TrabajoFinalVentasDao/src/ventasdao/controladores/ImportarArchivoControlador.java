@@ -71,7 +71,7 @@ public class ImportarArchivoControlador {
              
         
         /*Aqui cargo el contenido del fichero .csv que seleccione de mi equipo a la tabla productos2*/
-             String  sql2 = "COPY PUBLIC.productos2 FROM '"+absolutePath+"' DELIMITER ';' CSV HEADER";  //El signo de pregunta ? se reemplazo por '"+absolutePath+"' y el error se fue
+             String  sql2 = "COPY PUBLIC.productos2 FROM '"+absolutePath+"' DELIMITER ',' CSV HEADER";  //El signo de pregunta ? se reemplazo por '"+absolutePath+"' y el error se fue
              
          
          /*Aqui actualizo los datos de la tabla productos2 a productos1*/    
