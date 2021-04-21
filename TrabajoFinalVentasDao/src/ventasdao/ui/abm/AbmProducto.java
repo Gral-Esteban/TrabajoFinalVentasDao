@@ -11,8 +11,13 @@ package ventasdao.ui.abm;
  *
  * @author Esteban DAlbano
  */
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -99,7 +104,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         jbEliminar = new javax.swing.JButton();
         jtfStock = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jbImportar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jtfPrecioCosto = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -112,8 +117,8 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         jtfImagen = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jbReset = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jbSalir = new javax.swing.JButton();
+        jbBackup = new javax.swing.JButton();
         jtfFiltroCodigo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jtfFiltroDescripcion = new javax.swing.JTextField();
@@ -151,7 +156,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         jLabel2.setText("Descripcion");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, 60, 20));
 
-        jLabel3.setText("Precio venta");
+        jLabel3.setText("P_venta");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 65, 20));
 
         jLabel4.setText("Categoria");
@@ -219,19 +224,19 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         jLabel8.setText("Stock");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 50, 20));
 
-        jButton1.setText("Importar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbImportar.setText("Importar");
+        jbImportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbImportarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 460, 120, 46));
+        getContentPane().add(jbImportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 460, 120, 46));
 
-        jLabel9.setText("Precio costo");
+        jLabel9.setText("P_costo");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 61, 20));
         getContentPane().add(jtfPrecioCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 130, -1));
 
-        jLabel10.setText("Precio dolar");
+        jLabel10.setText("P_dolar");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 60, 20));
         getContentPane().add(jtfPrecioDolar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 130, -1));
 
@@ -279,11 +284,21 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         });
         getContentPane().add(jbReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 460, 120, 46));
 
-        jButton3.setText("Salir");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 460, 120, 46));
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jbSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 460, 120, 46));
 
-        jButton4.setText("Backup");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 460, 120, 46));
+        jbBackup.setText("Backup");
+        jbBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBackupActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jbBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 460, 120, 46));
         getContentPane().add(jtfFiltroCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 130, -1));
 
         jLabel6.setText("F. Codigo");
@@ -505,7 +520,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jbModificarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbImportarActionPerformed
         // TODO add your handling code here:
          JFileChooser chooser = new JFileChooser();
         String absolutePath = null;
@@ -529,7 +544,14 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         catch (Exception ex) {
             System.out.println("Error al querer importar el archivo");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        
+        refresh();
+        
+        
+        
+        
+    }//GEN-LAST:event_jbImportarActionPerformed
 
     private void jtfOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfOrigenActionPerformed
         // TODO add your handling code here:
@@ -586,14 +608,79 @@ public class AbmProducto extends javax.swing.JInternalFrame {
        } catch (ClassNotFoundException ex) {
            Logger.getLogger(AbmProducto.class.getName()).log(Level.SEVERE, null, ex);
        } 
+        
+        
+        refresh();
+        
     }//GEN-LAST:event_jbResetActionPerformed
 
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBackupActionPerformed
+        // TODO add your handling code here:
+    
+        abrirarchivo("C://Users//Esteban DAlbano//Documents//NetBeansProjects//VentasDAOs//TrabajoFinalVentasDao//backup/backupDB.bat");
+
+
+        
+    }//GEN-LAST:event_jbBackupActionPerformed
+
+    
+    public void abrirarchivo(String archivo){
+
+     try {
+
+            File objetofile = new File (archivo);
+            Desktop.getDesktop().open(objetofile);
+
+     }catch (IOException ex) {
+
+            System.out.println(ex);
+
+     }
+
+}                         
     
     
     
+
+   public void refresh() {
+        
+        /*Aqui refrescamos la tabla luego de hacer el import */
+        ArrayList<Producto> productos;
+
+        controladorProducto = new ProductoControlador();
+        categoriaControlador = new CategoriaControlador();
+
+        try {
+            productos = controladorProducto.listar();
+            grillaProducto = new GrillaProducto(productos);
+            jtListadoProductos.setModel(grillaProducto);
+
+        } catch (Exception ex) {
+            Logger.getLogger(AbmProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            ArrayList<String> categorias = categoriaControlador.listar2();
+            modelCombo = new DefaultComboBoxModel(categorias.toArray());
+            jcbCategorias.setModel(modelCombo);
+
+        } catch (Exception ex) {
+            Logger.getLogger(AbmProducto.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        
+        
+        
+    }
     
     
     
+   
+   
     
     
     
@@ -603,9 +690,6 @@ public class AbmProducto extends javax.swing.JInternalFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -621,13 +705,16 @@ public class AbmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbBackup;
     private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbImportar;
     private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbRegistrarProducto;
     private javax.swing.JButton jbReset;
-    private javax.swing.JComboBox<String> jcbCategorias;
+    private javax.swing.JButton jbSalir;
+    public javax.swing.JComboBox<String> jcbCategorias;
     private com.toedter.calendar.JDateChooser jdcFechaIngreso;
-    private javax.swing.JTable jtListadoProductos;
+    public javax.swing.JTable jtListadoProductos;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfDescripcion;
     private javax.swing.JTextField jtfFiltroCodigo;

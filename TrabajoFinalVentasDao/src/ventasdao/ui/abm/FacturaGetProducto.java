@@ -1157,7 +1157,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
             
             {
                
-               trs.setRowFilter(RowFilter.regexFilter("(?i)"+". *"+jtfFiltradoDescripcion.getText()+". *", 1)); //El numero indica la columna
+               trs.setRowFilter(RowFilter.regexFilter("(?i)"+jtfFiltradoDescripcion.getText()+". *", 1)); //El numero indica la columna
            }
         
        });
