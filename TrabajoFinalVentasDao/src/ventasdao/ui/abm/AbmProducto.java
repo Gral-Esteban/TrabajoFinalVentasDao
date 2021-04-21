@@ -13,6 +13,7 @@ package ventasdao.ui.abm;
  */
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,6 +26,8 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
 import ventasdao.controladores.CategoriaControlador;
 import ventasdao.controladores.ImportarArchivoControlador;
 import ventasdao.controladores.ProductoControlador;
@@ -42,6 +45,8 @@ public class AbmProducto extends javax.swing.JInternalFrame {
    
    
    ImportarArchivoControlador importar = new ImportarArchivoControlador();
+   
+   TableRowSorter trs;
    
    
     
@@ -119,9 +124,9 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         jbReset = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jbBackup = new javax.swing.JButton();
-        jtfFiltroCodigo = new javax.swing.JTextField();
+        jtfFiltradoCodigo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jtfFiltroDescripcion = new javax.swing.JTextField();
+        jtfFiltradoDescripcion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
 
         setClosable(true);
@@ -299,11 +304,23 @@ public class AbmProducto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jbBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 460, 120, 46));
-        getContentPane().add(jtfFiltroCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 130, -1));
+
+        jtfFiltradoCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfFiltradoCodigoKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jtfFiltradoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 130, -1));
 
         jLabel6.setText("F. Codigo");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 60, 20));
-        getContentPane().add(jtfFiltroDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 130, -1));
+
+        jtfFiltradoDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfFiltradoDescripcionKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jtfFiltradoDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 130, -1));
 
         jLabel7.setText("F. Descripcion");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 60, 20));
@@ -623,11 +640,59 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     
         abrirarchivo("C://Users//Esteban DAlbano//Documents//NetBeansProjects//VentasDAOs//TrabajoFinalVentasDao//backup/backupDB.bat");
-
+                        
 
         
     }//GEN-LAST:event_jbBackupActionPerformed
 
+    
+    
+    
+    
+    
+    
+    private void jtfFiltradoDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfFiltradoDescripcionKeyTyped
+        // TODO add your handling code here:
+
+        jtfFiltradoDescripcion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+                trs.setRowFilter(RowFilter.regexFilter("(?i)" + jtfFiltradoDescripcion.getText() + ". *", 1)); //El numero indica la columna
+            }
+
+        });
+
+        trs = new TableRowSorter(jtListadoProductos.getModel());
+
+        jtListadoProductos.setRowSorter(trs);
+    }//GEN-LAST:event_jtfFiltradoDescripcionKeyTyped
+
+    private void jtfFiltradoCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfFiltradoCodigoKeyTyped
+        // TODO add your handling code here:
+        
+        jtfFiltradoCodigo.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+                trs.setRowFilter(RowFilter.regexFilter(jtfFiltradoCodigo.getText(),0)); //El numero indica la columna
+            }
+
+        });
+
+        trs = new TableRowSorter(jtListadoProductos.getModel());
+
+        jtListadoProductos.setRowSorter(trs);
+        
+    }//GEN-LAST:event_jtfFiltradoCodigoKeyTyped
+
+    
+    
+    
+    
+    
+    
+    
     
     public void abrirarchivo(String archivo){
 
@@ -717,8 +782,8 @@ public class AbmProducto extends javax.swing.JInternalFrame {
     public javax.swing.JTable jtListadoProductos;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfDescripcion;
-    private javax.swing.JTextField jtfFiltroCodigo;
-    private javax.swing.JTextField jtfFiltroDescripcion;
+    private javax.swing.JTextField jtfFiltradoCodigo;
+    private javax.swing.JTextField jtfFiltradoDescripcion;
     private javax.swing.JTextField jtfImagen;
     private javax.swing.JTextField jtfOrigen;
     private javax.swing.JTextField jtfPrecioCosto;
