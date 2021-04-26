@@ -515,15 +515,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
+    public static javax.swing.JMenu jMenu1;
+    public static javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbLogin;
     public static javax.swing.JDesktopPane jdpContenedorPrincipal;
     private javax.swing.JMenuItem jmiAnularFactura;
     private javax.swing.JMenuItem jmiCategoria;
     private javax.swing.JMenuItem jmiCliente;
-    private javax.swing.JMenuItem jmiFactura;
+    public static javax.swing.JMenuItem jmiFactura;
     private javax.swing.JMenuItem jmiProducto;
     private javax.swing.JMenuItem jmiReporte;
     private javax.swing.JMenuItem jmiTipoCliente;

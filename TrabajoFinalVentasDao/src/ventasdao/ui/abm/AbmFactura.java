@@ -107,9 +107,11 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
     public AbmFactura() {
         initComponents();
         
-       
+       /*Deshabilitamos la opcion de crear otra factura mientras este activa esta  */
+       ventasdao.ui.Principal.jmiFactura.setVisible(false);
 
-        
+       
+       /*Colocamos iconos a los botones   */
         jbImprimir.setIcon(SetIcono("/icons/printer.png",jbImprimir,20,30)); //muestra el icono de impresora
         jbSalir.setIcon(SetIcono("/icons/exit2.png",jbSalir,40,50)); //muestra el icono de exit
         jbAltaFactura.setIcon(SetIcono("/icons/confirmar.png",jbAltaFactura,30,30)); //muestra el icono de confirmar
@@ -236,7 +238,6 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
         jbSalir = new javax.swing.JButton();
         jbImprimir = new javax.swing.JButton();
 
-        setClosable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Facturacion");
@@ -560,6 +561,7 @@ public class AbmFactura extends javax.swing.JInternalFrame implements Printable 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         // TODO add your handling code here:
         dispose();
+        ventasdao.ui.Principal.jmiFactura.setVisible(true);
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbAltaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAltaFacturaActionPerformed

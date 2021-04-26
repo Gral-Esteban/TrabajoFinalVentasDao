@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import ventasdao.controladores.CategoriaControlador;
+import ventasdao.controladores.FacturaProductoControlador;
 import ventasdao.controladores.ImportarArchivoControlador;
 import ventasdao.controladores.ProductoControlador;
 import ventasdao.objetos.Categoria;
@@ -47,6 +48,8 @@ public class AbmProducto extends javax.swing.JInternalFrame {
    ImportarArchivoControlador importar = new ImportarArchivoControlador();
    
    TableRowSorter trs;
+   
+   FacturaProductoControlador facturaProductoControlador;
    
    
     
@@ -80,6 +83,19 @@ public class AbmProducto extends javax.swing.JInternalFrame {
            Logger.getLogger(AbmProducto.class.getName()).log(Level.SEVERE, null, ex);
        }
         
+         //Agrego la opcion de Todos al jcbCategorias
+           jcbCategorias.addItem("Todos");
+           
+          //jcbCategorias.addItem(new ComboItem(0, "Pan"));
+             //para seleccionar el de ID = 2, huevos
+           //jcbCategorias.setSelectedIndex(2);
+             jcbCategorias.setToolTipText("Todos");
+           
+           
+          //para seleccionar el de valor "Todos" por defecto en el combo box (es necesario agregar la propiedad editable al JCB)
+            jcbCategorias.setSelectedItem("Todos");
+       
+       
        
     }
 
@@ -128,6 +144,8 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jtfFiltradoDescripcion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jtfCategoria = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -151,6 +169,11 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         getContentPane().add(jtfDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, 880, -1));
 
         jcbCategorias.setEditable(true);
+        jcbCategorias.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbCategoriasItemStateChanged(evt);
+            }
+        });
         getContentPane().add(jcbCategorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 133, -1));
         getContentPane().add(jtfPrecioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 130, -1));
         getContentPane().add(jdcFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 130, -1));
@@ -274,7 +297,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jtfImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 880, -1));
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 200, 180));
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 200, 180));
 
         jbReset.setText("Reset");
         jbReset.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -324,6 +347,10 @@ public class AbmProducto extends javax.swing.JInternalFrame {
 
         jLabel7.setText("F. Descripcion");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 60, 20));
+        getContentPane().add(jtfCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 130, -1));
+
+        jLabel15.setText("Categoria");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 70, 20));
 
         setBounds(0, 0, 1264, 595);
     }// </editor-fold>//GEN-END:initComponents
@@ -348,7 +375,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         producto.setOrigen(jtfOrigen.getText());
         producto.setProveedor(jtfProveedor.getText());
         producto.setStock(Integer.parseInt(jtfStock.getText()));
-        producto.setCategoria((String) jcbCategorias.getSelectedItem());   //Se esta casteando que el resultado de jcbCategorias.getSelectedItem() sea del tipo Categoria
+        producto.setCategoria(jtfCategoria.getText());   //(String) jcbCategorias.getSelectedItem() Se esta casteando que el resultado de jcbCategorias.getSelectedItem() sea del tipo Categoria
         producto.setImagen(jtfImagen.getText());
         producto.setFechaIngreso(jdcFechaIngreso.getDate());
         
@@ -404,10 +431,10 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         jtfStock.setText( producto.getStock().toString() );
         
          jtfImagen.setText(producto.getImagen());
-       
+       jtfCategoria.setText(producto.getCategoria());
           // jcbCategorias.setSelectedItem(categoria.getDenominacion());
        jdcFechaIngreso.setDate(producto.getFechaIngreso());
-       jcbCategorias.setSelectedItem(producto.getCategoria());                   //#############Rivisar esto si funciona bien##################
+       //jcbCategorias.setSelectedItem(producto.getCategoria());                   //#############Rivisar esto si funciona bien##################
        
        /* try {
            //Integer aux = Integer.parseInt(jtfCategoriaId.getText());
@@ -499,7 +526,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
             producto.setStock(Integer.parseInt(jtfStock.getText()));
             producto.setImagen( jtfImagen.getText() );
             producto.setFechaIngreso( ( jdcFechaIngreso.getDate()) );
-            producto.setCategoria(jcbCategorias.getSelectedItem().toString());
+            producto.setCategoria(jtfCategoria.getText());
             
             
             controladorProducto.modificar(producto);
@@ -515,21 +542,11 @@ public class AbmProducto extends javax.swing.JInternalFrame {
             Logger.getLogger(AbmProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        String catsel = (String)jcbCategorias.getSelectedItem();
        
-        //Este refresca la grilla una vez que se hizo una modificacion de lo contrario pierde referencia la grilla con los textfield
-        controladorProducto = new ProductoControlador();
-        ArrayList<Producto> productos = new ArrayList<>();
-
-        try {
-            productos = controladorProducto.listar();
-        } catch (Exception e) {
-            e.printStackTrace ();
-        }
-
-        grillaProducto = new GrillaProducto(productos);
-        jtListadoProductos.setModel(grillaProducto);
-        
+       refresh();
+       
+       jcbCategorias.setSelectedItem(catsel);
         
         
          //Esto limpia campos
@@ -686,6 +703,86 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jtfFiltradoCodigoKeyTyped
 
+    private void jcbCategoriasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbCategoriasItemStateChanged
+        // TODO add your handling code here:
+
+        //Filtrado por categoria #######################
+        jtfFiltradoDescripcion.setText(null);
+        jtfFiltradoCodigo.setText(null);
+
+        Categoria categoria = new Categoria();
+
+        String cat_name = jcbCategorias.getSelectedItem().toString();
+
+        if (cat_name.equals("Todos")) {
+
+            //jtfFiltradoDescripcion.setText(null);
+
+            ArrayList<Producto> productos;
+
+            controladorProducto = new ProductoControlador();
+            categoriaControlador = new CategoriaControlador();
+
+            try {
+                productos = controladorProducto.listar();
+                grillaProducto = new GrillaProducto(productos);
+                jtListadoProductos.setModel(grillaProducto);
+
+                ///// Estas dos lineas me solucionaron el problema que tenia al filtrar por nombre no me mostraba despues todas las filas al seleccionar una catgoria
+                trs = new TableRowSorter(jtListadoProductos.getModel());
+                jtListadoProductos.setRowSorter(trs);  /////
+
+            } catch (Exception ex) {
+                Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }//Fin del If (cat_name.equals("Todos"))
+       
+       
+       
+       
+       
+           
+           else{ //If (cat_name !="Todos")
+               
+               jtfFiltradoDescripcion.setText(null);
+                jtfFiltradoCodigo.setText(null);
+              
+           
+           
+           
+           ArrayList<Producto> productos = new ArrayList<>();
+           
+           facturaProductoControlador = new FacturaProductoControlador();
+           categoriaControlador = new CategoriaControlador();
+           
+         
+           
+           try {
+               productos = (ArrayList<Producto>) facturaProductoControlador.listar(cat_name);
+               grillaProducto = new GrillaProducto(productos);
+               jtListadoProductos.setModel(grillaProducto);
+               
+              ///// Estas dos lineas me solucionaron el problema que tenia al filtrar por nombre no me mostraba despues todas las filas al seleccionar una catgoria 
+               trs = new TableRowSorter(jtListadoProductos.getModel()); 
+            jtListadoProductos.setRowSorter(trs);  /////
+               
+           } catch (Exception ex) {
+               Logger.getLogger(FacturaGetProducto.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           
+            
+           
+      
+           
+           } //Fin del Else
+           
+           
+       
+        
+        
+    }//GEN-LAST:event_jcbCategoriasItemStateChanged
+
     
     
     
@@ -738,7 +835,9 @@ public class AbmProducto extends javax.swing.JInternalFrame {
             Logger.getLogger(AbmProducto.class.getName()).log(Level.SEVERE, null, ex);
        }
         
-        
+         ///// Estas dos lineas me solucionaron el problema que tenia al filtrar por nombre no me mostraba despues todas las filas al seleccionar una catgoria 
+               trs = new TableRowSorter(jtListadoProductos.getModel()); 
+               jtListadoProductos.setRowSorter(trs);  /////
         
     }
     
@@ -761,6 +860,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -780,6 +880,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
     public javax.swing.JComboBox<String> jcbCategorias;
     private com.toedter.calendar.JDateChooser jdcFechaIngreso;
     public javax.swing.JTable jtListadoProductos;
+    private javax.swing.JTextField jtfCategoria;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfDescripcion;
     private javax.swing.JTextField jtfFiltradoCodigo;

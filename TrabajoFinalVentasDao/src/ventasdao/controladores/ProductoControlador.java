@@ -38,7 +38,7 @@ public class ProductoControlador implements ICrud<Producto> {
         connection = Conexion.obtenerConexion ();
         String sql = "INSERT INTO productos1 (codigo,descripcion,p_dolar,p_costo,p_venta,origen,proveedor,stock,categoria,imagen) VALUES (?,?,?,?,?,?,?,?,?,?)";
         
-        Date fecha = new Date (entidad.getFechaIngreso().getTime()); 
+        //Date fecha = new Date (entidad.getFechaIngreso().getTime()); 
         
         try {
             ps = connection.prepareStatement(sql);
@@ -75,9 +75,9 @@ public class ProductoControlador implements ICrud<Producto> {
     public boolean modificar(Producto entidad) throws SQLException, Exception {
         
        connection = Conexion.obtenerConexion ();
-       this.sql = "UPDATE productos1 SET codigo=?, descripcion=? , p_dolar=?, p_costo=?,p_venta=?, origen=?, proveedor=?, stock=?, categoria=?, imagen=?, fecha_ingreso=?  WHERE codigo=? AND proveedor=?";
+       this.sql = "UPDATE productos1 SET codigo=?, descripcion=? , p_dolar=?, p_costo=?, p_venta=?, origen=?, proveedor=?, stock=?, categoria=?, imagen=?  WHERE codigo=? AND proveedor=?";
        
-       Date fecha = new Date (entidad.getFechaIngreso().getTime());
+       //Date fecha = new Date (entidad.getFechaIngreso().getTime());
        
        ps = connection.prepareStatement(sql);
        
@@ -92,9 +92,9 @@ public class ProductoControlador implements ICrud<Producto> {
             ps.setInt(8,entidad.getStock());
             ps.setString(9, entidad.getCategoria());
             ps.setString(10, entidad.getImagen());
-            ps.setDate(11, fecha);
-            ps.setString(12, entidad.getCodigo());
-            ps.setString(13, entidad.getProveedor());
+           // ps.setDate(11, fecha);
+            ps.setString(11, entidad.getCodigo());
+            ps.setString(12, entidad.getProveedor());
        
        ps.executeUpdate();
        connection.close();
