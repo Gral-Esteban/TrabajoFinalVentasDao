@@ -136,7 +136,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         jtfProveedor = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jtfImagen = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
+        jlImagen = new javax.swing.JLabel();
         jbReset = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jbBackup = new javax.swing.JButton();
@@ -146,6 +146,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jtfCategoria = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -297,7 +298,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(jtfImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 880, -1));
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 200, 180));
+        getContentPane().add(jlImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 200, 180));
 
         jbReset.setText("Reset");
         jbReset.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -351,6 +352,14 @@ public class AbmProducto extends javax.swing.JInternalFrame {
 
         jLabel15.setText("Categoria");
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 70, 20));
+
+        jButton1.setText("...");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 517, 40, -1));
 
         setBounds(0, 0, 1264, 595);
     }// </editor-fold>//GEN-END:initComponents
@@ -435,6 +444,8 @@ public class AbmProducto extends javax.swing.JInternalFrame {
           // jcbCategorias.setSelectedItem(categoria.getDenominacion());
        jdcFechaIngreso.setDate(producto.getFechaIngreso());
        //jcbCategorias.setSelectedItem(producto.getCategoria());                   //#############Rivisar esto si funciona bien##################
+       
+       rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, producto.getImagen());
        
        /* try {
            //Integer aux = Integer.parseInt(jtfCategoriaId.getText());
@@ -624,10 +635,13 @@ public class AbmProducto extends javax.swing.JInternalFrame {
        jtfOrigen.setText(producto.getOrigen());
        jtfProveedor.setText(producto.getProveedor());
         jtfStock.setText( producto.getStock().toString() );
-       //jtfCategoria.setText(producto.getCategoria());
+       jtfCategoria.setText(producto.getCategoria());
+       jtfImagen.setText(producto.getImagen());
        //jcbCategorias.setSelectedItem(producto.getCategoria());
        jdcFechaIngreso.setDate(producto.getFechaIngreso());
       // jtfCategoriaId.setText(producto.getCategoria_id().toString());
+      rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, producto.getImagen());
+      
         }
     }//GEN-LAST:event_jtListadoProductosKeyReleased
 
@@ -783,6 +797,22 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jcbCategoriasItemStateChanged
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        JFileChooser fc = new JFileChooser();
+        
+        fc.setDialogTitle("Buscar Imagen");
+        
+        if(fc.showOpenDialog(this)== JFileChooser.APPROVE_OPTION){
+            File archivo = new File(fc.getSelectedFile().toString());
+            
+            rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, fc.getSelectedFile().toString());
+            
+            jtfImagen.setText(fc.getSelectedFile().toString());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
     
     
@@ -854,12 +884,12 @@ public class AbmProducto extends javax.swing.JInternalFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -879,6 +909,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbSalir;
     public javax.swing.JComboBox<String> jcbCategorias;
     private com.toedter.calendar.JDateChooser jdcFechaIngreso;
+    private javax.swing.JLabel jlImagen;
     public javax.swing.JTable jtListadoProductos;
     private javax.swing.JTextField jtfCategoria;
     private javax.swing.JTextField jtfCodigo;
