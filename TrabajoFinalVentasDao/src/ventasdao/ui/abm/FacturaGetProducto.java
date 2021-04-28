@@ -192,9 +192,14 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
             
             jtListadoProductos.removeColumn(jtListadoProductos.getColumnModel().getColumn(2));
             jtListadoProductos.removeColumn(jtListadoProductos.getColumnModel().getColumn(2));
-            jtListadoProductos.removeColumn(jtListadoProductos.getColumnModel().getColumn(7));
-             jtListadoProductos.removeColumn(jtListadoProductos.getColumnModel().getColumn(7));
+            jtListadoProductos.removeColumn(jtListadoProductos.getColumnModel().getColumn(8));
+             //jtListadoProductos.removeColumn(jtListadoProductos.getColumnModel().getColumn(7));
            
+            /*jtListadoProductos.getTableHeader().getColumnModel().getColumn(7).setPreferredWidth(0);
+            jtListadoProductos.getTableHeader().getColumnModel().getColumn(7).setMaxWidth(0);
+            jtListadoProductos.getTableHeader().getColumnModel().getColumn(7).setMinWidth(0);*/
+            
+            
                //columna.setPreferredWidth(80);
             break;
         case 3:
@@ -208,15 +213,15 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
             break;
             /*case 6:
             columna.setPreferredWidth(90);
-            break;
+            break;*/
             case 7:
-            columna.setPreferredWidth(60);
+            columna.setPreferredWidth(0);
             break;
-            case 8:
+            /*case 8:
             columna.setPreferredWidth(80);
             break;*/
             
-        default:columna.setPreferredWidth(80);     
+        default:columna.setPreferredWidth(90);     
         //etc aqui las demas columnas
                 }
 
@@ -703,11 +708,10 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
 
     private void jtListadoProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListadoProductosMouseClicked
         // TODO add your handling code here:
-        Producto producto = grillaProducto.getProductoFromRow(jtListadoProductos.getSelectedRow());  //Obtiene el objeto producto con todos sus atributos de la fila seleccionada en la grillaProducto
+        /*  Producto producto = grillaProducto.getProductoFromRow(jtListadoProductos.getSelectedRow());  //Obtiene el objeto producto con todos sus atributos de la fila seleccionada en la grillaProducto
         categoriaControlador = new CategoriaControlador();
         
-         
-     
+        
         //jtfId.setText( producto.getId().toString() );
         jtfCodigo.setText(producto.getCodigo());
         jtfDescripcion.setText(producto.getDescripcion());
@@ -718,9 +722,20 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
         jtfCategoria.setText(producto.getCategoria());
         //jcbCategorias.setSelectedItem(producto.getCategoria());
         jdcFechaIngreso.setDate(producto.getFechaIngreso());
-        // jtfCategoriaId.setText(producto.getCategoria_id().toString());
-        rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, producto.getImagen());
-      
+        // jtfCategoriaId.setText(producto.getCategoria_id().toString());*/
+        
+        int filasele = jtListadoProductos.getSelectedRow();
+        
+        jtfCodigo.setText(jtListadoProductos.getValueAt(filasele, 0).toString()); // Codigo
+        jtfDescripcion.setText(jtListadoProductos.getValueAt(filasele, 1).toString()); // Descripcion
+        jtfPrecioVenta.setText(jtListadoProductos.getValueAt(filasele, 2).toString()); //P_venta
+         jtfOrigen.setText(jtListadoProductos.getValueAt(filasele, 3).toString()); //Origen
+         jtfProveedor.setText(jtListadoProductos.getValueAt(filasele, 4).toString()); //Proveedor
+         jtfStock.setText(jtListadoProductos.getValueAt(filasele, 5).toString()); //Stock
+         jtfCategoria.setText(jtListadoProductos.getValueAt(filasele, 6).toString()); //Categoria
+        
+        rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, jtListadoProductos.getValueAt(filasele, 7).toString());
+
             
        
       

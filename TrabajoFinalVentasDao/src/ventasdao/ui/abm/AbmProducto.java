@@ -856,14 +856,14 @@ public class AbmProducto extends javax.swing.JInternalFrame {
             Logger.getLogger(AbmProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        /* try {
+        try {
         ArrayList<String> categorias = categoriaControlador.listar2();
         modelCombo = new DefaultComboBoxModel(categorias.toArray());
         jcbCategorias.setModel(modelCombo);
         
         } catch (Exception ex) {
         Logger.getLogger(AbmProducto.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
         
          ///// Estas dos lineas me solucionaron el problema que tenia al filtrar por nombre no me mostraba despues todas las filas al seleccionar una catgoria 
                trs = new TableRowSorter(jtListadoProductos.getModel()); 
