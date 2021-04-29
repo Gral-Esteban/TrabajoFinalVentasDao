@@ -27,6 +27,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 import ventasdao.controladores.CategoriaControlador;
 import ventasdao.controladores.FacturaProductoControlador;
@@ -96,8 +97,60 @@ public class AbmProducto extends javax.swing.JInternalFrame {
             jcbCategorias.setSelectedItem("Todos");
        
        
+            configtable();
        
     }
+    
+    
+    
+    
+     /*############### Configuracion de la tabla ##################*/
+    public void configtable() {
+        
+        
+        TableColumn columna = null;
+//se hace el recorrido de tu arreglo de columnas
+for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
+    columna = jtListadoProductos.getColumnModel().getColumn(i);
+    switch(i){
+        case 0:
+            columna.setWidth(80); //Codigo
+            break;
+        case 1:
+            columna.setPreferredWidth(320); //Descripcion
+            break;
+        case 2:
+
+               columna.setPreferredWidth(80); //P_Dolar
+            break;
+        case 3:
+           columna.setPreferredWidth(80); //P_Costo
+            break;
+        case 4:
+            columna.setPreferredWidth(80); //P_Venta
+            break;
+        case 5:
+            columna.setPreferredWidth(80); //Origen
+            break;
+        case 6:
+            columna.setPreferredWidth(80); //Proveedor
+            break;
+        case 7:
+            columna.setPreferredWidth(60);  //Stock
+            break;
+        case 8:
+            columna.setPreferredWidth(90);  //Categoria
+            break;
+            
+        default:columna.setPreferredWidth(80);     
+        //etc aqui las demas columnas
+                }
+
+        }  
+        
+        
+        
+ }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -210,7 +263,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Descripcion", "P_Dolar", "P_Costo", "P_Venta", "Origen", "Proveedor", "Stock", "Imagen", "Fecha_Ingreso", "Categoria"
+                "Codigo", "Descripcion", "P_Dolar", "P_Costo", "P_Venta", "Origen", "Proveedor", "Stock", "Categoria", "Imagen", "Fecha_Ingreso"
             }
         ));
         jtListadoProductos.setShowGrid(true);
@@ -228,7 +281,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         if (jtListadoProductos.getColumnModel().getColumnCount() > 0) {
             jtListadoProductos.getColumnModel().getColumn(0).setPreferredWidth(150);
             jtListadoProductos.getColumnModel().getColumn(1).setPreferredWidth(200);
-            jtListadoProductos.getColumnModel().getColumn(9).setPreferredWidth(150);
+            jtListadoProductos.getColumnModel().getColumn(10).setPreferredWidth(150);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 11, 997, 396));
@@ -415,61 +468,41 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         //Esto limpia campos
         limpiarCampos();
        
-        
+        configtable(); //Le da el tamaño personalizado a las columnas
         
         
     }//GEN-LAST:event_jbRegistrarProductoActionPerformed
 
     private void jtListadoProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListadoProductosMouseClicked
         // TODO add your handling code here:
-        Producto producto = grillaProducto.getProductoFromRow(jtListadoProductos.getSelectedRow());  //Obtiene el objeto producto con todos sus atributos de la fila seleccionada en la grillaProducto
-        categoriaControlador = new CategoriaControlador();
+        int filasele = jtListadoProductos.getSelectedRow(); //Antes lo hacia con objetos pero no funciona bien cuando se aplican filtrado
         
+        jtfCodigo.setText(jtListadoProductos.getValueAt(filasele, 0).toString()); // Codigo
+        jtfDescripcion.setText(jtListadoProductos.getValueAt(filasele, 1).toString()); // Descripcion
+        jtfPrecioDolar.setText(jtListadoProductos.getValueAt(filasele, 2).toString()); //P_Dolar
+        jtfPrecioCosto.setText(jtListadoProductos.getValueAt(filasele, 3).toString()); //P_Costo
+        jtfPrecioVenta.setText(jtListadoProductos.getValueAt(filasele, 4).toString()); //P_Venta
+         jtfOrigen.setText(jtListadoProductos.getValueAt(filasele, 5).toString()); //Origen
+         jtfProveedor.setText(jtListadoProductos.getValueAt(filasele, 6).toString()); //Proveedor
+         jtfStock.setText(jtListadoProductos.getValueAt(filasele, 7).toString()); //Stock
+         if(jtListadoProductos.getValueAt(filasele, 8)!=null)
+         jtfCategoria.setText(jtListadoProductos.getValueAt(filasele, 8).toString()); //Categoria
          
-     
-       
-        jtfCodigo.setText(producto.getCodigo());
-       jtfDescripcion.setText(producto.getDescripcion());
-       jtfPrecioDolar.setText( producto.getP_dolar().toString() );
-       jtfPrecioCosto.setText( producto.getP_costo().toString() );
-       jtfPrecioVenta.setText( producto.getP_venta().toString() );
-       
-       jtfOrigen.setText(producto.getOrigen());
-       jtfProveedor.setText(producto.getProveedor());
-       
-        jtfStock.setText( producto.getStock().toString() );
+        if(jtListadoProductos.getValueAt(filasele, 9)!=null){
+        rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, jtListadoProductos.getValueAt(filasele, 9).toString());//Imagen
+        jtfImagen.setText(jtListadoProductos.getValueAt(filasele, 9).toString());
+        }
+        else{
+            Producto nulo=new Producto();
+            nulo.setImagen(null);
+            rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, nulo.getImagen());
+            jtfImagen.setText("");
+        }
+            
         
-         jtfImagen.setText(producto.getImagen());
-       jtfCategoria.setText(producto.getCategoria());
-          // jcbCategorias.setSelectedItem(categoria.getDenominacion());
-       jdcFechaIngreso.setDate(producto.getFechaIngreso());
-       //jcbCategorias.setSelectedItem(producto.getCategoria());                   //#############Rivisar esto si funciona bien##################
+        
        
-       rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, producto.getImagen());
-       
-       /* try {
-           //Integer aux = Integer.parseInt(jtfCategoriaId.getText());
-           ArrayList<Categoria> categorias = new ArrayList();
-           Categoria categoria = new Categoria();
-           
-           categorias = categoriaControlador.extraer();
-           int dim = categorias.size();
-           int ids = Integer.parseInt(jtfCategoriaId.getText());
-           
-           for(int i=0;i<=dim;i++){
-               
-               categoria = categorias.get(i);
-               if(categoria.getId()==ids)
-               jtfCategoriaNombre.setText(categoria.getDenominacion());
-           }
-           
-      
-           
-       } catch (Exception ex) {
-           Logger.getLogger(AbmProducto.class.getName()).log(Level.SEVERE, null, ex);
-       }
-       
-       */
+     
        
     }//GEN-LAST:event_jtListadoProductosMouseClicked
 
@@ -509,6 +542,9 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         
          //Esto limpia campos
         limpiarCampos();
+        
+        
+        configtable(); //Le da el tamaño personalizado a las columnas
         
     }//GEN-LAST:event_jbEliminarActionPerformed
 
@@ -562,6 +598,8 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         
          //Esto limpia campos
        limpiarCampos();
+       
+       configtable(); //Le da el tamaño personalizado a las columnas
         
     }//GEN-LAST:event_jbModificarActionPerformed
 
@@ -594,7 +632,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         refresh();
         
         
-        
+        configtable(); //Le da el tamaño personalizado a las columnas
         
     }//GEN-LAST:event_jbImportarActionPerformed
 
@@ -612,7 +650,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
 
     private void jbResetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbResetMouseEntered
         // TODO add your handling code here:
-        jbReset.setToolTipText("Esta opcion borra todos los datos de la tabla");
+        jbReset.setToolTipText("Esta opcion borra todos los datos de la tabla, se recomienda hacer antes un backup");
     }//GEN-LAST:event_jbResetMouseEntered
 
     private void jtListadoProductosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtListadoProductosKeyReleased
@@ -620,28 +658,30 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         
          if( (evt.getKeyCode()==KeyEvent.VK_DOWN) ||(evt.getKeyCode()==KeyEvent.VK_UP) )  {
         
+        int filasele = jtListadoProductos.getSelectedRow(); //Antes lo hacia con objetos pero no funciona bien cuando se aplican filtrado
         
-         Producto producto = grillaProducto.getProductoFromRow(jtListadoProductos.getSelectedRow());  //Obtiene el objeto producto con todos sus atributos de la fila seleccionada en la grillaProducto
-        categoriaControlador = new CategoriaControlador();
-        
+        jtfCodigo.setText(jtListadoProductos.getValueAt(filasele, 0).toString()); // Codigo
+        jtfDescripcion.setText(jtListadoProductos.getValueAt(filasele, 1).toString()); // Descripcion
+        jtfPrecioDolar.setText(jtListadoProductos.getValueAt(filasele, 2).toString()); //P_Dolar
+        jtfPrecioCosto.setText(jtListadoProductos.getValueAt(filasele, 3).toString()); //P_Costo
+        jtfPrecioVenta.setText(jtListadoProductos.getValueAt(filasele, 4).toString()); //P_Venta
+         jtfOrigen.setText(jtListadoProductos.getValueAt(filasele, 5).toString()); //Origen
+         jtfProveedor.setText(jtListadoProductos.getValueAt(filasele, 6).toString()); //Proveedor
+         jtfStock.setText(jtListadoProductos.getValueAt(filasele, 7).toString()); //Stock
+         if(jtListadoProductos.getValueAt(filasele, 8)!=null)
+         jtfCategoria.setText(jtListadoProductos.getValueAt(filasele, 8).toString()); //Categoria
          
+        if(jtListadoProductos.getValueAt(filasele, 9)!=null){
+        rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, jtListadoProductos.getValueAt(filasele, 9).toString());//Imagen
+        jtfImagen.setText(jtListadoProductos.getValueAt(filasele, 9).toString());
+        }
+        else{
+            Producto nulo=new Producto();
+            nulo.setImagen(null);
+            rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, nulo.getImagen());
+            jtfImagen.setText("");
+        }
      
-       //jtfId.setText( producto.getId().toString() );
-        jtfCodigo.setText(producto.getCodigo());
-       jtfDescripcion.setText(producto.getDescripcion());
-       jtfPrecioDolar.setText( producto.getP_dolar().toString() );
-       jtfPrecioCosto.setText( producto.getP_costo().toString() );
-       jtfPrecioVenta.setText( producto.getP_venta().toString() );
-       jtfOrigen.setText(producto.getOrigen());
-       jtfProveedor.setText(producto.getProveedor());
-        jtfStock.setText( producto.getStock().toString() );
-       jtfCategoria.setText(producto.getCategoria());
-       jtfImagen.setText(producto.getImagen());
-       //jcbCategorias.setSelectedItem(producto.getCategoria());
-       jdcFechaIngreso.setDate(producto.getFechaIngreso());
-      // jtfCategoriaId.setText(producto.getCategoria_id().toString());
-      rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, producto.getImagen());
-      
         }
     }//GEN-LAST:event_jtListadoProductosKeyReleased
 
@@ -659,6 +699,8 @@ public class AbmProducto extends javax.swing.JInternalFrame {
         
         
         refresh();
+        
+        configtable(); //Le da el tamaño personalizado a las columnas
         
     }//GEN-LAST:event_jbResetActionPerformed
 
@@ -792,7 +834,7 @@ public class AbmProducto extends javax.swing.JInternalFrame {
            } //Fin del Else
            
            
-       
+       configtable();
         
         
     }//GEN-LAST:event_jcbCategoriasItemStateChanged

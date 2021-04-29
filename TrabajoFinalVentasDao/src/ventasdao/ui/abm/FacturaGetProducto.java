@@ -724,7 +724,7 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
         jdcFechaIngreso.setDate(producto.getFechaIngreso());
         // jtfCategoriaId.setText(producto.getCategoria_id().toString());*/
         
-        int filasele = jtListadoProductos.getSelectedRow();
+        int filasele = jtListadoProductos.getSelectedRow(); //Antes lo hacia como esta arriba pero no funciona bien cuando se aplican filtrado
         
         jtfCodigo.setText(jtListadoProductos.getValueAt(filasele, 0).toString()); // Codigo
         jtfDescripcion.setText(jtListadoProductos.getValueAt(filasele, 1).toString()); // Descripcion
@@ -732,10 +732,16 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
          jtfOrigen.setText(jtListadoProductos.getValueAt(filasele, 3).toString()); //Origen
          jtfProveedor.setText(jtListadoProductos.getValueAt(filasele, 4).toString()); //Proveedor
          jtfStock.setText(jtListadoProductos.getValueAt(filasele, 5).toString()); //Stock
+         if(jtListadoProductos.getValueAt(filasele, 6)!=null)
          jtfCategoria.setText(jtListadoProductos.getValueAt(filasele, 6).toString()); //Categoria
-        
+         
+        if(jtListadoProductos.getValueAt(filasele, 7)!=null)
         rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, jtListadoProductos.getValueAt(filasele, 7).toString());
-
+        else{
+            Producto nulo=new Producto();
+            nulo.setImagen(null);
+            rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, nulo.getImagen());
+        }
             
        
       
@@ -1064,11 +1070,11 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
         if( (evt.getKeyCode()==KeyEvent.VK_DOWN) ||(evt.getKeyCode()==KeyEvent.VK_UP) )  {
         
         
-         Producto producto = grillaProducto.getProductoFromRow(jtListadoProductos.getSelectedRow());  //Obtiene el objeto producto con todos sus atributos de la fila seleccionada en la grillaProducto
-        categoriaControlador = new CategoriaControlador();
-        
-         
-     
+            /* Producto producto = grillaProducto.getProductoFromRow(jtListadoProductos.getSelectedRow());  //Obtiene el objeto producto con todos sus atributos de la fila seleccionada en la grillaProducto
+            categoriaControlador = new CategoriaControlador();
+            
+            
+            
             //jtfId.setText( producto.getId().toString() );
             jtfCodigo.setText(producto.getCodigo());
             jtfDescripcion.setText(producto.getDescripcion());
@@ -1080,7 +1086,28 @@ for (int i = 0; i < jtListadoProductos.getColumnCount(); i++) {
             //jcbCategorias.setSelectedItem(producto.getCategoria());
             jdcFechaIngreso.setDate(producto.getFechaIngreso());
             // jtfCategoriaId.setText(producto.getCategoria_id().toString());
-            rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, producto.getImagen());
+            rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, producto.getImagen());*/
+            
+            int filasele = jtListadoProductos.getSelectedRow(); //Antes lo hacia como esta arriba pero no funciona bien cuando se aplican filtrado
+        
+        jtfCodigo.setText(jtListadoProductos.getValueAt(filasele, 0).toString()); // Codigo
+        jtfDescripcion.setText(jtListadoProductos.getValueAt(filasele, 1).toString()); // Descripcion
+        jtfPrecioVenta.setText(jtListadoProductos.getValueAt(filasele, 2).toString()); //P_venta
+         jtfOrigen.setText(jtListadoProductos.getValueAt(filasele, 3).toString()); //Origen
+         jtfProveedor.setText(jtListadoProductos.getValueAt(filasele, 4).toString()); //Proveedor
+         jtfStock.setText(jtListadoProductos.getValueAt(filasele, 5).toString()); //Stock
+         if(jtListadoProductos.getValueAt(filasele, 6)!=null)
+         jtfCategoria.setText(jtListadoProductos.getValueAt(filasele, 6).toString()); //Categoria
+         
+        if(jtListadoProductos.getValueAt(filasele, 7)!=null)
+        rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, jtListadoProductos.getValueAt(filasele, 7).toString());
+        else{
+            Producto nulo=new Producto();
+            nulo.setImagen(null);
+            rsscalelabel.RSScaleLabel.setScaleLabel(jlImagen, nulo.getImagen());
+        }
+            
+            
       
         }
       
